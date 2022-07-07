@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 
 import 'OptionListsPage.dart';
@@ -72,42 +73,7 @@ class loginpage extends StatelessWidget {
                 },
               ),
             ),
-
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                splashColor: Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                highlightColor:
-                    Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OptionListsPage(),
-                    ),
-                  );
-                },
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                  child: Text(
-                    'Entrar',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.transparent,
-                      border: Border.all(color: Colors.white, width: 1)),
-                ),
-              ),
-            ),
-
-
-            SizedBox(
-              height: 10,
-            ),
-
+            SizedBox(height: 20,),
             Material(
               color: Colors.transparent,
               child: InkWell(
@@ -119,7 +85,7 @@ class loginpage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => loginpage(),
+                      builder: (context) => CategoryListPage(),
                     ),
                   );
                 },
