@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gaad_mobile/pages/welcomepage.dart';
+
+import 'OptionListsPage.dart';
 
 class loginpage extends StatelessWidget {
   @override
@@ -77,12 +80,12 @@ class loginpage extends StatelessWidget {
                 highlightColor:
                     Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
                 onTap: () {
-                  /*Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => loginpage(),
-                        ),
-                      );*/
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OptionListsPage(),
+                    ),
+                  );
                 },
                 child: Container(
                   padding:
@@ -99,12 +102,7 @@ class loginpage extends StatelessWidget {
                 ),
               ),
             ),
-            /*Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => (),
-                      ),
-                    );*/
+
 
             SizedBox(
               height: 10,
