@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gaad_mobile/pages/CategoryListPage.dart';
+import 'package:gaad_mobile/pages/loginpage.dart';
 
 class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class WelcomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CategoryListPage(),
+                          builder: (context) => loginpage(),
                         ),
                       );
                     },
@@ -97,7 +97,7 @@ class WelcomePage extends StatelessWidget {
                           border: Border.all(color: Colors.white, width: 1)),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
