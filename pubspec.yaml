@@ -78,6 +78,10 @@ flutter:
       fonts:
         - asset: assets/fonts/ZwoWebPro-Light W04 Regular.ttf
 
+    - family: gaad
+      fonts:
+        - asset: assets/fonts/gaad.ttf
+
     - family: casiopea
       fonts:
         - asset: assets/fonts/Casiopea-Regular.ttf

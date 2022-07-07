@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 
-import 'OptionListsPage.dart';
-
 class loginpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
