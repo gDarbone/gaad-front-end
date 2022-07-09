@@ -101,7 +101,7 @@ class loginpage extends StatelessWidget {
                       border: Border.all(color: Color.fromRGBO(35, 100, 128, 1), width: 2)),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

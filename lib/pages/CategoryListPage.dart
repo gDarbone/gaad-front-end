@@ -16,10 +16,10 @@ class CategoryListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(),
-        appBar: MainAppBar(),
-        body: Container(
-            child: Stack(
+      drawer: Drawer(),
+      appBar: MainAppBar(),
+      body: Container(
+        child: Stack(
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -40,19 +40,21 @@ class CategoryListPage extends StatelessWidget {
                     itemCount: categories.length,
                     itemBuilder: (BuildContext ctx, int index) {
                       return CategoryCard(
-                          category: categories[index],
-                          onCardClick: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SelectedCategoryPage(
-                                          selectedCategory:
-                                              this.categories[index],
-                                        )));
-                          });
+                        category: categories[index],
+                        onCardClick: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SelectedCategoryPage(
+                                selectedCategory: this.categories[index],
+                              ),
+                            ),
+                          );
+                        },
+                      );
                     },
                   ),
-                )
+                ),
               ],
             ),
             Positioned(
@@ -62,6 +64,8 @@ class CategoryListPage extends StatelessWidget {
               child: CategoryBottomBar(),
             )
           ],
-        )));
+        ),
+      ),
+    );
   }
 }

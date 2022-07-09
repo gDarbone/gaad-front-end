@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/loginpage.dart';
 
+import 'CadastroPageOne.dart';
+
 class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +53,14 @@ class WelcomePage extends StatelessWidget {
                           Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
                       highlightColor:
                           Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CadastroPageOne(),
+                          ),
+                        );
+                      },
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 30.0),
