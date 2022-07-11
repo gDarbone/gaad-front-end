@@ -18,7 +18,7 @@ class CategoryCard extends StatelessWidget {
       },
       child: Container(
         margin: EdgeInsets.all(20),
-        height: 150,
+        height: 120,
         child: Stack(
           children: [
             Positioned.fill(
@@ -50,15 +50,15 @@ class CategoryCard extends StatelessWidget {
             Positioned(
               bottom: 0,
               child: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(5),
                 child: Row(
                   children: [
                     CategoryIcon(
                         color: this.category!.color!,
                         iconName: this.category!.icon!),
-                    SizedBox(width: 10),
+                    SizedBox(width: 1),
                     Text(this.category!.name!,
-                        style: TextStyle(color: Colors.white, fontSize: 25))
+                        style: TextStyle(color: Colors.white, fontSize: 15))
                   ],
                 ),
               ),

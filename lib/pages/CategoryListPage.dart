@@ -21,51 +21,58 @@ class CategoryListPage extends StatelessWidget {
       body: Container(
         child: Stack(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 20),
-                  child: Text(
-                    "Olá, bem vindo, Selecione uma opção do Menu:",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color.fromRGBO(35, 100, 128, 1),
-                    ),
-                  ),
+          Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20, bottom: 20),
+              child: Text(
+                "Olá, bem vindo, Selecione uma opção do Menu:",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color.fromRGBO(35, 100, 128, 1),
                 ),
-                Expanded(
+              ),
+            ),
+            /*Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.only(bottom: 120),
                     itemCount: categories.length,
-                    itemBuilder: (BuildContext ctx, int index) {
-                      return CategoryCard(
-                        category: categories[index],
-                        onCardClick: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SelectedCategoryPage(
+                    itemBuilder: (BuildContext ctx, int index) {*/
+            SizedBox(height: 5),
+            Expanded(
+              child: GridView.count(
+                padding: EdgeInsets.only(bottom: 50),
+                crossAxisCount: 2,
+                children: List.generate(
+                    this.categories.length, (index) {
+                  return CategoryCard(
+                    category: categories[index],
+                    onCardClick: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SelectedCategoryPage(
                                 selectedCategory: this.categories[index],
                               ),
-                            ),
-                          );
-                        },
+                        ),
                       );
                     },
-                  ),
-                ),
-              ],
+                  );
+                }),
+              ),
             ),
-            Positioned(
+            /*Positioned(
               bottom: 0,
               left: 0,
               right: 0,
               child: CategoryBottomBar(),
-            )
+            )*/
           ],
         ),
-      ),
+      ]),
+    ),
     );
   }
 }
