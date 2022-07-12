@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 
+import 'RecoveryPassword.dart';
+
 class loginpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(top: 40, left: 50, right: 50),
+        padding: EdgeInsets.only(top:  40, left: 50, right: 50),
         color: Colors.white,
         child: ListView(
           children: <Widget>[
@@ -59,15 +61,14 @@ class loginpage extends StatelessWidget {
                   style: TextStyle(
                     color: Color.fromRGBO(35, 100, 128, 1),
                   ),
-
                 ),
                 onPressed: () {
-                  /*Navigator.push(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => (),
+                      builder: (context) => RecoveryPassword(),
                     ),
-                  );*/
+                  );
                 },
               ),
             ),

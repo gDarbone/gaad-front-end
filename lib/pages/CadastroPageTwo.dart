@@ -121,14 +121,7 @@ class CadastroPageTwo extends StatelessWidget {
                     Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
                     highlightColor:
                     Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CadastroPageOne(),
-                        ),
-                      );
-                    },
+                    onTap: () => Navigator.pop(context, false),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 57.0),
@@ -190,19 +183,6 @@ class CadastroPageTwo extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            /*Column(
-              //height: 40,
-              //alignment: Alignment.center,
-              children: [
-                FlatButton(
-                child: Text(
-                  "Cancelar",
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () => Navigator.pop(context, false),
-              ),
-             ],
-            ),*/
           ],
         ),
       ),

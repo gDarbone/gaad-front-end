@@ -120,14 +120,7 @@ class CadastroPageOne extends StatelessWidget {
                         Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
                     highlightColor:
                         Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => WelcomePage(),
-                        ),
-                      );
-                    },
+                    onTap: () => Navigator.pop(context, false),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 57.0),
