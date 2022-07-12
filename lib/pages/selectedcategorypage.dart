@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gaad_mobile/models/category.dart';
+import 'package:gaad_mobile/models/subcategory.dart';
 import 'package:gaad_mobile/pages/detailspage.dart';
 import 'package:gaad_mobile/widgets/categoryicon.dart';
+import 'package:provider/provider.dart';
 
+import '../services/categoryselectionservice.dart';
 import '../widgets/mainappbar.dart';
 
 class SelectedCategoryPage extends StatelessWidget {
@@ -13,6 +16,10 @@ class SelectedCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    CategorySelectionService catSelection = Provider.of<CategorySelectionService>(context, listen: false);
+    selectedCategory = catSelection.selectedCategory;
+
     return Scaffold(
       appBar: MainAppBar(),
       body: Container(
@@ -22,7 +29,7 @@ class SelectedCategoryPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CategoryIcon(
-                  color: /*this.selectedCategory!.color*/ Color.fromRGBO(35, 100, 128, 1),
+                  color: /*this.selectedCategory!.color*/ Colors.white,
                   iconName: this.selectedCategory!.icon),
               SizedBox(width: 10, height: 150),
               Text(this.selectedCategory!.name!,
@@ -39,14 +46,9 @@ class SelectedCategoryPage extends StatelessWidget {
                   this.selectedCategory!.subCategories!.length, (index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(
-                        context, MaterialPageRoute(
-                        builder: (context) => DetailsPage(),
-                        /*DetailsPage(
-                            subCategory: !this.selectedCategory!.subCategories![index]!
-                        )*/
-
-                    ));
+                    var subCat = this.selectedCategory!.subCategories![index];
+                    catSelection.selectedSubCategory = subCat as SubCategory?;
+                    Navigator.of(context).pushNamed('/detailspage');
                   },
                   child: Container(
                       child: Column(

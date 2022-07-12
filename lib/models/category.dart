@@ -10,5 +10,12 @@ class Category {
   List<Category>? subCategories;
 
   Category(
-      { this.name,   this.icon,  this.color,  this.imgName,  this.subCategories});
+      {
+        this.name,
+        this.icon,
+        this.color,
+        this.imgName,
+        this.subCategories
+      }
+      );
 }

@@ -8,7 +8,7 @@ class CategoryCard extends StatelessWidget {
 
   Function? onCardClick;
 
-  CategoryCard({ this.category, this.onCardClick});
+  CategoryCard({this.category, this.onCardClick});
 
   @override
   Widget build(BuildContext context) {
@@ -17,55 +17,62 @@ class CategoryCard extends StatelessWidget {
         this.onCardClick!();
       },
       child: Container(
-        margin: EdgeInsets.all(20),
-        height: 120,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                    'assets/BlocoMenu.png',
-                    fit: BoxFit.cover),
+          margin: EdgeInsets.only(bottom: 40, top: 10, left: 20, right: 20),
+          height: 110,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black,
+                blurRadius: 10,
+                offset: Offset(4, 8), // Shadow position
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                  height: 120,
-                  decoration: BoxDecoration(
+            ],
+          ),
+          child: Stack(
+
+            children: [
+              Positioned.fill(
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      'assets/BlocoMenuWhite.png',
+                      fit: BoxFit.cover,
+                    )),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                    height: 110,
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(20),
                           bottomRight: Radius.circular(20)),
-                      gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.7),
-                            Colors.transparent
-                          ]))),
-            ),
-            Positioned(
-              bottom: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Row(
-                  children: [
-                    CategoryIcon(
-                        color: this.category!.color!,
-                        iconName: this.category!.icon!),
-                    SizedBox(width: 1),
-                    Text(this.category!.name!,
-                        style: TextStyle(color: Colors.white, fontSize: 15))
-                  ],
-                ),
+                    )),
               ),
-            )
-          ],
-        )
-    ),
+              Positioned(
+                bottom: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(45),
+                  child: Column(
+                    children: [
+                      CategoryIcon(
+                          color: this.category!.color!,
+                          iconName: this.category!.icon!),
+                      SizedBox(width: 50),
+                      Text(this.category!.name!,
+                          style: TextStyle(
+                              color: Color.fromRGBO(35, 100, 128, 1),
+                              fontSize: 15))
+                    ],
+                  ),
+                ),
+              )
+            ],
+          )),
     );
   }
 }

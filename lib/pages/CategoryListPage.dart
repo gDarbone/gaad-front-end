@@ -1,30 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:gaad_mobile/helpers/iconhelper.dart';
 import 'package:gaad_mobile/pages/selectedcategorypage.dart';
-import 'package:gaad_mobile/widgets/categorybottombar.dart';
+import 'package:gaad_mobile/services/categoryselectionservice.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
-
+import 'package:provider/provider.dart';
 import '../helpers/utils.dart';
 import '../models/category.dart';
-import '../widgets/categoryicon.dart';
 import '../widgets/categorycard.dart';
-import '../widgets/iconfont.dart';
+
 
 class CategoryListPage extends StatelessWidget {
+
   List<Category> categories = Utils.getMockedCategories();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+
+    CategorySelectionService catSelection = Provider.of<CategorySelectionService>(context, listen: false);
+
     return Scaffold(
       drawer: Drawer(),
       appBar: MainAppBar(),
       body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color.fromRGBO(35, 100, 128, 1),
+              Color.fromRGBO(5, 181, 183, 1),
+            ],
+          ),
+        ),
         child: Stack(
           children: [
           Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
+            /*Padding(
               padding: const EdgeInsets.only(top: 20, bottom: 20),
               child: Text(
                 "Olá, bem vindo, Selecione uma opção do Menu:",
@@ -33,13 +45,12 @@ class CategoryListPage extends StatelessWidget {
                   color: Color.fromRGBO(35, 100, 128, 1),
                 ),
               ),
-            ),
+            )*/
             /*Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.only(bottom: 120),
                     itemCount: categories.length,
                     itemBuilder: (BuildContext ctx, int index) {*/
-            SizedBox(height: 5),
             Expanded(
               child: GridView.count(
                 padding: EdgeInsets.only(bottom: 50),
@@ -49,15 +60,8 @@ class CategoryListPage extends StatelessWidget {
                   return CategoryCard(
                     category: categories[index],
                     onCardClick: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              SelectedCategoryPage(
-                                selectedCategory: this.categories[index],
-                              ),
-                        ),
-                      );
+                      catSelection.selectedCategory = this.categories[index];
+                      Navigator.of(context).pushNamed('/selectedcategorypage');
                     },
                   );
                 }),

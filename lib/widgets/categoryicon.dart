@@ -16,7 +16,7 @@ class CategoryIcon extends StatelessWidget {
           color: this.color,
           padding: EdgeInsets.all(10),
           child: IconFont(
-              color: Colors.white, iconName: this.iconName!, size: this.size!)),
+              color: Color.fromRGBO(35, 100, 128, 1), iconName: this.iconName!, size: this.size!)),
     );
   }
 }
