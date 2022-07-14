@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MainAppBar extends StatefulWidget implements PreferredSizeWidget{
-
+class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   MainAppBarState createState() => MainAppBarState();
 
@@ -9,15 +8,19 @@ class MainAppBar extends StatefulWidget implements PreferredSizeWidget{
   Size get preferredSize => new Size.fromHeight(60);
 }
 
-class MainAppBarState extends State<MainAppBar>{
-
+class MainAppBarState extends State<MainAppBar> {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return AppBar(
-      title: Text(
-        "GAAD",
-        textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.white),
+      title: GestureDetector(
+        onTap: () {
+          Navigator.of(context).popUntil((route) => route.settings.name == '/CategoryListPage');
+        },
+        child: Text(
+          "GAAD",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       actions: [

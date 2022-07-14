@@ -16,8 +16,8 @@ class SelectedCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    CategorySelectionService catSelection = Provider.of<CategorySelectionService>(context, listen: false);
+    CategorySelectionService catSelection =
+        Provider.of<CategorySelectionService>(context, listen: false);
     selectedCategory = catSelection.selectedCategory;
 
     return Scaffold(
@@ -34,7 +34,8 @@ class SelectedCategoryPage extends StatelessWidget {
               SizedBox(width: 10, height: 150),
               Text(this.selectedCategory!.name!,
                   style: TextStyle(
-                      color: /*this.selectedCategory!.color*/ Color.fromRGBO(35, 100, 128, 1),
+                      color: /*this.selectedCategory!.color*/ Color
+                          .fromRGBO(35, 100, 128, 1),
                       fontSize: 20))
             ],
           ),
@@ -45,19 +46,25 @@ class SelectedCategoryPage extends StatelessWidget {
               children: List.generate(
                   this.selectedCategory!.subCategories!.length, (index) {
                 return GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     var subCat = this.selectedCategory!.subCategories![index];
                     catSelection.selectedSubCategory = subCat as SubCategory?;
-                    Navigator.of(context).pushNamed('/detailspage');
+
+                    // Metodo para controle de Rotas das Telas de Subcategorias
+                    var RotaTela = ControleTela(subCat.name);
+
+                    Navigator.of(context).pushNamed(RotaTela);
                   },
                   child: Container(
                       child: Column(
                     children: [
                       ClipOval(
-                          child: /*Image.asset("assets/logo gaad.png",
+                        child: /*Image.asset("assets/logo gaad.png",
                               fit: BoxFit.cover, width: 100, height: 100)),
                               SizedBox(height: 10),*/
-                      Icon(Icons.favorite, color: Color.fromRGBO(35, 100, 128, 1), size: 50),
+                            Icon(Icons.favorite,
+                                color: Color.fromRGBO(35, 100, 128, 1),
+                                size: 50),
                       ),
                       Text(this.selectedCategory!.subCategories![index].name!,
                           style:
@@ -71,5 +78,25 @@ class SelectedCategoryPage extends StatelessWidget {
         ],
       )),
     );
+  }
+
+  String ControleTela(var SubCategoriaSelecionada) {
+    var RotaTela = '/welcomepage';
+    switch (SubCategoriaSelecionada) {
+      case "Meus Dados":
+        RotaTela = '/detailspage';
+        break;
+      case "Meu Token":
+        RotaTela = '/detailspage';
+        break;
+      case "Excluir Conta":
+        RotaTela = '/CadastroPageOne';
+        break;
+      case "Alterar Senha":
+        RotaTela = '/welcomepage';
+        break;
+    }
+
+    return RotaTela;
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/selectedcategorypage.dart';
 import 'package:gaad_mobile/services/categoryselectionservice.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
+import 'package:gaad_mobile/widgets/sidemenubar.dart';
 import 'package:provider/provider.dart';
 import '../helpers/utils.dart';
 import '../models/category.dart';
@@ -18,7 +19,9 @@ class CategoryListPage extends StatelessWidget {
     CategorySelectionService catSelection = Provider.of<CategorySelectionService>(context, listen: false);
 
     return Scaffold(
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: SideMenuBar(),
+      ),
       appBar: MainAppBar(),
       body: Container(
         decoration: BoxDecoration(
