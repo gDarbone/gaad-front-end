@@ -89,10 +89,10 @@ class CategoryListPage extends StatelessWidget {
     var RotaTela = '/welcomepage';
     switch (SubCategoriaSelecionada) {
       case "Perfil":
-        RotaTela = '/welcomepage';
+        RotaTela = '/PerfilPage';
         break;
       case "Relatórios":
-        RotaTela = '/welcomepage';
+        RotaTela = '/PerfilPage';
         break;
       case "Contatos":
         RotaTela = '/CadastroPageOne';
