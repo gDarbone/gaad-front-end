@@ -17,6 +17,7 @@ class CategoryCard extends StatelessWidget {
         this.onCardClick!();
       },
       child: Container(
+
           margin: EdgeInsets.only(bottom: 40, top: 10, left: 20, right: 20),
           height: 110,
           decoration: BoxDecoration(
@@ -30,8 +31,8 @@ class CategoryCard extends StatelessWidget {
               ),
             ],
           ),
-          child: Stack(
 
+          child: Stack(
             children: [
               Positioned.fill(
                 child: ClipRRect(
@@ -41,6 +42,7 @@ class CategoryCard extends StatelessWidget {
                       fit: BoxFit.cover,
                     )),
               ),
+
               Positioned(
                 bottom: 0,
                 left: 0,

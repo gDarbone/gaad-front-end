@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gaad_mobile/pages/selectedcategorypage.dart';
 import 'package:gaad_mobile/services/categoryselectionservice.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:gaad_mobile/widgets/sidemenubar.dart';
@@ -63,8 +62,11 @@ class CategoryListPage extends StatelessWidget {
                   return CategoryCard(
                     category: categories[index],
                     onCardClick: () {
+                      var subCat = this.categories[index];
                       catSelection.selectedCategory = this.categories[index];
-                      Navigator.of(context).pushNamed('/selectedcategorypage');
+                      var RotaTela = ControleTela(subCat.name);
+
+                      Navigator.of(context).pushNamed(RotaTela);
                     },
                   );
                 }),
@@ -81,5 +83,31 @@ class CategoryListPage extends StatelessWidget {
       ]),
     ),
     );
+  }
+
+  String ControleTela(var SubCategoriaSelecionada) {
+    var RotaTela = '/welcomepage';
+    switch (SubCategoriaSelecionada) {
+      case "Perfil":
+        RotaTela = '/welcomepage';
+        break;
+      case "Relatórios":
+        RotaTela = '/welcomepage';
+        break;
+      case "Contatos":
+        RotaTela = '/CadastroPageOne';
+        break;
+      case "Identificação":
+        RotaTela = '/CadastroPageTwo';
+        break;
+      case "Configuração":
+        RotaTela = '/CadastroPageThree';
+        break;
+      case "Pedir Socorro":
+        RotaTela = '/loginpage';
+        break;
+    }
+
+    return RotaTela;
   }
 }
