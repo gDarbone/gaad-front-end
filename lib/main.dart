@@ -3,6 +3,7 @@ import 'package:gaad_mobile/pages/CadastroPageOne.dart';
 import 'package:gaad_mobile/pages/CadastroPageThree.dart';
 import 'package:gaad_mobile/pages/CadastroPageTwo.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
+import 'package:gaad_mobile/pages/EditProfilePage.dart';
 import 'package:gaad_mobile/pages/PerfilPage.dart';
 import 'package:gaad_mobile/pages/loginpage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
@@ -25,7 +26,7 @@ void main() {
             '/CadastroPageTwo': (context) => CadastroPageTwo(),
             '/CadastroPageThree': (context) => CadastroPageThree(),
             '/CategoryListPage': (context) => CategoryListPage(),
-            '/PerfilPage': (context) => PerfilPage(),
+            '/EditProfilePage': (context) => EditProfilePage(),
             //'/PerfilPages': (context) => PerfilPage()
           })));
 }

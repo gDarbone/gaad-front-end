@@ -55,7 +55,7 @@ class CategoryListPage extends StatelessWidget {
                     itemBuilder: (BuildContext ctx, int index) {*/
             Expanded(
               child: GridView.count(
-                padding: EdgeInsets.only(bottom: 50),
+                //padding: EdgeInsets.only(bottom: 2),
                 crossAxisCount: 2,
                 children: List.generate(
                     this.categories.length, (index) {
@@ -89,7 +89,7 @@ class CategoryListPage extends StatelessWidget {
     var RotaTela = '/welcomepage';
     switch (SubCategoriaSelecionada) {
       case "Perfil":
-        RotaTela = '/PerfilPage';
+        RotaTela = '/EditProfilePage';
         break;
       case "Relatórios":
         RotaTela = '/PerfilPage';
