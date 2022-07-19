@@ -18,11 +18,11 @@ class CategoryCard extends StatelessWidget {
       },
       child: Container(
 
-          margin: EdgeInsets.only(bottom: 40, top: 10, left: 20, right: 20),
-          height: 110,
+          margin: EdgeInsets.only(bottom: 40, top: 10, left: 25, right: 25),
+          height: 100,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(35),
             boxShadow: [
               BoxShadow(
                 color: Colors.black,
@@ -33,10 +33,11 @@ class CategoryCard extends StatelessWidget {
           ),
 
           child: Stack(
+            alignment: Alignment.center,
             children: [
               Positioned.fill(
                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(35),
                     child: Image.asset(
                       'assets/BlocoMenuWhite.png',
                       fit: BoxFit.cover,
@@ -51,20 +52,20 @@ class CategoryCard extends StatelessWidget {
                     height: 110,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20)),
+                          bottomLeft: Radius.circular(35),
+                          bottomRight: Radius.circular(35)),
                     )),
               ),
               Positioned(
-                bottom: 5,
+                bottom: 2,
                 child: Padding(
-                  padding: const EdgeInsets.all(45),
+                  padding: const EdgeInsets.all(40),
                   child: Column(
                     children: [
                       CategoryIcon(
                           color: this.category!.color!,
                           iconName: this.category!.icon!),
-                      SizedBox(width: 50),
+                      SizedBox(width: 20),
                       Text(this.category!.name!,
                           style: TextStyle(
                               color: Color.fromRGBO(35, 100, 128, 1),

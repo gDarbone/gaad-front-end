@@ -92,7 +92,7 @@ class CategoryListPage extends StatelessWidget {
         RotaTela = '/EditProfilePage';
         break;
       case "Relatórios":
-        RotaTela = '/PerfilPage';
+        RotaTela = '/RelatorioPage';
         break;
       case "Contatos":
         RotaTela = '/CadastroPageOne';

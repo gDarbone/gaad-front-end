@@ -7,7 +7,7 @@ class CategoryIcon extends StatelessWidget {
   String? iconName;
   double? size;
 
-  CategoryIcon({this.color, this.iconName, this.size = 30});
+  CategoryIcon({this.color, this.iconName, this.size = 45});
 
   @override
   Widget build(BuildContext context) {

@@ -13,11 +13,8 @@ class MainAppBarState extends State<MainAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       title: GestureDetector(
-        onTap: () {
-          Navigator.of(context).popUntil((route) => route.settings.name == '/CategoryListPage');
-        },
         child: Text(
-          "GAAD",
+          "Olá Fulano, Bem-Vindo",
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white),
         ),
