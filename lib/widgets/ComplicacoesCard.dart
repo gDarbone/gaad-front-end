@@ -53,7 +53,7 @@ class ComplicacoesCard extends StatelessWidget {
             new Padding(padding: EdgeInsets.only(top: 10.0)),
             new TextFormField(
               decoration: new InputDecoration(
-                labelText: "Categoria",
+                labelText: "Categoria:",
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                   borderRadius: new BorderRadius.circular(30.0),

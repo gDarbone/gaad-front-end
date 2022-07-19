@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioBar.dart';
-import 'package:gaad_mobile/widgets/RemediosCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
 import 'RelatorioPage.dart';
 
-class RelatorioViewRemedios extends StatelessWidget {
+class RelatorioAddComplicacoes extends StatelessWidget {
 
   Widget typeCard = ComplicacoesCard();
 
@@ -30,12 +29,11 @@ class RelatorioViewRemedios extends StatelessWidget {
 
             Expanded(
               child: ListView.builder(
-                itemCount: 5,
-
+                itemCount: 1,
                 itemBuilder: (BuildContext ctx, int index) {
                   return Container(
                     //padding: EdgeInsets.only(top: 5, left: 5, right: 5),
-                    height: 400,
+                    height: 350,
                     color: Colors.white,
                     child: Stack(
                       children: [
@@ -44,7 +42,7 @@ class RelatorioViewRemedios extends StatelessWidget {
                             padding:
                                 EdgeInsets.only(top: 50, left: 5, right: 5),
 
-                            child: RemediosCard(
+                            child: ComplicacoesCard(
                               onCardClick: () {},
                             ),
 
@@ -60,7 +58,7 @@ class RelatorioViewRemedios extends StatelessWidget {
               padding: const EdgeInsets.only(left: 25, right: 25),
               child: Container(
                 color: Colors.white,
-                height: 80,
+                  height: 80,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -120,7 +118,7 @@ class RelatorioViewRemedios extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 50.0),
                           child: Text(
-                            'Salvar',
+                            'Adicionar',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 16,

@@ -8,7 +8,7 @@ import 'package:gaad_mobile/widgets/mainappbar.dart';
 
 import '../widgets/sidemenubar.dart';
 
-class RelatorioViewVacinas extends StatelessWidget {
+class RelatorioAddVacinas extends StatelessWidget {
 
   Widget typeCard = ComplicacoesCard();
 
@@ -30,7 +30,7 @@ class RelatorioViewVacinas extends StatelessWidget {
 
             Expanded(
               child: ListView.builder(
-                itemCount: 5,
+                itemCount: 1,
                 itemBuilder: (BuildContext ctx, int index) {
                   return Container(
                     //padding: EdgeInsets.only(top: 5, left: 5, right: 5),
@@ -119,7 +119,7 @@ class RelatorioViewVacinas extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 50.0),
                           child: Text(
-                            'Salvar',
+                            'Adicionar',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 16,

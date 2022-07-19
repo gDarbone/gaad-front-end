@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/widgets/RemediosCard.dart';
 import 'package:gaad_mobile/widgets/VacinasCard.dart';
-import '../pages/RelatorioViewComplicacoes.dart';
-import '../pages/RelatorioViewRemedios.dart';
-import '../pages/RelatorioViewVacinas.dart';
+import '../pages/RelatorioAddComplicacoes.dart';
+import '../pages/RelatorioAddRemedios.dart';
+import '../pages/RelatorioAddVacinas.dart';
 import 'ComplicacoesCard.dart';
 
 class RelatorioBar extends StatelessWidget {
@@ -27,12 +27,14 @@ class RelatorioBar extends StatelessWidget {
           ClipOval(
             child: Material(
               child: IconButton(
-                icon: Icon(Icons.sick, color: Color.fromRGBO(35, 100, 128, 1)),
+                icon: Icon(Icons.sick, color: Color.fromRGBO(35, 100, 128, 1))
+                ,
+                tooltip: "Complicações",
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RelatorioViewComplicacoes(),
+                        builder: (context) => RelatorioAddComplicacoes(),
                       ));
                 },
               ),
@@ -43,11 +45,12 @@ class RelatorioBar extends StatelessWidget {
               child: IconButton(
                 icon: Icon(
                     Icons.vaccines, color: Color.fromRGBO(35, 100, 128, 1)),
+                tooltip: "Vacinas",
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RelatorioViewVacinas(),
+                        builder: (context) => RelatorioAddVacinas(),
                       ));
                 },
               ),
@@ -57,12 +60,14 @@ class RelatorioBar extends StatelessWidget {
             child: Material(
               child: IconButton(
                 icon: Icon(
-                    Icons.medication, color: Color.fromRGBO(35, 100, 128, 1)),
+                    Icons.medication, color: Color.fromRGBO(35, 100, 128, 1)
+                ),
+                tooltip: "Remédios",
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RelatorioViewRemedios(),
+                        builder: (context) => RelatorioAddRemedios(),
                       ));
                 },
               ),

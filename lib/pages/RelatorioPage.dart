@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/models/category.dart';
-import 'package:gaad_mobile/pages/RelatorioViewComplicacoes.dart';
+import 'package:gaad_mobile/pages/RelatorioAddComplicacoes.dart';
 
 import '../helpers/utils.dart';
 import '../widgets/categorycard.dart';
 import '../widgets/categoryicon.dart';
 import '../widgets/mainappbar.dart';
 import '../widgets/sidemenubar.dart';
+import 'RelatorioView.dart';
 
 class RelatorioPage extends StatelessWidget {
   List<Category> categories = Utils.getMockedCategories();
@@ -44,6 +45,7 @@ class RelatorioPage extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
+
                 Expanded(
                   child: ListView.builder(
                     itemCount: 1,
@@ -79,7 +81,7 @@ class RelatorioPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                  builder: (context) => RelatorioViewComplicacoes(),
+                                  builder: (context) => RelatorioView(),
                               ));
                             },
                             child: Row(
@@ -99,7 +101,26 @@ class RelatorioPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => RelatorioViewComplicacoes(),
+                                    builder: (context) => RelatorioAddComplicacoes(),
+                                  ));
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.add, color: Colors.white, size: 20),
+                                SizedBox(width: 10),
+                                Text("Adicionar Itens",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20))
+                              ],
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RelatorioView(),
                                   ));
                             },
                             child: Row(
@@ -113,6 +134,7 @@ class RelatorioPage extends StatelessWidget {
                               ],
                             ),
                           ),
+
                         ],
                       ),
                     )),
