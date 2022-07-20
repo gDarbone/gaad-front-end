@@ -49,6 +49,7 @@ class Utils{
           name: "Pedir Socorro",
           imgName: "socorro1",
           icon: IconFontHelper.SOCORRO,
+
       ),
     ];
   }

@@ -10,6 +10,7 @@ import 'package:gaad_mobile/pages/loginpage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 import 'package:gaad_mobile/services/categoryselectionservice.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -28,7 +29,8 @@ void main() {
             '/CadastroPageThree': (context) => CadastroPageThree(),
             '/CategoryListPage': (context) => CategoryListPage(),
             '/EditProfilePage': (context) => EditProfilePage(),
-            '/RelatorioPage': (context) => RelatorioPage()
+            '/RelatorioPage': (context) => RelatorioPage(),
+            //'/RelatorioPagse': (context) =>
           })));
 }
 

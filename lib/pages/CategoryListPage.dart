@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import '../helpers/utils.dart';
 import '../models/category.dart';
 import '../widgets/categorycard.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 
 class CategoryListPage extends StatelessWidget {
@@ -104,7 +106,7 @@ class CategoryListPage extends StatelessWidget {
         RotaTela = '/CadastroPageThree';
         break;
       case "Pedir Socorro":
-        RotaTela = '/loginpage';
+        RotaTela = launchUrl(Uri(scheme: 'tel',path: '181')) as String;
         break;
     }
 

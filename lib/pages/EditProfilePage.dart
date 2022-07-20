@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 
+import '../widgets/mainappbar.dart';
+import '../widgets/sidemenubar.dart';
+
 class SettingsUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,17 +27,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.green,
-          ),
-          onPressed: () {},
-        ),
+      drawer: Drawer(
+        child: SideMenuBar(),
       ),
+      appBar: MainAppBar(),
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
         child: GestureDetector(
@@ -86,7 +82,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               width: 4,
                               color: Theme.of(context).scaffoldBackgroundColor,
                             ),
-                            color: Colors.green,
+                            color: Colors.blueAccent,
                           ),
                           child: Icon(
                             Icons.edit,
@@ -155,15 +151,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           title: Text("Salvo com Sucesso."),
                           content: Text(
                               "Suas alterações foram salvas com sucesso, você será redirecionado para a tela principal."),
-                        actions: [
-                          TextButton(onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CategoryListPage(),
-                            ),
-                          ), child: Text("Ok"))
-                        ],),
-
+                          actions: [
+                            TextButton(
+                                onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            CategoryListPage(),
+                                      ),
+                                    ),
+                                child: Text("Ok"))
+                          ],
+                        ),
                       ),
                       child: Container(
                         padding: EdgeInsets.symmetric(
