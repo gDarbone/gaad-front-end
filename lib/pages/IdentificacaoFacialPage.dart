@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:gaad_mobile/pages/IdentificacaoPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioBar.dart';
-import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
-import 'package:gaad_mobile/widgets/RelatorioRemediosCard.dart';
-import 'package:gaad_mobile/widgets/RelatorioVacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 
+import '../widgets/IdentificacaoFacialCard.dart';
+import '../widgets/TokenCpfCard.dart';
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
 import 'RelatorioPage.dart';
 
-class RelatorioView extends StatelessWidget {
+class IdentificacaoFacialPage extends StatelessWidget {
 
-  Widget typeCard = ComplicacoesCard();
+  Widget typeCard = IdentificacaoFacialCard();
 
   @override
   Widget build(BuildContext context) {
@@ -36,71 +36,17 @@ class RelatorioView extends StatelessWidget {
               itemBuilder: (BuildContext ctx, int index) {
                 return Container(
                   //padding: EdgeInsets.only(top: 5, left: 5, right: 5),
-                  height: 250,
+                  height: 500,
                   color: Colors.white,
                   child: Stack(
                     children: [
                       Positioned.fill(
                         child: Padding(
                           padding:
-                          EdgeInsets.only(top: 5, left: 5, right: 5),
+                          EdgeInsets.only(top: 50, left: 5, right: 5),
 
-                          child: RelatorioComplicacoesCard(
-                            //onCardClick: () {},
-                          ),
-
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 1,
-              itemBuilder: (BuildContext ctx, int index) {
-                return Container(
-                  //padding: EdgeInsets.only(top: 5, left: 5, right: 5),
-                  height: 250,
-                  color: Colors.white,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: Padding(
-                          padding:
-                          EdgeInsets.only(top: 5, left: 5, right: 5),
-
-                          child: RelatorioVacinasCard(
-                            //onCardClick: () {},
-                          ),
-
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 1,
-              itemBuilder: (BuildContext ctx, int index) {
-                return Container(
-                  //padding: EdgeInsets.only(top: 5, left: 5, right: 5),
-                  height: 250,
-                  color: Colors.white,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: Padding(
-                          padding:
-                          EdgeInsets.only(top: 5, left: 5, right: 5),
-
-                          child: RelatorioRemediosCard(
-                            //onCardClick: () {},
+                          child: IdentificacaoFacialCard(
+                            onCardClick: () {},
                           ),
 
                         ),
@@ -112,7 +58,7 @@ class RelatorioView extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25),
+            padding: const EdgeInsets.only(left: 15, right: 15),
             child: Container(
               color: Colors.white,
               height: 80,
@@ -120,7 +66,6 @@ class RelatorioView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Material(
-
                     color: Colors.transparent,
                     child: InkWell(
                       splashColor:
@@ -132,7 +77,7 @@ class RelatorioView extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 57.0),
                         child: Text(
-                          'Cancelar',
+                          'Voltar',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16,
@@ -146,12 +91,12 @@ class RelatorioView extends StatelessWidget {
                                 color: Color.fromRGBO(35, 100, 128, 1),
                                 width: 2)),
                       ),
+
                     ),
                   ),
                   Material(
                     color: Colors.transparent,
                     child: InkWell(
-
                       splashColor:
                       Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
                       highlightColor:
@@ -161,7 +106,7 @@ class RelatorioView extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 50.0),
                         child: Text(
-                          'Salvar',
+                          'Atualizar Facial',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16,
@@ -181,11 +126,6 @@ class RelatorioView extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-              height: 80,
-              child: RelatorioBar()
-          ),
-
         ],
       ),
     );
