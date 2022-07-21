@@ -3,14 +3,13 @@ import 'package:gaad_mobile/pages/CadastroPageOne.dart';
 import 'package:gaad_mobile/pages/CadastroPageThree.dart';
 import 'package:gaad_mobile/pages/CadastroPageTwo.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
+import 'package:gaad_mobile/pages/ContatosPage.dart';
 import 'package:gaad_mobile/pages/EditProfilePage.dart';
-import 'package:gaad_mobile/pages/PerfilPage.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
 import 'package:gaad_mobile/pages/loginpage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 import 'package:gaad_mobile/services/categoryselectionservice.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -30,7 +29,7 @@ void main() {
             '/CategoryListPage': (context) => CategoryListPage(),
             '/EditProfilePage': (context) => EditProfilePage(),
             '/RelatorioPage': (context) => RelatorioPage(),
-            //'/RelatorioPagse': (context) =>
+            '/ContatosPage': (context) => ContatosPage(),
           })));
 }
 
