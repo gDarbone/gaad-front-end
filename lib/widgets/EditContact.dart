@@ -5,7 +5,9 @@ import 'package:gaad_mobile/pages/welcomepage.dart';
 
 import '../pages/ContatosPage.dart';
 
-class AddContact extends StatelessWidget {
+class EditContact extends StatelessWidget {
+  bool showPassword = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,35 +34,8 @@ class AddContact extends StatelessWidget {
               height: 20,
             ),
             new Padding(padding: EdgeInsets.only(top: 0.0)),
-            TextFormField(
-              decoration: new InputDecoration(
-                labelText: "Nome:",
-                fillColor: Colors.white,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                  borderSide: new BorderSide(),
-                ),
-              ),
-              keyboardType: TextInputType.emailAddress,
-              style: new TextStyle(
-                fontFamily: "Poppins",
-              ),
-            ),
-            new Padding(padding: EdgeInsets.only(top: 10.0)),
-            new TextFormField(
-              decoration: new InputDecoration(
-                labelText: "Telefone",
-                fillColor: Colors.white,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                  borderSide: new BorderSide(),
-                ),
-              ),
-              keyboardType: TextInputType.emailAddress,
-              style: new TextStyle(
-                fontFamily: "Poppins",
-              ),
-            ),
+            buildTextField("Nome", "Adryen",true),
+            buildTextField("Telefone", "123123123",true),
 
             SizedBox(
               height: 20,
@@ -117,7 +92,7 @@ class AddContact extends StatelessWidget {
                         builder: (context) => AlertDialog(
                           title: Text("Salvo com Sucesso."),
                           content: Text(
-                              "Contato adicionado com sucesso."),
+                              "Suas alterações foram salvas com sucesso, você será redirecionado para a tela de contatos."),
                           actions: [
                             TextButton(
                                 onPressed: () => Navigator.push(
@@ -136,7 +111,7 @@ class AddContact extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 40.0),
                       child: Text(
-                        'Adicionar',
+                        'Salvar',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 16,
@@ -157,21 +132,27 @@ class AddContact extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            /*Column(
-              //height: 40,
-              //alignment: Alignment.center,
-              children: [
-                FlatButton(
-                child: Text(
-                  "Cancelar",
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () => Navigator.pop(context, false),
-              ),
-             ],
-            ),*/
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildTextField(String labelText, String placeholder, bool isEnabled) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 35.0),
+      child: TextField(
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: 3),
+            labelText: labelText,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            hintText: placeholder,
+            enabled: isEnabled,
+            hintStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            )),
       ),
     );
   }

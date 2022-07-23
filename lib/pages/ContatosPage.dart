@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/AddContact.dart';
+import '../widgets/EditContact.dart';
 import '../widgets/mainappbar.dart';
 import '../widgets/sidemenubar.dart';
 
@@ -21,25 +22,55 @@ class ContatosPage extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            ListTile(
-              title: Text(
-                'Gabriel Darbone',
-                style: TextStyle(fontSize: 20),
-              ),
-              subtitle: Text(
-                numero1,
-                style: TextStyle(fontSize: 14),
-              ),
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 0),
+                  child: Text(
+                    'Adryen Simões',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 200, right: 0),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditContact(),
+                        ),
+                      );
+                    },
+                    child: Icon(Icons.edit),
+                  ),
+                ),
+              ],
             ),
-            ListTile(
-              title: Text(
-                'Adryen Simões',
-                style: TextStyle(fontSize: 20),
-              ),
-              subtitle: Text(
-                numero2,
-                style: TextStyle(fontSize: 14),
-              ),
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 0),
+                  child: Text(
+                    'Adryen Simões',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 200, right: 0),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditContact(),
+                        ),
+                      );
+                    },
+                    child: Icon(Icons.edit),
+                  ),
+                ),
+              ],
             ),
             Material(
               child: InkWell(
