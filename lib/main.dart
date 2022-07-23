@@ -5,11 +5,9 @@ import 'package:gaad_mobile/pages/CadastroPageTwo.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/ContatosPage.dart';
 import 'package:gaad_mobile/pages/EditProfilePage.dart';
-<<<<<<< HEAD
-=======
+
 import 'package:gaad_mobile/pages/PerfilPage.dart';
 import 'package:gaad_mobile/pages/IdentificacaoPage.dart';
->>>>>>> 67df23bc3101dec8834f72948d1974e9fb32d7bd
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
 import 'package:gaad_mobile/pages/loginpage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
@@ -34,12 +32,9 @@ void main() {
             '/CategoryListPage': (context) => CategoryListPage(),
             '/EditProfilePage': (context) => EditProfilePage(),
             '/RelatorioPage': (context) => RelatorioPage(),
-<<<<<<< HEAD
             '/ContatosPage': (context) => ContatosPage(),
-=======
             '/IdentificacaoPage': (context) => IdentificacaoPage(),
-            //'/RelatorioPagse': (context) =>
->>>>>>> 67df23bc3101dec8834f72948d1974e9fb32d7bd
+            //'/RelatorssioPagse': (context) =>
           })));
 }
 
