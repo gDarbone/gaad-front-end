@@ -17,15 +17,26 @@ class ContatosPage extends StatelessWidget {
 
       body: Scaffold(
         appBar: AppBar(
-          title: Text('Contatos'),
+          title: Text('Contatos de Emergência'),
           backgroundColor: Color.fromRGBO(35, 100, 128, 1),
         ),
+
         body: ListView(
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+              ),
+              child: Text(
+                "Edite ou visualize seus Contatos",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1)),
+              ),
+            ),
             Row(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 0),
+                  padding: const EdgeInsets.only(top:20, left: 10, right: 0),
                   child: Text(
                     'Adryen Simões',
                     style: TextStyle(fontSize: 20),

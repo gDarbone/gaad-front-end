@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/models/category.dart';
 
+import '../helpers/utils.dart';
 import '../pages/CategoryListPage.dart';
 import 'categoryicon.dart';
 
@@ -10,6 +11,7 @@ class TokenCpfCard extends StatelessWidget {
   Function? onCardClick;
 
   TokenCpfCard({this.category, this.onCardClick});
+  Utils util = new Utils();
 
   @override
   Widget build(BuildContext context) {
@@ -44,21 +46,7 @@ class TokenCpfCard extends StatelessWidget {
                 SizedBox(width: 20),
               ],
             ),
-            TextFormField(
-              decoration: new InputDecoration(
-                labelText: "Meu Token:",
-                fillColor: Colors.white,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                  borderSide: new BorderSide(),
-                ),
-                //fillColor: Colors.green
-              ),
-              keyboardType: TextInputType.emailAddress,
-              style: new TextStyle(
-                fontFamily: "Poppins",
-              ),
-            ),
+            util.buildTextField("Meu Token", "#23@OARTR",false),
             new Padding(padding: EdgeInsets.only(top: 30.0)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -69,21 +57,7 @@ class TokenCpfCard extends StatelessWidget {
                 SizedBox(width: 20),
               ],
             ),
-            new TextFormField(
-              decoration: new InputDecoration(
-                labelText: "Meu CPF:",
-                fillColor: Colors.white,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                  borderSide: new BorderSide(),
-                ),
-                //fillColor: Colors.green
-              ),
-              keyboardType: TextInputType.emailAddress,
-              style: new TextStyle(
-                fontFamily: "Poppins",
-              ),
-            ),
+            util.buildTextField("Meu CPF", "123.456.789-00",false),
             new Padding(padding: EdgeInsets.only(top: 10.0)),
             new Padding(padding: EdgeInsets.only(top: 10.0)),
             SizedBox(

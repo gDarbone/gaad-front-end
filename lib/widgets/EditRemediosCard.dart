@@ -5,12 +5,12 @@ import 'package:gaad_mobile/pages/welcomepage.dart';
 import '../helpers/utils.dart';
 
 
-class RelatorioComplicacoesCard extends StatefulWidget {
+class EditRemediosCard extends StatefulWidget {
   @override
-  _RelatorioComplicacoesCard createState() => _RelatorioComplicacoesCard();
+  _EditRemediosCard createState() => _EditRemediosCard();
 }
 
-class _RelatorioComplicacoesCard extends State<RelatorioComplicacoesCard> {
+class _EditRemediosCard extends State<EditRemediosCard> {
 
   bool showPassword = false;
   Utils util = new Utils();
@@ -27,7 +27,7 @@ class _RelatorioComplicacoesCard extends State<RelatorioComplicacoesCard> {
           child: ListView(
             children: [
               Text(
-                "COMPLICAÇÃO",
+                "REMÉDIO",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
               ),
               SizedBox(
@@ -36,9 +36,10 @@ class _RelatorioComplicacoesCard extends State<RelatorioComplicacoesCard> {
               SizedBox(
                 height: 30,
               ),
-              util.buildTextField("Nome", "Inflamação no Pescoço", false),
-              util.buildTextField("Categoria:", "Cancer", false),
-              util.buildTextField("Observação/Descrição:", "Apenas 6 meses de vida", false),
+              util.buildTextField("Nome:", "Rivotril", true),
+              util.buildTextField("Data de Inicio da Dosagem:", "11/09/2000", true),
+              util.buildTextField("Categoria:", "Depressão", true),
+              util.buildTextField("Observação/Descrição:", "Tomar Diariamente", true),
               SizedBox(
                 height: 15,
               ),

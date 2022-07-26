@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 
+import '../helpers/utils.dart';
+
 
 class RelatorioVacinasCard extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class RelatorioVacinasCard extends StatefulWidget {
 class _RelatorioVacinasCard extends State<RelatorioVacinasCard> {
 
   bool showPassword = false;
+  Utils util = new Utils();
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,10 @@ class _RelatorioVacinasCard extends State<RelatorioVacinasCard> {
               SizedBox(
                 height: 30,
               ),
-              buildTextField("Nome:", "Pfizer - Covid 19", false, false),
-              buildTextField("Quantidade de Doses:", "3", false, false),
-              buildTextField("Data da Ultima Dose:", "17/08/2021", false, false),
-              buildTextField("Observação/Descrição:", "SUS", false, false),
+              util.buildTextField("Nome:", "Pfizer - Covid 19", false),
+              util.buildTextField("Quantidade de Doses:", "3", false),
+              util.buildTextField("Data da Ultima Dose:", "17/08/2021", false),
+              util.buildTextField("Observação/Descrição:", "SUS", false),
               SizedBox(
                 height: 15,
               ),
@@ -44,40 +47,6 @@ class _RelatorioVacinasCard extends State<RelatorioVacinasCard> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget buildTextField(String labelText, String placeholder,
-      bool isPasswordTextField, bool isEnabled) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
-        obscureText: isPasswordTextField ? showPassword : false,
-        decoration: InputDecoration(
-            suffixIcon: isPasswordTextField
-                ? IconButton(
-              onPressed: () {
-                setState(() {
-                  showPassword = !showPassword;
-                });
-              },
-              icon: Icon(
-                Icons.remove_red_eye,
-                color: Colors.grey,
-              ),
-            )
-                : null,
-            contentPadding: EdgeInsets.only(bottom: 3),
-            labelText: labelText,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: placeholder,
-            enabled: isEnabled,
-            hintStyle: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            )),
       ),
     );
   }

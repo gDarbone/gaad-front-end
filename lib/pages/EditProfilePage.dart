@@ -27,10 +27,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: SideMenuBar(),
+      appBar: AppBar(
+        title: Text('Meu Perfil'),
+        backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
-      appBar: MainAppBar(),
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
         child: GestureDetector(

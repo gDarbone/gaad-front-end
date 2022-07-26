@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:gaad_mobile/pages/RelatorioViewVacinas.dart';
 import 'package:gaad_mobile/widgets/RemediosCard.dart';
 import 'package:gaad_mobile/widgets/VacinasCard.dart';
 import '../pages/RelatorioAddComplicacoes.dart';
 import '../pages/RelatorioAddRemedios.dart';
 import '../pages/RelatorioAddVacinas.dart';
+import '../pages/RelatorioEditComplicacoes.dart';
+import '../pages/RelatorioEditRemedios.dart';
+import '../pages/RelatorioEditVacinas.dart';
+import '../pages/RelatorioViewComplicacoes.dart';
+import '../pages/RelatorioViewRemedios.dart';
 import 'ComplicacoesCard.dart';
 
-class RelatorioBar extends StatelessWidget {
+class RelatorioEditBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +41,7 @@ class RelatorioBar extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RelatorioAddComplicacoes(),
+                        builder: (context) => RelatorioEditComplicacoes(),
                       ));
                 },
               ),
@@ -52,7 +58,7 @@ class RelatorioBar extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RelatorioAddVacinas(),
+                        builder: (context) => RelatorioEditVacinas(),
                       ));
                 },
               ),
@@ -70,7 +76,7 @@ class RelatorioBar extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RelatorioAddRemedios(),
+                        builder: (context) => RelatorioEditRemedios(),
                       ));
                 },
               ),

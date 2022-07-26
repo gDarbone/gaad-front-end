@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:gaad_mobile/pages/IdentificacaoPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioBar.dart';
+import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
+import 'package:gaad_mobile/widgets/RelatorioRemediosCard.dart';
+import 'package:gaad_mobile/widgets/RelatorioVacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 
-import '../widgets/IdentificacaoFacialCard.dart';
-import '../widgets/TokenCpfCard.dart';
+import '../widgets/EditComplicacoesCard.dart';
+import '../widgets/RelatorioEditBar.dart';
+import '../widgets/RelatorioViewBar.dart';
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
 import 'RelatorioPage.dart';
 
-class IdentificacaoFacialPage extends StatelessWidget {
+class RelatorioEditComplicacoes extends StatelessWidget {
 
-  Widget typeCard = IdentificacaoFacialCard();
+  Widget typeCard = ComplicacoesCard();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Facial'),
+        title: Text('Editar Complicações'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
       resizeToAvoidBottomInset: false,
@@ -43,10 +46,10 @@ class IdentificacaoFacialPage extends StatelessWidget {
                       Positioned.fill(
                         child: Padding(
                           padding:
-                          EdgeInsets.only(top: 50, left: 5, right: 5),
+                          EdgeInsets.only(top: 5, left: 5, right: 5),
 
-                          child: IdentificacaoFacialCard(
-                            onCardClick: () {},
+                          child: EditComplicacoesCard(
+                            //onCardClick: () {},
                           ),
 
                         ),
@@ -58,7 +61,7 @@ class IdentificacaoFacialPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
+            padding: const EdgeInsets.only(left: 25, right: 25),
             child: Container(
               color: Colors.white,
               height: 80,
@@ -66,6 +69,7 @@ class IdentificacaoFacialPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Material(
+
                     color: Colors.transparent,
                     child: InkWell(
                       splashColor:
@@ -77,7 +81,7 @@ class IdentificacaoFacialPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 57.0),
                         child: Text(
-                          'Voltar',
+                          'Cancelar',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16,
@@ -91,22 +95,40 @@ class IdentificacaoFacialPage extends StatelessWidget {
                                 color: Color.fromRGBO(35, 100, 128, 1),
                                 width: 2)),
                       ),
-
                     ),
                   ),
                   Material(
                     color: Colors.transparent,
                     child: InkWell(
+
                       splashColor:
                       Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
                       highlightColor:
                       Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      onTap: () => Navigator.pop(context, false),
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("Salvo com Sucesso."),
+                          content: Text(
+                              "Suas alterações foram salvas com sucesso, você será redirecionado para a tela principal."),
+                          actions: [
+                            TextButton(
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        CategoryListPage(),
+                                  ),
+                                ),
+                                child: Text("Ok"))
+                          ],
+                        ),
+                      ),
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 50.0),
                         child: Text(
-                          'Atualizar Facial',
+                          'Salvar',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16,
@@ -126,6 +148,11 @@ class IdentificacaoFacialPage extends StatelessWidget {
               ),
             ),
           ),
+          Container(
+              height: 80,
+              child: RelatorioEditBar()
+          ),
+
         ],
       ),
     );

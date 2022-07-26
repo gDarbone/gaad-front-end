@@ -9,7 +9,8 @@ import '../widgets/categorycard.dart';
 import '../widgets/categoryicon.dart';
 import '../widgets/mainappbar.dart';
 import '../widgets/sidemenubar.dart';
-import 'RelatorioView.dart';
+import 'RelatorioEditComplicacoes.dart';
+import 'RelatorioViewComplicacoes.dart';
 
 class RelatorioPage extends StatelessWidget {
   List<Category> categories = Utils.getMockedCategories();
@@ -17,10 +18,10 @@ class RelatorioPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(
-          child: SideMenuBar(),
+        appBar: AppBar(
+          title: Text('Relatórios'),
+          backgroundColor: Color.fromRGBO(35, 100, 128, 1),
         ),
-        appBar: MainAppBar(),
         body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -81,7 +82,7 @@ class RelatorioPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                  builder: (context) => RelatorioView(),
+                                  builder: (context) => RelatorioViewComplicacoes(),
                               ));
                             },
                             child: Row(
@@ -120,7 +121,7 @@ class RelatorioPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => RelatorioView(),
+                                    builder: (context) => RelatorioEditComplicacoes(),
                                   ));
                             },
                             child: Row(

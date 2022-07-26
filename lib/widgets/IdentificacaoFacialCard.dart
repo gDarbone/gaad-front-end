@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/models/category.dart';
 
+import '../helpers/utils.dart';
 import '../pages/CategoryListPage.dart';
 import 'categoryicon.dart';
 
@@ -10,6 +11,8 @@ class IdentificacaoFacialCard extends StatelessWidget {
   Function? onCardClick;
 
   IdentificacaoFacialCard({this.category, this.onCardClick});
+
+  Utils util = new Utils();
 
   @override
   Widget build(BuildContext context) {
@@ -57,21 +60,7 @@ class IdentificacaoFacialCard extends StatelessWidget {
                       ))),
             ),
             new Padding(padding: EdgeInsets.only(top: 20.0)),
-            TextFormField(
-              decoration: new InputDecoration(
-                labelText: "Ultima Atualização em:",
-                fillColor: Colors.white,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                  borderSide: new BorderSide(),
-                ),
-                //fillColor: Colors.green
-              ),
-              keyboardType: TextInputType.datetime,
-              style: new TextStyle(
-                fontFamily: "Poppins",
-              ),
-            ),
+            util.buildTextField("Ultima Atualização em:", "07/05/2022",false),
             new Padding(padding: EdgeInsets.only(top: 10.0)),
             SizedBox(
               height: 20,

@@ -15,10 +15,10 @@ class RelatorioAddRemedios extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: SideMenuBar(),
+      appBar: AppBar(
+        title: Text('Adicionar Remédios'),
+        backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
-      appBar: MainAppBar(),
       resizeToAvoidBottomInset: false,
       body: Column(
         /*decoration: BoxDecoration(

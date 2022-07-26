@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../pages/loginpage.dart';
+
 class SideMenuBar extends StatelessWidget {
 
   @override
@@ -15,25 +17,21 @@ class SideMenuBar extends StatelessWidget {
                 onPressed: () {},
                 child: Row(
                   children: [
-                    Icon(Icons.help, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
+                    Icon(Icons.medical_services, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
                     SizedBox(width: 10),
-                    Text("Ajuda",
-                        style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 20))
-                  ],
-                )),
-
-            TextButton(
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    Icon(Icons.star, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
-                    SizedBox(width: 10),
-                    Text("Sobre",
+                    Text("Menu Médico",
                         style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 20))
                   ],
                 )),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => loginpage(),
+                    ),
+                  );
+                },
                 child: Row(
                   children: [
                     Icon(Icons.logout, color: Color.fromRGBO(35, 100, 128, 1), size: 20),

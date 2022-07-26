@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gaad_mobile/helpers/utils.dart';
 import 'package:gaad_mobile/pages/CadastroPageTwo.dart';
 import 'package:gaad_mobile/pages/loginpage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
@@ -8,6 +9,7 @@ import '../pages/ContatosPage.dart';
 class EditContact extends StatelessWidget {
   bool showPassword = false;
 
+  Utils util = new Utils();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,8 +36,9 @@ class EditContact extends StatelessWidget {
               height: 20,
             ),
             new Padding(padding: EdgeInsets.only(top: 0.0)),
-            buildTextField("Nome", "Adryen",true),
-            buildTextField("Telefone", "123123123",true),
+            util.buildTextField("Nome", "Adryen",true),
+            util.buildTextField("Parentesco", "Irmão",true),
+            util.buildTextField("Telefone", "123123123",true),
 
             SizedBox(
               height: 20,
@@ -138,22 +141,4 @@ class EditContact extends StatelessWidget {
     );
   }
 
-  Widget buildTextField(String labelText, String placeholder, bool isEnabled) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: 3),
-            labelText: labelText,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: placeholder,
-            enabled: isEnabled,
-            hintStyle: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            )),
-      ),
-    );
-  }
 }

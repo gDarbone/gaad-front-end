@@ -103,10 +103,10 @@ class CategoryListPage extends StatelessWidget {
         RotaTela = '/IdentificacaoPage';
         break;
       case "Configuração":
-        RotaTela = '/CadastroPageThree';
+        RotaTela = '/ConfiguracaoPage';
         break;
       case "Pedir Socorro":
-        RotaTela = launchUrl(Uri(scheme: 'tel',path: '181')) as String;
+        RotaTela = launchUrl(Uri(scheme: 'tel',path: '192')) as String;
         break;
     }
 

@@ -47,6 +47,21 @@ class AddContact extends StatelessWidget {
               ),
             ),
             new Padding(padding: EdgeInsets.only(top: 10.0)),
+            TextFormField(
+              decoration: new InputDecoration(
+                labelText: "Parentesco:",
+                fillColor: Colors.white,
+                border: new OutlineInputBorder(
+                  borderRadius: new BorderRadius.circular(30.0),
+                  borderSide: new BorderSide(),
+                ),
+              ),
+              keyboardType: TextInputType.emailAddress,
+              style: new TextStyle(
+                fontFamily: "Poppins",
+              ),
+            ),
+            new Padding(padding: EdgeInsets.only(top: 10.0)),
             new TextFormField(
               decoration: new InputDecoration(
                 labelText: "Telefone",

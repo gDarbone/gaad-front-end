@@ -11,7 +11,7 @@ import '../widgets/categoryicon.dart';
 import '../widgets/mainappbar.dart';
 import '../widgets/sidemenubar.dart';
 import 'IdentificacaoFacialPage.dart';
-import 'RelatorioView.dart';
+import 'RelatorioViewComplicacoes.dart';
 
 class IdentificacaoPage extends StatelessWidget {
   List<Category> categories = Utils.getMockedCategories();
@@ -19,10 +19,10 @@ class IdentificacaoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(
-          child: SideMenuBar(),
+        appBar: AppBar(
+          title: Text('Meios de Identificação'),
+          backgroundColor: Color.fromRGBO(35, 100, 128, 1),
         ),
-        appBar: MainAppBar(),
         body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(

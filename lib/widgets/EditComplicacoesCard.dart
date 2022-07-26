@@ -5,12 +5,12 @@ import 'package:gaad_mobile/pages/welcomepage.dart';
 import '../helpers/utils.dart';
 
 
-class RelatorioComplicacoesCard extends StatefulWidget {
+class EditComplicacoesCard extends StatefulWidget {
   @override
-  _RelatorioComplicacoesCard createState() => _RelatorioComplicacoesCard();
+  _EditComplicacoesCard createState() => _EditComplicacoesCard();
 }
 
-class _RelatorioComplicacoesCard extends State<RelatorioComplicacoesCard> {
+class _EditComplicacoesCard extends State<EditComplicacoesCard> {
 
   bool showPassword = false;
   Utils util = new Utils();
@@ -36,9 +36,9 @@ class _RelatorioComplicacoesCard extends State<RelatorioComplicacoesCard> {
               SizedBox(
                 height: 30,
               ),
-              util.buildTextField("Nome", "Inflamação no Pescoço", false),
-              util.buildTextField("Categoria:", "Cancer", false),
-              util.buildTextField("Observação/Descrição:", "Apenas 6 meses de vida", false),
+              util.buildTextField("Nome", "Inflamação no Pescoço", true),
+              util.buildTextField("Categoria:", "Cancer", true),
+              util.buildTextField("Observação/Descrição:", "Apenas 6 meses de vida", true),
               SizedBox(
                 height: 15,
               ),
