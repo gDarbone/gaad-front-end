@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/helpers/iconhelper.dart';
 import 'package:gaad_mobile/widgets/iconfont.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/category.dart';
 
@@ -52,6 +53,62 @@ class Utils{
 
       ),
     ];
+  }
+
+  static List<Category> getMedicalMockedCategories(){
+    return[
+      Category(
+        color: Colors.transparent,
+        name: "Perfil Médico",
+        imgName: "perfil1",
+        icon: IconFontHelper.PERFILMEDICO,
+      ),
+      Category(
+        color: Colors.transparent,
+        name: "Identificar Paciente",
+        imgName: "identificacao1",
+        icon: IconFontHelper.PESQUISAR,
+
+      ),
+      Category(
+        color: Colors.transparent,
+        name: "Configuração",
+        imgName: "configuracao1",
+        icon: IconFontHelper.CONFIGURACAO,
+
+      ),
+    ];
+  }
+  String ControleTela(var SubCategoriaSelecionada) {
+    var RotaTela = '/welcomepage';
+    switch (SubCategoriaSelecionada) {
+      case "Perfil":
+        RotaTela = '/EditProfilePage';
+        break;
+      case "Perfil Médico":
+        RotaTela = '/EditProfilePage';
+        break;
+      case "Identificar Paciente":
+        RotaTela = '/IdentificarPacientePage';
+        break;
+      case "Relatórios":
+        RotaTela = '/RelatorioPage';
+        break;
+      case "Contatos":
+        RotaTela = '/ContatosPage';
+        break;
+      case "Identificação":
+        RotaTela = '/IdentificacaoPage';
+        break;
+      case "Configuração":
+        RotaTela = '/ConfiguracaoPage';
+        break;
+      case "Pedir Socorro":
+        RotaTela = launchUrl(Uri(scheme: 'tel',path: '192')) as String;
+        break;
+    }
+
+    return RotaTela;
   }
 
   Widget buildTextField(String labelText, String placeholder, bool isEnabled) {

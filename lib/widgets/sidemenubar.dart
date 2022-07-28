@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gaad_mobile/pages/CategoryListPage.dart';
+import 'package:gaad_mobile/pages/CategoryListPageMedico.dart';
 
 import '../pages/loginpage.dart';
 
@@ -14,7 +16,33 @@ class SideMenuBar extends StatelessWidget {
           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context, false);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CategoryListPage(),
+                    ),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.person, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
+                    SizedBox(width: 10),
+                    Text("Menu Paciente",
+                        style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 20))
+                  ],
+                )),
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context, false);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CategoryListPageMedico(),
+                    ),
+                  );
+                },
                 child: Row(
                   children: [
                     Icon(Icons.medical_services, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
@@ -25,6 +53,7 @@ class SideMenuBar extends StatelessWidget {
                 )),
             TextButton(
                 onPressed: () {
+                  Navigator.pop(context, false);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

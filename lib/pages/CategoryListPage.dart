@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 class CategoryListPage extends StatelessWidget {
 
   List<Category> categories = Utils.getMockedCategories();
+  Utils util = new Utils();
 
   @override
   Widget build(BuildContext context){
@@ -38,40 +39,28 @@ class CategoryListPage extends StatelessWidget {
         child: Stack(
           children: [
           Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            /*Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 20),
-              child: Text(
-                "Olá, bem vindo, Selecione uma opção do Menu:",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color.fromRGBO(35, 100, 128, 1),
-                ),
-              ),
-            )*/
-            /*Expanded(
-                  child: ListView.builder(
-                    padding: EdgeInsets.only(bottom: 120),
-                    itemCount: categories.length,
-                    itemBuilder: (BuildContext ctx, int index) {*/
             Expanded(
-              child: GridView.count(
-                //padding: EdgeInsets.only(bottom: 2),
-                crossAxisCount: 2,
-                children: List.generate(
-                    this.categories.length, (index) {
-                  return CategoryCard(
-                    category: categories[index],
-                    onCardClick: () {
-                      var subCat = this.categories[index];
-                      catSelection.selectedCategory = this.categories[index];
-                      var RotaTela = ControleTela(subCat.name);
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.count(
+                  //padding: EdgeInsets.only(bottom: 2),
+                  crossAxisCount: 2,
+                  children: List.generate(
+                      this.categories.length, (index) {
+                    return CategoryCard(
+                      category: categories[index],
+                      onCardClick: () {
+                        var subCat = this.categories[index];
+                        catSelection.selectedCategory = this.categories[index];
+                        var RotaTela = util.ControleTela(subCat.name);
 
-                      Navigator.of(context).pushNamed(RotaTela);
-                    },
-                  );
-                }),
+                        Navigator.of(context).pushNamed(RotaTela);
+                      },
+                    );
+                  }),
+                ),
               ),
             ),
             /*Positioned(
@@ -87,29 +76,4 @@ class CategoryListPage extends StatelessWidget {
     );
   }
 
-  String ControleTela(var SubCategoriaSelecionada) {
-    var RotaTela = '/welcomepage';
-    switch (SubCategoriaSelecionada) {
-      case "Perfil":
-        RotaTela = '/EditProfilePage';
-        break;
-      case "Relatórios":
-        RotaTela = '/RelatorioPage';
-        break;
-      case "Contatos":
-        RotaTela = '/ContatosPage';
-        break;
-      case "Identificação":
-        RotaTela = '/IdentificacaoPage';
-        break;
-      case "Configuração":
-        RotaTela = '/ConfiguracaoPage';
-        break;
-      case "Pedir Socorro":
-        RotaTela = launchUrl(Uri(scheme: 'tel',path: '192')) as String;
-        break;
-    }
-
-    return RotaTela;
-  }
 }
