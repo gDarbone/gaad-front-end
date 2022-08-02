@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 
+import 'CategoryListPageMedico.dart';
 import 'RecoveryPassword.dart';
 
 class loginpage extends StatelessWidget {
@@ -21,11 +22,12 @@ class loginpage extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
+
             TextFormField(
               //autofocus: true,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                labelText: "E-mail",
+                labelText: "E-mail ou CRM",
                 labelStyle: TextStyle(
                   color: Color.fromRGBO(35, 100, 128, 1),
                   fontWeight: FontWeight.w400,
@@ -101,6 +103,41 @@ class loginpage extends StatelessWidget {
                       color: Colors.transparent,
                       border: Border.all(color: Color.fromRGBO(35, 100, 128, 1), width: 2)),
                 ),
+
+
+              ),
+            ),
+            SizedBox(height: 20,),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                splashColor:
+                Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
+                highlightColor:
+                Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CategoryListPageMedico(),
+                    ),
+                  );
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 50.0),
+                  child: Text(
+                    'Entrar CRM',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, color: Color.fromRGBO(35, 100, 128, 1), fontWeight: FontWeight.bold),
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.transparent,
+                      border: Border.all(color: Color.fromRGBO(35, 100, 128, 1), width: 2)),
+                ),
+
+
               ),
             ),
           ],
