@@ -47,73 +47,23 @@ class IdentificarPacientePage extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(25),
-                      child: Column(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CategoryListPageMedico(),
-                                  ));
-                            },
-                            child: Row(
-                              children: [
-                                Icon(Icons.numbers,
-                                    color: Colors.white, size: 20),
-                                SizedBox(width: 10),
-                                Text("Token",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20))
-                              ],
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CategoryListPageMedico(),
-                                  ));
-                            },
-                            child: Row(
-                              children: [
-                                Icon(Icons.perm_identity, color: Colors.white, size: 20),
-                                SizedBox(width: 10),
-                                Text("CPF",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20))
-                              ],
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CategoryListPageMedico(),
-                                  ));
-                            },
-                            child: Row(
-                              children: [
-                                Icon(Icons.face_unlock_outlined, color: Colors.white, size: 20),
-                                SizedBox(width: 10),
-                                Text("Reconhecimento Facial",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20))
-                              ],
-                            ),
-                          ),
-
-                        ],
-                      ),
-                    )),
+                Container(
+                  child: DropdownButton<String>(
+                    focusColor: Colors.white,
+                    items: <String>[
+                      'Nome Completo',
+                      'Token',
+                      'CPF',
+                      'Reconhecimento Facial'
+                    ].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (_) {},
+                  ),
+                ),
               ],
             )));
   }
