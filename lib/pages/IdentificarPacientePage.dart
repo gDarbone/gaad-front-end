@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/models/category.dart';
 import 'package:gaad_mobile/pages/CategoryListPageMedico.dart';
 import 'package:gaad_mobile/pages/RelatorioAddComplicacoes.dart';
+import 'package:gaad_mobile/pages/loginpage.dart';
 
 import '../helpers/utils.dart';
 import '../widgets/categorycard.dart';
@@ -95,16 +96,75 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
             ),
             Visibility(
                 visible: util.isNameSelected(_value),
-                child: Text('teste Nome Completo')),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                      ),
+                      padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+                      width: 350,
+                      child: util.buildTextField(
+                          "Digite o Nome Completo:", "Adryen Simoes", true)),
+                )),
             Visibility(
                 visible: util.isTknSelected(_value),
-                child: Text('teste Token')),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                      ),
+                      padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+                      width: 250,
+                      child: util.buildTextField(
+                          "Digite o Token:", "#@3o092AA", true)),
+                )),
             Visibility(
                 visible: util.isCPFSelected(_value),
-                child: Text('teste CPF')),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                      ),
+                      padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+                      width: 250,
+                      child: util.buildTextField(
+                          "Digite o CPF:", "123.345.678-90", true)),
+                )),
             Visibility(
                 visible: util.isFaceSelected(_value),
-                child: Text('teste Reconhecimento Facial'))
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                      ),
+                      width: 250,
+                      child: TextButton(
+                          onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => loginpage(),
+                                ),
+                              ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.face_unlock_outlined, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
+                                SizedBox(width: 10),
+                                Text("Abrir Câmera",
+                                    style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 15))
+                              ],
+                            ),
+                          ))),
+                )),
           ],
         ),
       ),
