@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -7,10 +8,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../models/category.dart';
 
-class Utils{
-
-  static List<Category> getMockedCategories(){
-    return[
+class Utils {
+  static List<Category> getMockedCategories() {
+    return [
       Category(
         color: Colors.transparent,
         name: "Perfil",
@@ -18,45 +18,41 @@ class Utils{
         icon: IconFontHelper.PERFIL,
       ),
       Category(
-          color: Colors.transparent,
-          name: "Relatórios",
-          imgName: "relatorio1",
-          icon: IconFontHelper.RELATORIO,
+        color: Colors.transparent,
+        name: "Relatórios",
+        imgName: "relatorio1",
+        icon: IconFontHelper.RELATORIO,
       ),
       Category(
-          color: Colors.transparent,
-          name: "Contatos",
-          imgName: "contatos1",
-          icon: IconFontHelper.CONTATO,
-
+        color: Colors.transparent,
+        name: "Contatos",
+        imgName: "contatos1",
+        icon: IconFontHelper.CONTATO,
       ),
       Category(
-          color: Colors.transparent,
-          name: "Identificação",
-          imgName: "identificacao1",
-          icon: IconFontHelper.IDENTIFICACAO,
-
+        color: Colors.transparent,
+        name: "Identificação",
+        imgName: "identificacao1",
+        icon: IconFontHelper.IDENTIFICACAO,
       ),
       Category(
-          color: Colors.transparent,
-          name: "Configuração",
-          imgName: "configuracao1",
-          icon: IconFontHelper.CONFIGURACAO,
-
+        color: Colors.transparent,
+        name: "Configuração",
+        imgName: "configuracao1",
+        icon: IconFontHelper.CONFIGURACAO,
       ),
       Category(
-          color: Colors.transparent,
-          //color: Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-          name: "Pedir Socorro",
-          imgName: "socorro1",
-          icon: IconFontHelper.SOCORRO,
-
+        color: Colors.transparent,
+        //color: Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
+        name: "Pedir Socorro",
+        imgName: "socorro1",
+        icon: IconFontHelper.SOCORRO,
       ),
     ];
   }
 
-  static List<Category> getMedicalMockedCategories(){
-    return[
+  static List<Category> getMedicalMockedCategories() {
+    return [
       Category(
         color: Colors.transparent,
         name: "Perfil Médico",
@@ -68,17 +64,16 @@ class Utils{
         name: "Identificar Paciente",
         imgName: "identificacao1",
         icon: IconFontHelper.PESQUISAR,
-
       ),
       Category(
         color: Colors.transparent,
         name: "Configuração",
         imgName: "configuracao1",
         icon: IconFontHelper.CONFIGURACAO,
-
       ),
     ];
   }
+
   String ControleTela(var SubCategoriaSelecionada) {
     var RotaTela = '/welcomepage';
     switch (SubCategoriaSelecionada) {
@@ -104,11 +99,55 @@ class Utils{
         RotaTela = '/ConfiguracaoPage';
         break;
       case "Pedir Socorro":
-        RotaTela = launchUrl(Uri(scheme: 'tel',path: '192')) as String;
+        RotaTela = launchUrl(Uri(scheme: 'tel', path: '192')) as String;
         break;
     }
 
     return RotaTela;
+  }
+
+  bool isNameSelected(var OpcaoSelecionada) {
+    switch (OpcaoSelecionada) {
+      case "Nome Completo":
+        return true;
+        break;
+      default:
+        return false;
+        break;
+    }
+  }
+
+  bool isTknSelected(var OpcaoSelecionada) {
+    switch (OpcaoSelecionada) {
+      case "Token":
+        return true;
+        break;
+      default:
+        return false;
+        break;
+    }
+  }
+
+  bool isCPFSelected(var OpcaoSelecionada) {
+    switch (OpcaoSelecionada) {
+      case "CPF":
+        return true;
+        break;
+      default:
+        return false;
+        break;
+    }
+  }
+
+  bool isFaceSelected(var OpcaoSelecionada) {
+    switch (OpcaoSelecionada) {
+      case "Reconhecimento Facial":
+        return true;
+        break;
+      default:
+        return false;
+        break;
+    }
   }
 
   Widget buildTextField(String labelText, String placeholder, bool isEnabled) {

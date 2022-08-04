@@ -21,6 +21,7 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
   List<Category> categories = Utils.getMockedCategories();
   var _value = "Token";
   final items = ['Nome Completo', 'Token', 'CPF', 'Reconhecimento Facial'];
+  Utils util = new Utils();
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +94,17 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
               ),
             ),
             Visibility(
-                visible: true,
-                child: Text('teste'))
+                visible: util.isNameSelected(_value),
+                child: Text('teste Nome Completo')),
+            Visibility(
+                visible: util.isTknSelected(_value),
+                child: Text('teste Token')),
+            Visibility(
+                visible: util.isCPFSelected(_value),
+                child: Text('teste CPF')),
+            Visibility(
+                visible: util.isFaceSelected(_value),
+                child: Text('teste Reconhecimento Facial'))
           ],
         ),
       ),
