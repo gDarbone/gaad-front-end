@@ -28,6 +28,7 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Identificar Paciente'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
