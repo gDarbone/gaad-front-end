@@ -13,6 +13,7 @@ import '../widgets/mainappbar.dart';
 import '../widgets/sidemenubar.dart';
 import 'RelatorioEditComplicacoes.dart';
 import 'RelatorioViewComplicacoes.dart';
+import 'ResultadosIdentificaPaciente.dart';
 
 class IdentificarPacientePage extends StatefulWidget {
   State createState() => new _IdentificarPacientePage();
@@ -124,6 +125,7 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                 )),
             Visibility(
                 visible: util.isCPFSelected(_value),
+
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
@@ -160,6 +162,35 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                                 Icon(Icons.face_unlock_outlined, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
                                 SizedBox(width: 10),
                                 Text("Abrir Câmera",
+                                    style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 15))
+                              ],
+                            ),
+                          ))),
+                )),
+            Visibility(
+                visible: !util.isFaceSelected(_value),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                      ),
+                      width: 250,
+                      child: TextButton(
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResultadoIdentificaPaciente(),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.search, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
+                                SizedBox(width: 10),
+                                Text("Buscar Paciente",
                                     style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 15))
                               ],
                             ),
