@@ -22,7 +22,7 @@ class IdentificarPacientePage extends StatefulWidget {
 class _IdentificarPacientePage extends State<IdentificarPacientePage> {
   List<Category> categories = Utils.getMockedCategories();
   var _value = "Token";
-  final items = ['Nome Completo', 'Token', 'CPF', 'Reconhecimento Facial'];
+  final items = ['Nome Completo', 'Token', 'CPF', 'Placa do Veiculo'];
   Utils util = new Utils();
 
   @override
@@ -68,31 +68,34 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20)),
-                child: new DropdownButton(
-                  dropdownColor: Colors.white,
-                  style: TextStyle(
-                    color: Color.fromRGBO(35, 100, 128, 1),
-                    backgroundColor: Colors.white,
+                child: Center(
+                  child: new DropdownButton(
+                    dropdownColor: Colors.white,
+                    style: TextStyle(
+                      color: Color.fromRGBO(35, 100, 128, 1),
+                      backgroundColor: Colors.white,
+                    ),
+                    value: _value,
+                    items: items
+                        .map<DropdownMenuItem<String>>(
+                            (String value) => DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                ))
+                        .toList(),
+                    icon: Icon(Icons.arrow_drop_down,
+                        color: Color.fromRGBO(35, 100, 128, 1)),
+                    iconSize: 30,
+                    underline: SizedBox(
+                    ),
+                    onChanged: (String? value) {
+                      setState(
+                        () {
+                          _value = value!;
+                        },
+                      );
+                    },
                   ),
-                  value: _value,
-                  items: items
-                      .map<DropdownMenuItem<String>>(
-                          (String value) => DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              ))
-                      .toList(),
-                  icon: Icon(Icons.arrow_drop_down,
-                      color: Color.fromRGBO(35, 100, 128, 1)),
-                  iconSize: 30,
-                  underline: SizedBox(),
-                  onChanged: (String? value) {
-                    setState(
-                      () {
-                        _value = value!;
-                      },
-                    );
-                  },
                 ),
               ),
             ),
@@ -126,7 +129,6 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                 )),
             Visibility(
                 visible: util.isCPFSelected(_value),
-
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
@@ -140,7 +142,7 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                           "Digite o CPF:", "123.345.678-90", true)),
                 )),
             Visibility(
-                visible: util.isFaceSelected(_value),
+                visible: util.isPlacaSelected(_value),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
@@ -148,28 +150,12 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         color: Colors.white,
                       ),
+                      padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                       width: 250,
-                      child: TextButton(
-                          onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => loginpage(),
-                                ),
-                              ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Row(
-                              children: [
-                                Icon(Icons.face_unlock_outlined, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
-                                SizedBox(width: 10),
-                                Text("Abrir Câmera",
-                                    style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 15))
-                              ],
-                            ),
-                          ))),
+                      child: util.buildTextField(
+                          "Digite a Placa do Veiculo:", "HGT5454", true)),
                 )),
             Visibility(
-                visible: !util.isFaceSelected(_value),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Container(

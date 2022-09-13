@@ -10,7 +10,7 @@ import '../widgets/categorycard.dart';
 import '../widgets/categoryicon.dart';
 import '../widgets/mainappbar.dart';
 import '../widgets/sidemenubar.dart';
-import 'IdentificacaoFacialPage.dart';
+import 'VeiculosPage.dart';
 import 'RelatorioViewComplicacoes.dart';
 
 class IdentificacaoPage extends StatelessWidget {
@@ -103,14 +103,14 @@ class IdentificacaoPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => IdentificacaoFacialPage(),
+                                    builder: (context) => VeiculosPage(),
                                   ));
                             },
                             child: Row(
                               children: [
-                                Icon(Icons.face_unlock_outlined, color: Colors.white, size: 20),
+                                Icon(Icons.motorcycle, color: Colors.white, size: 20),
                                 SizedBox(width: 10),
-                                Text("Facial",
+                                Text("Meus Veiculos",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 20))

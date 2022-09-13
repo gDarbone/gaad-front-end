@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:gaad_mobile/pages/EditProfilePage.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:gaad_mobile/pages/IdentificacaoPage.dart';
+import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
+import 'package:gaad_mobile/widgets/RelatorioBar.dart';
+import 'package:gaad_mobile/widgets/mainappbar.dart';
 
-import '../widgets/AddContact.dart';
-import '../widgets/EditContact.dart';
-import '../widgets/mainappbar.dart';
+import '../widgets/AddVeiculo.dart';
+import '../widgets/EditVeiculo.dart';
+import '../widgets/TokenCpfCard.dart';
 import '../widgets/sidemenubar.dart';
-import 'PerfilPage.dart';
-import 'RelatorioViewComplicacoes.dart';
+import 'CategoryListPage.dart';
+import 'RelatorioPage.dart';
 
-class ResultadoIdentificaPaciente extends StatelessWidget {
-  String numero1 = '123123123';
-  String numero2 = '789789789';
+class VeiculosPage extends StatelessWidget {
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ResultadoIdentificaPaciente extends StatelessWidget {
 
       body: Scaffold(
         appBar: AppBar(
-          title: Text('Resultados da Busca'),
+          title: Text('Meus Veiculos'),
           backgroundColor: Color.fromRGBO(35, 100, 128, 1),
         ),
 
@@ -29,10 +30,9 @@ class ResultadoIdentificaPaciente extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                 top: 20,
-                bottom: 20,
               ),
               child: Text(
-                "Selecione um Perfil e Visualize o Relatório Medico",
+                "Edite ou visualize seus Veiculos",
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1)),
               ),
@@ -40,38 +40,24 @@ class ResultadoIdentificaPaciente extends StatelessWidget {
             Row(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top:10, left: 10, right: 0),
+                  padding: const EdgeInsets.only(top:20, left: 10, right: 0),
                   child: Text(
-                    'Adryen Simões',
+                    'Honda CG 160',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 130, right: 0),
+                  padding: const EdgeInsets.only(left: 200, right: 0),
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RelatorioViewComplicacoes(),
+                          builder: (context) => EditVeiculo(),
                         ),
                       );
                     },
-                    child: Icon(Icons.medical_information),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 2, right: 0),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PerfilPage(),
-                        ),
-                      );
-                    },
-                    child: Icon(Icons.person),
+                    child: Icon(Icons.edit),
                   ),
                 ),
               ],
@@ -79,43 +65,29 @@ class ResultadoIdentificaPaciente extends StatelessWidget {
             Row(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top:10, left: 10, right: 0),
+                  padding: const EdgeInsets.only(left: 10, right: 0),
                   child: Text(
-                    'Gabriel Darbone',
+                    'Yahama Fazer FZ25',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 120, right: 0),
+                  padding: const EdgeInsets.only(left: 150, right: 0),
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RelatorioViewComplicacoes(),
+                          builder: (context) => EditVeiculo(),
                         ),
                       );
                     },
-                    child: Icon(Icons.medical_information),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 2, right: 0),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PerfilPage(),
-                        ),
-                      );
-                    },
-                    child: Icon(Icons.person),
+                    child: Icon(Icons.edit),
                   ),
                 ),
               ],
             ),
-            /*Material(
+            Material(
               child: InkWell(
                 splashColor: Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
                 highlightColor:
@@ -124,7 +96,7 @@ class ResultadoIdentificaPaciente extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AddContact(),
+                      builder: (context) => AddVeiculo(),
                     ),
                   );
                 },
@@ -146,7 +118,7 @@ class ResultadoIdentificaPaciente extends StatelessWidget {
                   ),
                 ),
               ),
-            ),*/
+            ),
           ],
         ),
       ),

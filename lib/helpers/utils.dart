@@ -139,9 +139,9 @@ class Utils {
     }
   }
 
-  bool isFaceSelected(var OpcaoSelecionada) {
+  bool isPlacaSelected(var OpcaoSelecionada) {
     switch (OpcaoSelecionada) {
-      case "Reconhecimento Facial":
+      case "Placa do Veiculo":
         return true;
         break;
       default:
