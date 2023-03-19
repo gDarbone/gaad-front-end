@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/AboutPage.dart';
 import 'package:gaad_mobile/pages/DeleteAccount.dart';
-import 'package:gaad_mobile/pages/PermissionPage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../helpers/utils.dart';
@@ -74,24 +73,6 @@ class ConfiguracaoPage extends StatelessWidget {
                       Icon(Icons.info, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
                       SizedBox(width: 10),
                       Text("Sobre",
-                          style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 20))
-                    ],
-                  )),
-
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PermissionPage(),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      Icon(Icons.perm_device_info, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
-                      SizedBox(width: 10),
-                      Text("Permissões do Aplicativo",
                           style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 20))
                     ],
                   )),

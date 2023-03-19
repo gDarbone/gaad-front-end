@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gaad_mobile/pages/ContatosPage.dart';
 import 'package:gaad_mobile/pages/EditProfilePage.dart';
+import 'package:gaad_mobile/pages/VeiculosPage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/AddContact.dart';
@@ -8,6 +10,8 @@ import '../widgets/mainappbar.dart';
 import '../widgets/sidemenubar.dart';
 import 'PerfilPage.dart';
 import 'RelatorioViewComplicacoes.dart';
+import 'RelatorioViewContatosEmergencia.dart';
+import 'RelatorioViewVeiculos.dart';
 
 class ResultadoIdentificaPaciente extends StatelessWidget {
   String numero1 = '123123123';
@@ -43,11 +47,11 @@ class ResultadoIdentificaPaciente extends StatelessWidget {
                   padding: const EdgeInsets.only(top:10, left: 10, right: 0),
                   child: Text(
                     'Adryen Simões',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 15),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 130, right: 0),
+                  padding: const EdgeInsets.only(left: 1, right: 0),
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -61,46 +65,35 @@ class ResultadoIdentificaPaciente extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 2, right: 0),
+                  padding: const EdgeInsets.only(left: 5, right: 0),
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PerfilPage(),
+                          builder: (context) => RelatorioViewVeiculos(),
                         ),
                       );
                     },
-                    child: Icon(Icons.person),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top:10, left: 10, right: 0),
-                  child: Text(
-                    'Gabriel Darbone',
-                    style: TextStyle(fontSize: 20),
+                    child: Icon(Icons.motorcycle),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 120, right: 0),
+                  padding: const EdgeInsets.only(left: 5, right: 0),
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RelatorioViewComplicacoes(),
+                          builder: (context) => RelatorioViewContatosEmergencia(),
                         ),
                       );
                     },
-                    child: Icon(Icons.medical_information),
+                    child: Icon(Icons.emergency),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 2, right: 0),
+                  padding: const EdgeInsets.only(left: 4, right: 0),
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(

@@ -56,7 +56,7 @@ class loginpage extends StatelessWidget {
             Container(
               height: 40,
               alignment: Alignment.centerRight,
-              child: FlatButton(
+              child: TextButton(
                 child: Text(
                   "Recuperar Senha",
                   textAlign: TextAlign.right,
