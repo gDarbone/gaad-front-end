@@ -1,16 +1,16 @@
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
-import 'package:helpers/constants.dart';
-import 'package:models/user_personal_data_model.dart';
+import 'package:gaad_mobile/helpers/constants.dart';
+import 'package:gaad_mobile/models/user_personal_data_model.dart';
 
 class ApiService {
-  Future<List<UserModel>?> getUsers() async {
+  Future<List<UserPersonalDataModel>?> getPersonalData() async {
     try {
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.usersEndpoint);
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        List<UserModel> _model = UserPersonalDataFromJson(response.body);
+        List<UserPersonalDataModel> _model = userPersonalDataModelFromJson(response.body);
         return _model;
       }
     } catch (e) {

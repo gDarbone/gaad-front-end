@@ -1,9 +1,11 @@
 
 import 'dart:convert';
 
-UserPersonalDataModel UserPersonalDataModelFromJson(String str) => UserPersonalDataModel.fromJson(json.decode(str));
+//UserPersonalDataModel UserPersonalDataModelFromJson(String str) => UserPersonalDataModel.fromJson(json.decode(str));
 
-String UserPersonalDataModelToJson(UserPersonalDataModel data) => json.encode(data.toJson());
+List<UserPersonalDataModel> userPersonalDataModelFromJson(String str) =>     List<UserPersonalDataModel>.from(json.decode(str).map((x) => UserPersonalDataModel.fromJson(x)));
+
+String userPersonalDataModelToJson(UserPersonalDataModel data) => json.encode(data.toJson());
 
 class UserPersonalDataModel {
   UserPersonalDataModel({

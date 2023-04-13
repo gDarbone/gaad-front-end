@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 
+import '../models/user_personal_data_model.dart';
+import '../services/api_service.dart';
 import '../widgets/mainappbar.dart';
 import '../widgets/sidemenubar.dart';
 
@@ -19,10 +21,20 @@ class SettingsUI extends StatelessWidget {
 class PerfilPage extends StatefulWidget {
   @override
   _PerfilPageState createState() => _PerfilPageState();
+
 }
+
 
 class _PerfilPageState extends State<PerfilPage> {
   bool showPassword = false;
+
+  // API - TESTE
+  late List<UserPersonalDataModel>? _userPersonalDataModel = [];
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -226,4 +238,12 @@ class _PerfilPageState extends State<PerfilPage> {
       ),
     );
   }
+
+  // API TESTE
+  void _getData() async {
+    _userPersonalDataModel = (await ApiService().getPersonalData())!;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+  }
 }
+
+
