@@ -37,8 +37,8 @@ class _RelatorioComplicacoesCard extends State<RelatorioComplicacoesCard> {
                 height: 30,
               ),
               util.buildTextField("Nome", "Inflamação no Pescoço", false),
-              util.buildTextField("Categoria:", "Cancer", false),
-              util.buildTextField("Observação/Descrição:", "Apenas 6 meses de vida", false),
+              util.buildTextField("Categoria:", "Não infecciosa", false),
+              util.buildTextField("Observação/Descrição:", "Realizando acompanhamento médico", false),
               SizedBox(
                 height: 15,
               ),

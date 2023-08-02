@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioBar.dart';
@@ -5,15 +7,76 @@ import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioRemediosCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioVacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
-
+import 'package:http/http.dart' as http;
 import '../widgets/RelatorioViewBar.dart';
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
 import 'RelatorioPage.dart';
+import 'RelatorioViewComplicacoes.dart';
+import 'RelatorioViewRemedios.dart';
+import 'RelatorioViewVacinas.dart';
 
-class RelatorioViewComplicacoes extends StatelessWidget {
+class RelatorioViewComplicacoes extends StatefulWidget {
 
+  const RelatorioViewComplicacoes({super.key});
+
+  @override
+  State<RelatorioViewComplicacoes> createState() => _RelatorioViewComplicacoes();
+}
+
+
+class _RelatorioViewComplicacoes extends State<RelatorioViewComplicacoes> {
+  bool isLoading = true;
   Widget typeCard = ComplicacoesCard();
+  List items = [];
+
+
+  void initState(){
+    fetchTodo();
+    super.initState();
+  }
+
+  void navigateToRelatorioComplicacoes(){
+    final route = MaterialPageRoute(
+      builder: (context) => RelatorioViewComplicacoes(),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+  void navigateToRelatorioViewVacinas(){
+    final route = MaterialPageRoute(
+      builder: (context) => RelatorioViewVacinas(),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+  void navigateToRelatorioViewRemedios(){
+    final route = MaterialPageRoute(
+      builder: (context) => RelatorioViewRemedios(),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+
+  Future<void> fetchTodo() async {
+    setState(() {
+      isLoading = true;
+    });
+    final url =  'http://api.nstack.in/v1/todos?page=1&limit=10';
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
+    if (response.statusCode == 200){
+      final json = jsonDecode(response.body) as Map;
+      final result = json['items'] as List;
+      setState(() {
+        items = result;
+      });
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,89 +85,28 @@ class RelatorioViewComplicacoes extends StatelessWidget {
         title: Text('Visualizar Complicações'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        /*decoration: BoxDecoration(
-            color: Colors.white
-        ),*/
-
-        //crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-
-          Expanded(
-            child: ListView.builder(
-              itemCount: 1,
-              itemBuilder: (BuildContext ctx, int index) {
-                return Container(
-                  //padding: EdgeInsets.only(top: 5, left: 5, right: 5),
-                  height: 500,
-                  color: Colors.white,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: Padding(
-                          padding:
-                          EdgeInsets.only(top: 5, left: 5, right: 5),
-
-                          child: RelatorioComplicacoesCard(
-                            //onCardClick: () {},
-                          ),
-
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25),
-            child: Container(
-              color: Colors.white,
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Material(
-
-                    color: Colors.transparent,
-                    child: InkWell(
-                      splashColor:
-                      Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      highlightColor:
-                      Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      onTap: () => Navigator.pop(context, false),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 57.0),
-                        child: Text(
-                          'Voltar',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(35, 100, 128, 1),
-                              fontWeight: FontWeight.bold),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.transparent,
-                            border: Border.all(
-                                color: Color.fromRGBO(35, 100, 128, 1),
-                                width: 2)),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-              height: 80,
-              child: RelatorioViewBar()
-          ),
-
-        ],
+      body: Visibility (
+        visible: isLoading,
+        child: Center(child: CircularProgressIndicator(),),
+      replacement: RefreshIndicator(
+        onRefresh: fetchTodo,
+        child: ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              final item = items[index] as Map;
+              return ListTile(
+                leading: CircleAvatar(child: Text('${index + 1}')),
+                title: Text(item['title']),
+                subtitle: Text(item['description']),
+                textColor: Colors.black,
+              );
+            }
+        ),
+      ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: navigateToRelatorioViewVacinas,
+        label: Text('Vacinas'),
       ),
     );
   }

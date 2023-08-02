@@ -1,6 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/CategoryListPageMedico.dart';
+import 'package:gaad_mobile/pages/welcomepage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../pages/loginpage.dart';
 
@@ -52,14 +56,16 @@ class SideMenuBar extends StatelessWidget {
                   ],
                 )),
             TextButton(
-                onPressed: () {
-                  Navigator.pop(context, false);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => loginpage(),
-                    ),
-                  );
+                onPressed: () async {
+                  bool deslogado = await sair();
+                  if (deslogado){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WelcomePage(),
+                      ),
+                    );
+                  }
                 },
                 child: Row(
                   children: [
@@ -74,5 +80,11 @@ class SideMenuBar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<bool> sair() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.clear();
+    return true;
   }
 }

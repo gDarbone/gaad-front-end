@@ -150,6 +150,14 @@ class Utils {
     }
   }
 
+  bool validarCRM(var CRM) {
+    if (true){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Widget buildTextField(String labelText, String placeholder, bool isEnabled) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),

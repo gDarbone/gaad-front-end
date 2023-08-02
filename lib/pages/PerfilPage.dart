@@ -79,7 +79,7 @@ class _PerfilPageState extends State<PerfilPage> {
                           image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
+                                "https://api.unrealperson.com/image?name=image.3033.2505690.jpg&type=tpdne",
                               ))),
                     ),
                     Positioned(
@@ -107,14 +107,15 @@ class _PerfilPageState extends State<PerfilPage> {
               SizedBox(
                 height: 30,
               ),
-              buildTextField("Nome", "Gabriel Darbone", false, false),
+              buildTextField("Nome", "Adryen Simões", false, false),
               buildTextField("Data de Nascimento", "13/08/1996", false, false),
               buildTextField("Gênero", "Masculino", false, false),
-              buildTextField("Email", "teste@teste.com", false, true),
-              buildTextField("Endereço", "Rua xxxxxxxxxx", false, true),
-              buildTextField("Número", "1234", false, true),
-              buildTextField("Bairro", "Bairro x", false, true),
-              buildTextField("Telefone", "1199999999", false, true),
+              buildTextField("Email", "adryen06@gaad.com", false, true),
+              buildTextField("Endereço", "Rua Osvaldo Cruz", false, true),
+              buildTextField("Número", "24", false, true),
+              buildTextField("Bairro", "Bairro das Flores", false, true),
+              buildTextField("Telefone", "11970707070", false, true),
+              buildTextField("Tipo Sanguíneo", "A+", false, true),
               SizedBox(
                 height: 15,
               ),
@@ -149,7 +150,7 @@ class _PerfilPageState extends State<PerfilPage> {
                       ),
                     ),
                   ),
-                  Material(
+                  /*Material(
                     color: Colors.transparent,
                     child: InkWell(
                       splashColor:
@@ -194,7 +195,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                 width: 2)),
                       ),
                     ),
-                  ),
+                  ),*/
                 ],
               ),
               SizedBox(height: 30)

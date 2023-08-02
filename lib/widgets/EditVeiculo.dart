@@ -117,7 +117,7 @@ class EditVeiculo extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 40.0),
                       child: Text(
-                        'Salvar',
+                        'Ok',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 16,

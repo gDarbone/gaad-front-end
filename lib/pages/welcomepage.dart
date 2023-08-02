@@ -1,11 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/loginpage.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'CadastroPageOne.dart';
+import 'CategoryListPageMedico.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
+
+  @override
+  _WelcomePage createState() => _WelcomePage();
+}
+
+
+class _WelcomePage extends State<WelcomePage> {
+
+  @override
+  void initState() {
+    super.initState();
+    verificarToken().then((value) {
+      if(value){
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CategoryListPageMedico(),
+            ),
+          );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => loginpage(),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+    /*return Scaffold(
         body: Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -112,6 +150,15 @@ class WelcomePage extends StatelessWidget {
           ),
         ],
       ),
-    ));
+    ));*/
+  }
+
+  Future<bool> verificarToken() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString('token') ==null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

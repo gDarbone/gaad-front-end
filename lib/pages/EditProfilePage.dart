@@ -4,6 +4,7 @@ import 'package:gaad_mobile/pages/welcomepage.dart';
 
 import '../widgets/mainappbar.dart';
 import '../widgets/sidemenubar.dart';
+import 'CadastroPageOne.dart';
 
 class SettingsUI extends StatelessWidget {
   @override
@@ -27,6 +28,164 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+        title: Text('Meu Perfil'),
+        backgroundColor: Color.fromRGBO(35, 100, 128, 1),
+        ),
+        body: ListView(
+          padding: EdgeInsets.all(20),
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Digite seu Nome',
+                labelText: 'Nome: ',
+              ),
+
+            ),
+            TextField(
+              decoration: InputDecoration(
+                  hintText: 'Digite sua Data de Nascimento',
+                  labelText: 'Data de Nascimento:',
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                  hintText: 'Seu Gênero',
+                  labelText: 'Gênero:',
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Tipo Sanguíneo: ',
+                labelText: 'Tipo Sanguíneo:',
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                  hintText: 'Digite seu E-mail',
+                labelText: 'E-mail:',
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                  hintText: 'Digite sua Senha',
+                labelText: 'Senha:',
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                  hintText: 'Digite seu Endereço',
+                labelText: 'Endereço:',
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Digite seu Número de Residência',
+                labelText: 'Número:',
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Digite seu Bairro: ',
+                labelText: 'Bairro:',
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Digite seu Telefone: ',
+                labelText: 'Telefone:',
+              ),
+            ),
+
+            // TESTE API, REMOVER
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Digite seu Titulo: ',
+                labelText: 'Title:',
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Digite sua Descrição: ',
+                labelText: 'Description:',
+              ),
+              minLines: 5,
+              maxLines: 8,
+              keyboardType: TextInputType.multiline,
+            ),
+
+            ElevatedButton(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CadastroPageOne(),
+                  ),
+                );
+              },
+
+              style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(35, 100, 128, 1)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Color.fromRGBO(35, 100, 128, 1))
+                      )
+                  )
+              ),
+              child: Text("Salvar"),),
+
+            ElevatedButton(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CadastroPageOne(),
+                  ),
+                );
+              },
+
+              style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(35, 100, 128, 1)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Color.fromRGBO(35, 100, 128, 1))
+                      )
+                  )
+              ),
+              child: Text("Voltar"),),
+
+
+          ],
+        )
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*return Scaffold(
       appBar: AppBar(
         title: Text('Meu Perfil'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
@@ -226,5 +385,5 @@ class _EditProfilePageState extends State<EditProfilePage> {
             )),
       ),
     );
-  }
+  }*/
 }

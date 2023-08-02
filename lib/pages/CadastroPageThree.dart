@@ -155,18 +155,45 @@ class CadastroPageThree extends StatelessWidget {
                     highlightColor:
                     Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
                     onTap: () {
+                      if (2 == 1) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => CategoryListPage(),
                         ),
                       );
+                      } else {
+                        Widget cadastroButton = TextButton(
+                          child: Text("Entendido"),
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CadastroPageThree(),
+                            ),
+                          ),
+                        );
+                        AlertDialog alert = AlertDialog(
+                          title: Text("CRM Inválido."),
+                          content: Text(
+                              "O CRM Digitado está incorreto ou Inválido. Por favor Verifique o Campo."),
+                          actions: [
+                            cadastroButton,
+                          ],
+                        );
+    showDialog(
+    context: context,
+    builder: (BuildContext context) {
+    return alert;
+    },
+    );
+                      }
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 50.0),
+                          vertical: 10.0, horizontal: 40.0),
                       child: Text(
-                        'Avançar',
+                        'Cadastrar',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 16,

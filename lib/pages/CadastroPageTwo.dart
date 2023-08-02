@@ -62,7 +62,7 @@ class CadastroPageTwo extends StatelessWidget {
             new Padding(padding: EdgeInsets.only(top: 10.0)),
             new TextFormField(
               decoration: new InputDecoration(
-                labelText: "CRM",
+                labelText: "* CRM",
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                   borderRadius: new BorderRadius.circular(30.0),

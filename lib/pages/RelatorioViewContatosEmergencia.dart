@@ -38,12 +38,12 @@ class RelatorioViewContatosEmergencia extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top:20, left: 10, right: 0),
                   child: Text(
-                    'Adryen Simões',
+                    'Gabriel Darbone',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 200, right: 0),
+                  padding: const EdgeInsets.only(left: 167, right: 0),
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -63,7 +63,7 @@ class RelatorioViewContatosEmergencia extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 0),
                   child: Text(
-                    'Adryen Simões',
+                    'Gabriel Silva',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),

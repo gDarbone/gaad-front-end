@@ -36,7 +36,7 @@ class _RelatorioRemediosCard extends State<RelatorioRemediosCard> {
               SizedBox(
                 height: 30,
               ),
-              util.buildTextField("Nome:", "Rivotril", false),
+              util.buildTextField("Nome:", "Zolpidem", false),
               util.buildTextField("Data de Inicio da Dosagem:", "11/09/2000", false),
               util.buildTextField("Categoria:", "Depressão", false),
               util.buildTextField("Observação/Descrição:", "Tomar Diariamente", false),

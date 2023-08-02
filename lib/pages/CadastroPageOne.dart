@@ -29,7 +29,7 @@ class CadastroPageOne extends StatelessWidget {
             new Padding(padding: EdgeInsets.only(top: 0.0)),
             TextFormField(
               decoration: new InputDecoration(
-                labelText: "Nome Completo",
+                labelText: "* Nome Completo",
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                   borderRadius: new BorderRadius.circular(30.0),
@@ -45,7 +45,7 @@ class CadastroPageOne extends StatelessWidget {
             new Padding(padding: EdgeInsets.only(top: 10.0)),
             new TextFormField(
               decoration: new InputDecoration(
-                labelText: "Email",
+                labelText: "* Email",
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                   borderRadius: new BorderRadius.circular(30.0),
@@ -61,7 +61,7 @@ class CadastroPageOne extends StatelessWidget {
             new Padding(padding: EdgeInsets.only(top: 10.0)),
             new TextFormField(
               decoration: new InputDecoration(
-                labelText: "Data de Nascimento",
+                labelText: "* Data de Nascimento",
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                   borderRadius: new BorderRadius.circular(30.0),
@@ -77,7 +77,7 @@ class CadastroPageOne extends StatelessWidget {
             new Padding(padding: EdgeInsets.only(top: 10.0)),
             new TextFormField(
               decoration: new InputDecoration(
-                labelText: "Senha",
+                labelText: "* Senha",
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                   borderRadius: new BorderRadius.circular(30.0),
@@ -93,7 +93,7 @@ class CadastroPageOne extends StatelessWidget {
             new Padding(padding: EdgeInsets.only(top: 10.0)),
             new TextFormField(
               decoration: new InputDecoration(
-                labelText: "Confirmar Senha",
+                labelText: "* Confirmar Senha",
                 fillColor: Colors.blue,
                 border: new OutlineInputBorder(
                   borderRadius: new BorderRadius.circular(30.0),

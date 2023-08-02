@@ -36,7 +36,7 @@ class _EditRemediosCard extends State<EditRemediosCard> {
               SizedBox(
                 height: 30,
               ),
-              util.buildTextField("Nome:", "Rivotril", true),
+              util.buildTextField("Nome:", "Zolpidem", true),
               util.buildTextField("Data de Inicio da Dosagem:", "11/09/2000", true),
               util.buildTextField("Categoria:", "Depressão", true),
               util.buildTextField("Observação/Descrição:", "Tomar Diariamente", true),

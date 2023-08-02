@@ -111,7 +111,7 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                       padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                       width: 350,
                       child: util.buildTextField(
-                          "Digite o Nome Completo:", "Adryen Simoes", true)),
+                          "Digite o Nome Completo:", "", true)),
                 )),
             Visibility(
                 visible: util.isTknSelected(_value),
@@ -125,7 +125,7 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                       padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                       width: 250,
                       child: util.buildTextField(
-                          "Digite o Token:", "#@3o092AA", true)),
+                          "Digite o Token:", "", true)),
                 )),
             Visibility(
                 visible: util.isCPFSelected(_value),
@@ -139,7 +139,7 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                       padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                       width: 250,
                       child: util.buildTextField(
-                          "Digite o CPF:", "123.345.678-90", true)),
+                          "Digite o CPF:", "", true)),
                 )),
             Visibility(
                 visible: util.isPlacaSelected(_value),
@@ -153,7 +153,7 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                       padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                       width: 250,
                       child: util.buildTextField(
-                          "Digite a Placa do Veiculo:", "HGT5454", true)),
+                          "Digite a Placa do Veiculo:", "", true)),
                 )),
             Visibility(
                 child: Padding(

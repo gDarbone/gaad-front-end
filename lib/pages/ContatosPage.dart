@@ -1,122 +1,100 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../widgets/AddContact.dart';
-import '../widgets/EditContact.dart';
-import '../widgets/mainappbar.dart';
+import 'package:gaad_mobile/widgets/AddContact.dart';
+import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
+import 'package:gaad_mobile/widgets/RelatorioBar.dart';
+import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
+import 'package:gaad_mobile/widgets/RelatorioRemediosCard.dart';
+import 'package:gaad_mobile/widgets/RelatorioVacinasCard.dart';
+import 'package:gaad_mobile/widgets/mainappbar.dart';
+import 'package:http/http.dart' as http;
+import '../widgets/RelatorioViewBar.dart';
 import '../widgets/sidemenubar.dart';
+import 'CategoryListPage.dart';
+import 'RelatorioPage.dart';
+import 'RelatorioViewComplicacoes.dart';
+import 'RelatorioViewRemedios.dart';
+import 'RelatorioViewVacinas.dart';
 
-class ContatosPage extends StatelessWidget {
-  String numero1 = '123123123';
-  String numero2 = '789789789';
+class ContatosPage extends StatefulWidget {
+
+  const ContatosPage({super.key});
+
+  @override
+  State<ContatosPage> createState() => _ContatosPage();
+}
+
+
+class _ContatosPage extends State<ContatosPage> {
+  bool isLoading = true;
+  Widget typeCard = ComplicacoesCard();
+  List items = [];
+
+
+  void initState(){
+    fetchTodo();
+    super.initState();
+  }
+
+  void navigateToRelatorioComplicacoes(){
+    final route = MaterialPageRoute(
+      builder: (context) => AddContact(),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+
+
+  Future<void> fetchTodo() async {
+    setState(() {
+      isLoading = true;
+    });
+    final url =  'http://api.nstack.in/v1/todos?page=1&limit=10';
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
+    if (response.statusCode == 200){
+      final json = jsonDecode(response.body) as Map;
+      final result = json['items'] as List;
+      setState(() {
+        items = result;
+      });
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //debugShowCheckedModeBanner: false,
-
-      body: Scaffold(
-        appBar: AppBar(
-          title: Text('Contatos de Emergência'),
-          backgroundColor: Color.fromRGBO(35, 100, 128, 1),
+      appBar: AppBar(
+        title: Text('Contatos de Emergência'),
+        backgroundColor: Color.fromRGBO(35, 100, 128, 1),
+      ),
+      body: Visibility (
+        visible: isLoading,
+        child: Center(child: CircularProgressIndicator(),),
+        replacement: RefreshIndicator(
+          onRefresh: fetchTodo,
+          child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                final item = items[index] as Map;
+                return ListTile(
+                  leading: CircleAvatar(child: Text('${index + 1}')),
+                  title: Text(item['title']),
+                  subtitle: Text(item['description']),
+                  textColor: Colors.black,
+                );
+              }
+          ),
         ),
-
-        body: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
-              ),
-              child: Text(
-                "Edite ou visualize seus Contatos",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1)),
-              ),
-            ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top:20, left: 10, right: 0),
-                  child: Text(
-                    'Adryen Simões',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 200, right: 0),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => EditContact(),
-                        ),
-                      );
-                    },
-                    child: Icon(Icons.edit),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 0),
-                  child: Text(
-                    'Adryen Simões',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 200, right: 0),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => EditContact(),
-                        ),
-                      );
-                    },
-                    child: Icon(Icons.edit),
-                  ),
-                ),
-              ],
-            ),
-            Material(
-              child: InkWell(
-                splashColor: Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                highlightColor:
-                    Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddContact(),
-                    ),
-                  );
-                },
-                child: Container(
-                  height: 60,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      width: 0,
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                    ),
-                    color: Colors.blueAccent,
-                  ),
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 25,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: navigateToRelatorioComplicacoes,
+        label: Text('Adicionar'),
       ),
     );
   }

@@ -36,7 +36,7 @@ class EditContact extends StatelessWidget {
               height: 20,
             ),
             new Padding(padding: EdgeInsets.only(top: 0.0)),
-            util.buildTextField("Nome", "Adryen",true),
+            util.buildTextField("Nome", "Gabriel Darbone",true),
             util.buildTextField("Parentesco", "Irmão",true),
             util.buildTextField("Telefone", "123123123",true),
 
@@ -114,7 +114,7 @@ class EditContact extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 40.0),
                       child: Text(
-                        'Salvar',
+                        'Ok',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 16,
