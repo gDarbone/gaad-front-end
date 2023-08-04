@@ -90,7 +90,7 @@ class RelatorioPage extends StatelessWidget {
                                 Icon(Icons.view_list,
                                     color: Colors.white, size: 20),
                                 SizedBox(width: 10),
-                                Text("Visualizar Relatório",
+                                Text("Gerenciar Relatório",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 20))
@@ -116,26 +116,6 @@ class RelatorioPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RelatorioEditComplicacoes(),
-                                  ));
-                            },
-                            child: Row(
-                              children: [
-                                Icon(Icons.edit, color: Colors.white, size: 20),
-                                SizedBox(width: 10),
-                                Text("Editar Relatório",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20))
-                              ],
-                            ),
-                          ),
-
                         ],
                       ),
                     )),

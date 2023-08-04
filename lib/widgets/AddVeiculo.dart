@@ -1,226 +1,412 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:gaad_mobile/pages/CadastroPageTwo.dart';
-import 'package:gaad_mobile/pages/VeiculosPage.dart';
-import 'package:gaad_mobile/pages/loginpage.dart';
-import 'package:gaad_mobile/pages/welcomepage.dart';
+import 'package:gaad_mobile/pages/CategoryListPage.dart';
+import 'package:gaad_mobile/pages/RelatorioPage.dart';
+import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
+import 'package:gaad_mobile/widgets/RelatorioBar.dart';
+import 'package:gaad_mobile/widgets/VacinasCard.dart';
+import 'package:gaad_mobile/widgets/mainappbar.dart';
+import 'package:http/http.dart' as http;
+import '../widgets/sidemenubar.dart';
 
-import '../pages/ContatosPage.dart';
 
-class AddVeiculo extends StatelessWidget {
+class AddVeiculo extends StatefulWidget {
+  final Map? todo;
+  const AddVeiculo({
+    super.key,
+    this.todo,
+  });
+
+  @override
+  State<AddVeiculo> createState() => _AddVeiculo();
+}
+
+class _AddVeiculo extends State<AddVeiculo> {
+  Widget typeCard = ComplicacoesCard();
+  bool isEdit = false;
+
+  TextEditingController veiculoController = TextEditingController();
+  TextEditingController fabricanteController = TextEditingController();
+  TextEditingController modeloController = TextEditingController();
+  TextEditingController anoController = TextEditingController();
+  TextEditingController corController = TextEditingController();
+  TextEditingController placaController = TextEditingController();
+
+  // TESTE API, REMOVER
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
+
+  void initState(){
+    super.initState();
+    final todo = widget.todo;
+    if(todo != null) {
+      isEdit = true;
+      final title = todo['title'];
+      final description = todo['description'];
+      titleController.text = title;
+      descriptionController.text = description;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: 10, left: 40, right: 40),
-        color: Colors.white,
-        child: ListView(
-          children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Text(
-                "Meus Veiculos: ",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color.fromRGBO(35, 100, 128, 1),
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            new Padding(padding: EdgeInsets.only(top: 0.0)),
-            TextFormField(
-              decoration: new InputDecoration(
-                labelText: "Fabricante:",
-                fillColor: Colors.white,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                  borderSide: new BorderSide(),
-                ),
-              ),
-              keyboardType: TextInputType.emailAddress,
-              style: new TextStyle(
-                fontFamily: "Poppins",
-              ),
-            ),
-            new Padding(padding: EdgeInsets.only(top: 10.0)),
-            TextFormField(
-              decoration: new InputDecoration(
-                labelText: "Modelo:",
-                fillColor: Colors.white,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                  borderSide: new BorderSide(),
-                ),
-              ),
-              keyboardType: TextInputType.emailAddress,
-              style: new TextStyle(
-                fontFamily: "Poppins",
-              ),
-            ),
-            new Padding(padding: EdgeInsets.only(top: 10.0)),
-            new TextFormField(
-              decoration: new InputDecoration(
-                labelText: "Ano",
-                fillColor: Colors.white,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                  borderSide: new BorderSide(),
-                ),
-              ),
-              keyboardType: TextInputType.emailAddress,
-              style: new TextStyle(
-                fontFamily: "Poppins",
-              ),
-            ),
 
-            new Padding(padding: EdgeInsets.only(top: 10.0)),
-            new TextFormField(
-              decoration: new InputDecoration(
-                labelText: "Cor",
-                fillColor: Colors.white,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                  borderSide: new BorderSide(),
-                ),
-              ),
-              keyboardType: TextInputType.emailAddress,
-              style: new TextStyle(
-                fontFamily: "Poppins",
-              ),
-            ),
-
-            new Padding(padding: EdgeInsets.only(top: 10.0)),
-            new TextFormField(
-              decoration: new InputDecoration(
-                labelText: "Placa",
-                fillColor: Colors.white,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                  borderSide: new BorderSide(),
-                ),
-              ),
-              keyboardType: TextInputType.emailAddress,
-              style: new TextStyle(
-                fontFamily: "Poppins",
-              ),
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    splashColor:
-                        Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                    highlightColor:
-                        Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                    onTap: () => Navigator.pop(context, false),
-                    // onTap: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => CadastroPageTwo(),
-                    //     ),
-                    //   );
-                    // },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 57.0),
-                      child: Text(
-                        'Voltar',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Color.fromRGBO(35, 100, 128, 1),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.transparent,
-                          border: Border.all(
-                              color: Color.fromRGBO(35, 100, 128, 1),
-                              width: 2)),
-                    ),
-                  ),
-                ),
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    splashColor:
-                        Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                    highlightColor:
-                        Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text("Salvo com Sucesso."),
-                          content: Text(
-                              "Veiculo adicionado com sucesso."),
-                          actions: [
-                            TextButton(
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        VeiculosPage(),
-                                  ),
-                                ),
-                                child: Text("Ok"))
-                          ],
-                        ),
-                      );
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 40.0),
-                      child: Text(
-                        'Adicionar',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Color.fromRGBO(35, 100, 128, 1),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.transparent,
-                          border: Border.all(
-                              color: Color.fromRGBO(35, 100, 128, 1),
-                              width: 2)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            /*Column(
-              //height: 40,
-              //alignment: Alignment.center,
-              children: [
-                FlatButton(
-                child: Text(
-                  "Cancelar",
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () => Navigator.pop(context, false),
-              ),
-             ],
-            ),*/
-          ],
+    void showSuccessMessage(String message){
+      final snackBar = SnackBar(
+        content: Text(
+          message,
+          style: TextStyle(color: Colors.white),
         ),
-      ),
+        backgroundColor: Colors.teal,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
+    void showErrorMessage(String message){
+      final snackBar = SnackBar(
+        content: Text(
+          message,
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.redAccent,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
+    Future<void> submitData() async{
+      // Get the data from form
+
+      //final nome = nomeController.text;
+      //final ultima = ultimaController.text;
+      //final quantidade = quantidadeController.text;
+      //final observacoes = observacoesController.text;
+
+      // TESTE API, AJUSTAR
+      final title = titleController.text;
+      final description = descriptionController.text;
+
+      // TESTE API, AJUSTAR
+      final body = {
+        "title": title,
+        "description" : description,
+        "is_completed": false,
+      };
+
+
+      // Submit data to the server
+      final url = 'http://api.nstack.in/v1/todos';
+      final uri = Uri.parse(url);
+      http.post(uri);
+      final response = await http.post(
+          uri,
+          body: jsonEncode(body),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+      );
+
+
+      // show success or fail message based on status
+      if (response.statusCode == 201 || response.statusCode == 200){
+        titleController.clear();
+        descriptionController.clear();
+        showSuccessMessage(isEdit? 'Veiculo Editado com Sucesso' :'Veiculo Adicionado com Sucesso');
+
+        print('Sucess: ');
+        print(response.statusCode);
+        print(response.body);
+      } else {
+
+        showErrorMessage('Campos Inválidos ou API indisponível');
+
+        print('Error: ');
+        print(response.statusCode);
+        print(response.body);
+      }
+
+    }
+
+    Future<void> updateData() async {
+      // Get the data from form
+      final todo = widget.todo;
+      if (todo == null){
+        print('chamada de update incorreta');
+        return;
+      }
+
+      final id = todo['_id'];
+      //final isCompleted = todo['is_completed'];
+      //final nome = nomeController.text;
+      //final ultima = ultimaController.text;
+      //final observacoes = observacoesController.text;
+
+      // TESTE API, AJUSTAR
+      final title = titleController.text;
+      final description = descriptionController.text;
+
+      // TESTE API, AJUSTAR
+      final body = {
+        "title": title,
+        "description" : description,
+        "is_completed": false,
+      };
+
+      final url = 'http://api.nstack.in/v1/todos/$id';
+      final uri = Uri.parse(url);
+      http.post(uri);
+      final response = await http.put(
+          uri,
+          body: jsonEncode(body),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+      );
+
+      if (response.statusCode == 201 || response.statusCode == 200){
+        showSuccessMessage(isEdit? 'Vacina Editada com Sucesso' : 'Vacina Adicionada com Sucesso');
+        print('Sucess updated ');
+      }
+    }
+
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(isEdit? 'Editar Veiculos' : 'Adicionar Veiculos'),
+          backgroundColor: Color.fromRGBO(35, 100, 128, 1),
+        ),
+        body: ListView(
+          padding: EdgeInsets.all(20),
+          children: [
+            TextField(
+              controller: veiculoController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Nome do Veiculo',
+                labelText: 'Nome do Veiculo: ',
+              ),
+
+            ),
+            TextField(
+              controller: fabricanteController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Fabricante',
+                labelText: 'Nome do Fabricante:',
+              ),
+            ),
+            TextField(
+              controller: modeloController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Modelo',
+                labelText: 'Nome do Modelo:',
+              ),
+            ),
+            TextField(
+              controller: anoController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Ano de Fabricação',
+                labelText: 'Ano:',
+              ),
+            ),
+            TextField(
+              controller: corController,
+              decoration: InputDecoration(
+                hintText: 'Digite a Cor',
+                labelText: 'Cor:',
+              ),
+            ),
+            TextField(
+              controller: placaController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Número da Placa',
+                labelText: 'Número da Placa:',
+              ),
+            ),
+            SizedBox(height: 20),
+
+
+
+            // TESTE API, REMOVER
+            TextField(
+              controller: titleController,
+              decoration: InputDecoration(
+                hintText: 'Digite seu Titulo: ',
+                labelText: 'Title:',
+              ),
+            ),
+            TextField(
+              controller: descriptionController,
+              decoration: InputDecoration(
+                hintText: 'Digite sua Descrição: ',
+                labelText: 'Description:',
+              ),
+              minLines: 5,
+              maxLines: 8,
+              keyboardType: TextInputType.multiline,
+            ),
+            SizedBox(height: 20),
+
+
+            ElevatedButton(
+              onPressed: isEdit? updateData : submitData,
+
+              style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(35, 100, 128, 1)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Color.fromRGBO(35, 100, 128, 1))
+                      )
+                  )
+              ),
+              child: Text(isEdit? 'Editar' :"Adicionar"),),
+
+            ElevatedButton(
+              onPressed: (){
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CategoryListPage(),
+                  ),
+                );
+              },
+
+              style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(35, 100, 128, 1)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Color.fromRGBO(35, 100, 128, 1))
+                      )
+                  )
+              ),
+              child: Text("Cancelar"),),
+            SizedBox(width: 10),
+
+          ],
+        )
     );
   }
+/*return Scaffold(
+      appBar: AppBar(
+        title: Text('Adicionar Vacinas'),
+        backgroundColor: Color.fromRGBO(35, 100, 128, 1),
+      ),
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        /*decoration: BoxDecoration(
+            color: Colors.white
+        ),*/
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (BuildContext ctx, int index) {
+                  return Container(
+                    //padding: EdgeInsets.only(top: 5, left: 5, right: 5),
+                    height: 400,
+                    color: Colors.white,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: Padding(
+                            padding:
+                                EdgeInsets.only(top: 50, left: 5, right: 5),
+
+                            child: VacinasCard(
+                              onCardClick: () {},
+                            ),
+
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 25, right: 25),
+              child: Container(
+                color: Colors.white,
+                height: 80,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Material(
+
+                      color: Colors.transparent,
+                      child: InkWell(
+                        splashColor:
+                        Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
+                        highlightColor:
+                        Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
+                        onTap: () => Navigator.pop(context, false),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 57.0),
+                          child: Text(
+                            'Voltar',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Color.fromRGBO(35, 100, 128, 1),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Color.fromRGBO(35, 100, 128, 1),
+                                  width: 2)),
+                        ),
+                      ),
+                    ),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+
+                        splashColor:
+                        Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
+                        highlightColor:
+                        Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
+                        onTap: () => Navigator.pop(context, false),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 50.0),
+                          child: Text(
+                            'Adicionar',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Color.fromRGBO(35, 100, 128, 1),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Color.fromRGBO(35, 100, 128, 1),
+                                  width: 2)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: 80,
+                child: RelatorioBar()
+            ),
+
+          ],
+
+      ),
+    );
+  }*/
+
 }

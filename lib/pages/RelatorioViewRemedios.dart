@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import '../widgets/RelatorioViewBar.dart';
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
+import 'RelatorioAddRemedios.dart';
 import 'RelatorioPage.dart';
 import 'RelatorioViewComplicacoes.dart';
 import 'RelatorioViewVacinas.dart';
@@ -42,18 +43,23 @@ class _RelatorioViewRemedios extends State<RelatorioViewRemedios> {
     Navigator.pushReplacement(context, route);
   }
 
-  void navigateToRelatorioViewVacinas(){
+  void navigateToEditRemedios(Map item){
     final route = MaterialPageRoute(
-      builder: (context) => RelatorioViewVacinas(),
+      builder: (context) => RelatorioAddRemedios(todo: item),
     );
     Navigator.pushReplacement(context, route);
   }
 
-  void navigateToRelatorioViewRemedios(){
-    final route = MaterialPageRoute(
-      builder: (context) => RelatorioViewRemedios(),
-    );
-    Navigator.pushReplacement(context, route);
+  Future<void> deleteById(String id) async{
+    final url = 'http://api.nstack.in/v1/todos/$id';
+    final uri = Uri.parse(url);
+    final response = await http.delete(uri);
+    if (response.statusCode == 200){
+        final filtered = items.where((element) => element['_id'] != id).toList();
+        setState(() {
+          items = filtered;
+        });
+    }
   }
 
 
@@ -81,7 +87,7 @@ class _RelatorioViewRemedios extends State<RelatorioViewRemedios> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Visualizar Complicações'),
+        title: Text('Visualizar Remédios'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
       body: Visibility (
@@ -93,11 +99,32 @@ class _RelatorioViewRemedios extends State<RelatorioViewRemedios> {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 final item = items[index] as Map;
+                final id = item['_id'] as String;
                 return ListTile(
                   leading: CircleAvatar(child: Text('${index + 1}')),
                   title: Text(item['title']),
                   subtitle: Text(item['description']),
-                  textColor: Colors.black,
+                  trailing: PopupMenuButton(
+                    onSelected: (value) {
+                      if (value == 'edit'){
+                        navigateToEditRemedios(item);
+                      }else if (value == 'delete'){
+                        deleteById(id);
+                      }
+                    },
+                    itemBuilder: (context) {
+                      return [
+                        PopupMenuItem(
+                            child: Text('Editar'),
+                            value: 'edit',
+                        ),
+                        PopupMenuItem(
+                            child: Text('Deletar'),
+                            value: 'delete',
+                        ),
+                      ];
+                  }
+                  ),
                 );
               }
           ),
@@ -105,7 +132,7 @@ class _RelatorioViewRemedios extends State<RelatorioViewRemedios> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: navigateToRelatorioComplicacoes,
-        label: Text('Vacinas'),
+        label: Text('Complicações'),
       ),
     );
   }

@@ -37,14 +37,24 @@ class _ContatosPage extends State<ContatosPage> {
     super.initState();
   }
 
-  void navigateToRelatorioComplicacoes(){
+  void navigateToAdicionarContato(){
     final route = MaterialPageRoute(
       builder: (context) => AddContact(),
     );
     Navigator.pushReplacement(context, route);
   }
 
-
+  Future<void> deleteById(String id) async{
+    final url = 'http://api.nstack.in/v1/todos/$id';
+    final uri = Uri.parse(url);
+    final response = await http.delete(uri);
+    if (response.statusCode == 200){
+      final filtered = items.where((element) => element['_id'] != id).toList();
+      setState(() {
+        items = filtered;
+      });
+    }
+  }
 
   Future<void> fetchTodo() async {
     setState(() {
@@ -82,18 +92,39 @@ class _ContatosPage extends State<ContatosPage> {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 final item = items[index] as Map;
+                final id = item['_id'] as String;
                 return ListTile(
                   leading: CircleAvatar(child: Text('${index + 1}')),
                   title: Text(item['title']),
                   subtitle: Text(item['description']),
-                  textColor: Colors.black,
+                  trailing: PopupMenuButton(
+                      onSelected: (value) {
+                        if (value == 'edit'){
+
+                        }else if (value == 'delete'){
+                          deleteById(id);
+                        }
+                      },
+                      itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                            child: Text('Editar'),
+                            value: 'edit',
+                          ),
+                          PopupMenuItem(
+                            child: Text('Deletar'),
+                            value: 'delete',
+                          ),
+                        ];
+                      }
+                  ),
                 );
               }
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: navigateToRelatorioComplicacoes,
+        onPressed: navigateToAdicionarContato,
         label: Text('Adicionar'),
       ),
     );

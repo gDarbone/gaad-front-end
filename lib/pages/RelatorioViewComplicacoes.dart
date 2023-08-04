@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import '../widgets/RelatorioViewBar.dart';
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
+import 'RelatorioAddComplicacoes.dart';
 import 'RelatorioPage.dart';
 import 'RelatorioViewComplicacoes.dart';
 import 'RelatorioViewRemedios.dart';
@@ -36,12 +37,6 @@ class _RelatorioViewComplicacoes extends State<RelatorioViewComplicacoes> {
     super.initState();
   }
 
-  void navigateToRelatorioComplicacoes(){
-    final route = MaterialPageRoute(
-      builder: (context) => RelatorioViewComplicacoes(),
-    );
-    Navigator.pushReplacement(context, route);
-  }
 
   void navigateToRelatorioViewVacinas(){
     final route = MaterialPageRoute(
@@ -50,13 +45,25 @@ class _RelatorioViewComplicacoes extends State<RelatorioViewComplicacoes> {
     Navigator.pushReplacement(context, route);
   }
 
-  void navigateToRelatorioViewRemedios(){
+  void navigateToEditComplicacoes(Map item){
     final route = MaterialPageRoute(
-      builder: (context) => RelatorioViewRemedios(),
+      builder: (context) => RelatorioAddComplicacoes(todo: item),
     );
     Navigator.pushReplacement(context, route);
   }
 
+
+  Future<void> deleteById(String id) async{
+    final url = 'http://api.nstack.in/v1/todos/$id';
+    final uri = Uri.parse(url);
+    final response = await http.delete(uri);
+    if (response.statusCode == 200){
+      final filtered = items.where((element) => element['_id'] != id).toList();
+      setState(() {
+        items = filtered;
+      });
+    }
+  }
 
   Future<void> fetchTodo() async {
     setState(() {
@@ -94,11 +101,32 @@ class _RelatorioViewComplicacoes extends State<RelatorioViewComplicacoes> {
             itemCount: items.length,
             itemBuilder: (context, index) {
               final item = items[index] as Map;
+              final id = item['_id'] as String;
               return ListTile(
                 leading: CircleAvatar(child: Text('${index + 1}')),
                 title: Text(item['title']),
                 subtitle: Text(item['description']),
-                textColor: Colors.black,
+                trailing: PopupMenuButton(
+                    onSelected: (value) {
+                      if (value == 'edit'){
+                        navigateToEditComplicacoes(item);
+                      }else if (value == 'delete'){
+                        deleteById(id);
+                      }
+                    },
+                    itemBuilder: (context) {
+                      return [
+                        PopupMenuItem(
+                          child: Text('Editar'),
+                          value: 'edit',
+                        ),
+                        PopupMenuItem(
+                          child: Text('Deletar'),
+                          value: 'delete',
+                        ),
+                      ];
+                    }
+                ),
               );
             }
         ),

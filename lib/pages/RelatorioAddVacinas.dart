@@ -11,9 +11,21 @@ import 'package:http/http.dart' as http;
 import '../widgets/sidemenubar.dart';
 import 'CadastroPageOne.dart';
 
-class RelatorioAddVacinas extends StatelessWidget {
 
+class RelatorioAddVacinas extends StatefulWidget {
+  final Map? todo;
+  const RelatorioAddVacinas({
+    super.key,
+    this.todo,
+  });
+
+  @override
+  State<RelatorioAddVacinas> createState() => _RelatorioAddVacinas();
+  }
+
+  class _RelatorioAddVacinas extends State<RelatorioAddVacinas> {
   Widget typeCard = ComplicacoesCard();
+  bool isEdit = false;
 
   TextEditingController nomeController = TextEditingController();
   TextEditingController quantidadeController = TextEditingController();
@@ -23,6 +35,19 @@ class RelatorioAddVacinas extends StatelessWidget {
   // TESTE API, REMOVER
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+
+
+  void initState(){
+    super.initState();
+    final todo = widget.todo;
+    if(todo != null) {
+      isEdit = true;
+      final title = todo['title'];
+      final description = todo['description'];
+      titleController.text = title;
+      descriptionController.text = description;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +111,7 @@ class RelatorioAddVacinas extends StatelessWidget {
       if (response.statusCode == 201 || response.statusCode == 200){
         titleController.clear();
         descriptionController.clear();
-        showSuccessMessage('Vacina Adicionada com Sucesso');
+        showSuccessMessage(isEdit? 'Vacina Editada com Sucesso' :'Vacina Adicionada com Sucesso');
 
         print('Sucess: ');
         print(response.statusCode);
@@ -102,9 +127,51 @@ class RelatorioAddVacinas extends StatelessWidget {
 
     }
 
+    Future<void> updateData() async {
+      // Get the data from form
+      final todo = widget.todo;
+      if (todo == null){
+        print('chamada de update incorreta');
+        return;
+      }
+
+      final id = todo['_id'];
+      //final isCompleted = todo['is_completed'];
+      //final nome = nomeController.text;
+      //final ultima = ultimaController.text;
+      //final observacoes = observacoesController.text;
+
+      // TESTE API, AJUSTAR
+      final title = titleController.text;
+      final description = descriptionController.text;
+
+      // TESTE API, AJUSTAR
+      final body = {
+        "title": title,
+        "description" : description,
+        "is_completed": false,
+      };
+
+      final url = 'http://api.nstack.in/v1/todos/$id';
+      final uri = Uri.parse(url);
+      http.post(uri);
+      final response = await http.put(
+          uri,
+          body: jsonEncode(body),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+      );
+
+      if (response.statusCode == 201 || response.statusCode == 200){
+        showSuccessMessage(isEdit? 'Vacina Editada com Sucesso' : 'Vacina Adicionada com Sucesso');
+        print('Sucess updated ');
+      }
+    }
+
     return Scaffold(
         appBar: AppBar(
-          title: Text('Adicionar Vacinas'),
+          title: Text(isEdit? 'Editar Vacina' : 'Adicionar Vacinas'),
           backgroundColor: Color.fromRGBO(35, 100, 128, 1),
         ),
         body: ListView(
@@ -168,9 +235,7 @@ class RelatorioAddVacinas extends StatelessWidget {
 
 
             ElevatedButton(
-              onPressed: (){
-                submitData();
-              },
+              onPressed: isEdit? updateData : submitData,
 
               style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -182,7 +247,7 @@ class RelatorioAddVacinas extends StatelessWidget {
                       )
                   )
               ),
-              child: Text("Adicionar"),),
+              child: Text(isEdit? 'Editar' :"Adicionar"),),
 
             ElevatedButton(
               onPressed: (){

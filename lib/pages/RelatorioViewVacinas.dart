@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gaad_mobile/pages/RelatorioAddVacinas.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioBar.dart';
 import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
@@ -35,19 +36,6 @@ class _RelatorioViewVacinas extends State<RelatorioViewVacinas> {
     super.initState();
   }
 
-  void navigateToRelatorioComplicacoes(){
-    final route = MaterialPageRoute(
-      builder: (context) => RelatorioViewComplicacoes(),
-    );
-    Navigator.pushReplacement(context, route);
-  }
-
-  void navigateToRelatorioViewVacinas(){
-    final route = MaterialPageRoute(
-      builder: (context) => RelatorioViewVacinas(),
-    );
-    Navigator.pushReplacement(context, route);
-  }
 
   void navigateToRelatorioViewRemedios(){
     final route = MaterialPageRoute(
@@ -56,6 +44,24 @@ class _RelatorioViewVacinas extends State<RelatorioViewVacinas> {
     Navigator.pushReplacement(context, route);
   }
 
+  void navigateToEditVacinas(Map item){
+    final route = MaterialPageRoute(
+      builder: (context) => RelatorioAddVacinas(todo: item),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+  Future<void> deleteById(String id) async{
+    final url = 'http://api.nstack.in/v1/todos/$id';
+    final uri = Uri.parse(url);
+    final response = await http.delete(uri);
+    if (response.statusCode == 200){
+      final filtered = items.where((element) => element['_id'] != id).toList();
+      setState(() {
+        items = filtered;
+      });
+    }
+  }
 
   Future<void> fetchTodo() async {
     setState(() {
@@ -81,7 +87,7 @@ class _RelatorioViewVacinas extends State<RelatorioViewVacinas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Visualizar Complicações'),
+        title: Text('Visualizar Vacinas'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
       body: Visibility (
@@ -93,11 +99,32 @@ class _RelatorioViewVacinas extends State<RelatorioViewVacinas> {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 final item = items[index] as Map;
+                final id = item['_id'] as String;
                 return ListTile(
                   leading: CircleAvatar(child: Text('${index + 1}')),
                   title: Text(item['title']),
                   subtitle: Text(item['description']),
-                  textColor: Colors.black,
+                  trailing: PopupMenuButton(
+                      onSelected: (value) {
+                        if (value == 'edit'){
+                          navigateToEditVacinas(item);
+                        }else if (value == 'delete'){
+                          deleteById(id);
+                        }
+                      },
+                      itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                            child: Text('Editar'),
+                            value: 'edit',
+                          ),
+                          PopupMenuItem(
+                            child: Text('Deletar'),
+                            value: 'delete',
+                          ),
+                        ];
+                      }
+                  ),
                 );
               }
           ),
@@ -105,7 +132,7 @@ class _RelatorioViewVacinas extends State<RelatorioViewVacinas> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: navigateToRelatorioViewRemedios,
-        label: Text('Vacinas'),
+        label: Text('Remedios'),
       ),
     );
   }
