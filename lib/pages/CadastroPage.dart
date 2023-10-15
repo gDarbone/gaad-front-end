@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:gaad_mobile/pages/loginpage.dart';
+import 'package:gaad_mobile/pages/welcomepage.dart';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
@@ -12,27 +14,36 @@ import '../widgets/sidemenubar.dart';
 import 'CadastroPage.dart';
 
 
-class RelatorioAddComplicacoes extends StatefulWidget {
+class CadastroPage extends StatefulWidget {
   final Map? todo;
-  const RelatorioAddComplicacoes({
+  const CadastroPage({
     super.key,
     this.todo,
   });
 
   @override
-  State<RelatorioAddComplicacoes> createState() => _RelatorioAddComplicacoes();
-  }
+  State<CadastroPage> createState() => _CadastroPage();
+}
 
-  class _RelatorioAddComplicacoes extends State<RelatorioAddComplicacoes> {
+class _CadastroPage extends State<CadastroPage> {
 
 
-  Widget typeCard = ComplicacoesCard();
   bool isEdit = false;
 
   TextEditingController nomeController = TextEditingController();
-  TextEditingController quantidadeController = TextEditingController();
-  TextEditingController ultimaController = TextEditingController();
-  TextEditingController observacoesController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController dataNascController = TextEditingController();
+  TextEditingController senhaController = TextEditingController();
+  TextEditingController cpfController = TextEditingController();
+  TextEditingController rgController = TextEditingController();
+  TextEditingController crmController = TextEditingController();
+  TextEditingController sexoController = TextEditingController();
+  TextEditingController nacionalidadeController = TextEditingController();
+  TextEditingController enderecoController = TextEditingController();
+  TextEditingController numeroController = TextEditingController();
+  TextEditingController contatoController = TextEditingController();
+  TextEditingController ufController = TextEditingController();
+  TextEditingController cidadeController = TextEditingController();
 
   // TESTE API, REMOVER
   TextEditingController titleController = TextEditingController();
@@ -87,15 +98,29 @@ class RelatorioAddComplicacoes extends StatefulWidget {
       final description = descriptionController.text;
 
       // TESTE API, AJUSTAR
-      final body = {
+      /*final body = {
         "title": title,
         "description" : description,
         "is_completed": false,
+      };*/
+
+      final nome = nomeController.text;
+      final email = emailController.text;
+      final senha = senhaController.text;
+      final confirmasenha = senhaController.text;
+
+      final body = {
+        "username": nome,
+        "email" : email,
+        "password" : senha,
+        "confirmPassword" : confirmasenha,
       };
 
 
       // Submit data to the server
-      final url = 'http://api.nstack.in/v1/todos';
+      //final url = 'http://api.nstack.in/v1/todos';
+      final url = 'http://localhost:8080/gaad/register';
+
       final uri = Uri.parse(url);
       http.post(uri);
       final response = await http.post(
@@ -111,7 +136,7 @@ class RelatorioAddComplicacoes extends StatefulWidget {
       if (response.statusCode == 201 || response.statusCode == 200){
         titleController.clear();
         descriptionController.clear();
-        showSuccessMessage(isEdit? 'Complicação Editada com Sucesso' : 'Complicação Adicionada com Sucesso');
+        showSuccessMessage(isEdit? 'Cadastro Editado com Sucesso' : 'Cadastro Adicionado com Sucesso');
 
         print('Sucess: ');
         print(response.statusCode);
@@ -164,15 +189,15 @@ class RelatorioAddComplicacoes extends StatefulWidget {
       );
 
       if (response.statusCode == 201 || response.statusCode == 200){
-        showSuccessMessage(isEdit? 'Complicação Editada com Sucesso' : 'Complicação Adicionada com Sucesso');
+        showSuccessMessage(isEdit? 'Cadastro Editado com Sucesso' : 'Cadastro Adicionado com Sucesso');
         print('Sucess updated ');
       }
     }
 
-      return Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text(
-              isEdit? 'Editar Complicação' : 'Adicionar Complicações'),
+              isEdit? 'Editar Cadastro' : 'Adicionar Cadastro'),
           backgroundColor: Color.fromRGBO(35, 100, 128, 1),
         ),
         body: ListView(
@@ -181,27 +206,101 @@ class RelatorioAddComplicacoes extends StatefulWidget {
             TextField(
               controller: nomeController,
               decoration: InputDecoration(
-                hintText: 'Digite o Nome da Complicação',
-                labelText: 'Nome da Complicação: ',
+                hintText: 'Digite o Nome Completo',
+                labelText: 'Nome Completo: ',
               ),
 
             ),
             TextField(
-              controller: quantidadeController,
+              controller: emailController,
               decoration: InputDecoration(
-                hintText: 'Digite a Categoria',
-                labelText: 'Categoria:',
+                hintText: 'Digite o E-mail',
+                labelText: 'E-mail:',
               ),
             ),
             TextField(
-              controller: observacoesController,
+              controller: dataNascController,
               decoration: InputDecoration(
-                hintText: 'Deseja incluir alguma Observaçaõ?',
-                labelText: 'Observações:',
+                hintText: 'Digite a Data de Nascimento',
+                labelText: 'Data de Nascimento:',
               ),
-              minLines: 5,
-              maxLines: 8,
-              keyboardType: TextInputType.multiline,
+            ),
+            TextField(
+              controller: senhaController,
+              decoration: InputDecoration(
+                hintText: 'Digite a Senha',
+                labelText: 'Senha:',
+              ),
+            ),
+            TextField(
+              controller: cpfController,
+              decoration: InputDecoration(
+                hintText: 'Digite o CPF',
+                labelText: 'CPF:',
+              ),
+            ),
+            TextField(
+              controller: rgController,
+              decoration: InputDecoration(
+                hintText: 'Digite o RG',
+                labelText: 'RG:',
+              ),
+            ),
+            TextField(
+              controller: crmController,
+              decoration: InputDecoration(
+                hintText: 'Digite o CRM (Caso Seja Profissional de Saúde)',
+                labelText: 'CRM:',
+              ),
+            ),
+            TextField(
+              controller: sexoController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Sexo',
+                labelText: 'Sexo:',
+              ),
+            ),
+            TextField(
+              controller: nacionalidadeController,
+              decoration: InputDecoration(
+                hintText: 'Digite a Nacionalidade',
+                labelText: 'Nacionalidade:',
+              ),
+            ),
+            TextField(
+              controller: enderecoController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Endereço',
+                labelText: 'Endereço:',
+              ),
+            ),
+            TextField(
+              controller: numeroController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Número do Endereço',
+                labelText: 'Número:',
+              ),
+            ),
+            TextField(
+              controller: contatoController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Telefone de Contato',
+                labelText: 'Contato:',
+              ),
+            ),
+            TextField(
+              controller: ufController,
+              decoration: InputDecoration(
+                hintText: 'Digite o UF',
+                labelText: 'UF:',
+              ),
+            ),
+            TextField(
+              controller: cidadeController,
+              decoration: InputDecoration(
+                hintText: 'Digite a Cidade',
+                labelText: 'Cidade:',
+              ),
             ),
             SizedBox(height: 20),
 
@@ -248,7 +347,7 @@ class RelatorioAddComplicacoes extends StatefulWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryListPage(),
+                    builder: (context) => loginpage(),
                   ),
                 );
               },
@@ -265,13 +364,10 @@ class RelatorioAddComplicacoes extends StatefulWidget {
               ),
               child: Text("Cancelar"),),
             SizedBox(width: 10),
-            Container(
-                height: 80,
-                child: RelatorioBar()
-            ),
-
           ],
         )
     );
   }
 }
+
+

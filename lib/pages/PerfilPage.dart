@@ -1,250 +1,125 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:gaad_mobile/pages/CategoryListPage.dart';
-import 'package:gaad_mobile/pages/welcomepage.dart';
-
-import '../models/user_personal_data_model.dart';
-import '../services/api_service.dart';
-import '../widgets/mainappbar.dart';
+import 'package:gaad_mobile/pages/EditProfilePage.dart';
+import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
+import 'package:gaad_mobile/widgets/RelatorioBar.dart';
+import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
+import 'package:gaad_mobile/widgets/RelatorioRemediosCard.dart';
+import 'package:gaad_mobile/widgets/RelatorioVacinasCard.dart';
+import 'package:gaad_mobile/widgets/mainappbar.dart';
+import 'package:http/http.dart' as http;
+import '../widgets/RelatorioViewBar.dart';
 import '../widgets/sidemenubar.dart';
-
-class SettingsUI extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Setting UI",
-      home: PerfilPage(),
-    );
-  }
-}
+import 'CategoryListPage.dart';
+import 'RelatorioAddComplicacoes.dart';
+import 'RelatorioPage.dart';
+import 'RelatorioViewComplicacoes.dart';
+import 'RelatorioViewRemedios.dart';
+import 'RelatorioViewVacinas.dart';
 
 class PerfilPage extends StatefulWidget {
-  @override
-  _PerfilPageState createState() => _PerfilPageState();
 
+  const PerfilPage({super.key});
+
+  @override
+  State<PerfilPage> createState() => _PerfilPage();
 }
 
 
-class _PerfilPageState extends State<PerfilPage> {
-  bool showPassword = false;
+class _PerfilPage extends State<PerfilPage> {
+  bool isLoading = true;
+  List items = [];
 
-  // API - TESTE
-  late List<UserPersonalDataModel>? _userPersonalDataModel = [];
-  @override
-  void initState() {
+
+  void initState(){
+    fetchTodo();
     super.initState();
-    _getData();
   }
+
+  void navigateToEditPerfil(Map item){
+    final route = MaterialPageRoute(
+      builder: (context) => EditProfilePage(todo: item),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+
+  Future<void> deleteById(String id) async{
+    final url = 'http://api.nstack.in/v1/todos/$id';
+    final uri = Uri.parse(url);
+    final response = await http.delete(uri);
+    if (response.statusCode == 200){
+      final filtered = items.where((element) => element['_id'] != id).toList();
+      setState(() {
+        items = filtered;
+      });
+    }
+  }
+
+  Future<void> fetchTodo() async {
+    setState(() {
+      isLoading = true;
+    });
+    final url =  'http://api.nstack.in/v1/todos?page=1&limit=10';
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
+    if (response.statusCode == 200){
+      final json = jsonDecode(response.body) as Map;
+      final result = json['items'] as List;
+      setState(() {
+        items = result;
+      });
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Perfil do Paciente'),
+        title: Text('Visualizar Perfil'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
-      body: Container(
-        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: ListView(
-            children: [
-              Text(
-                "Visualizar Perfil",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor),
-                          boxShadow: [
-                            BoxShadow(
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                color: Colors.black.withOpacity(0.1),
-                                offset: Offset(0, 10))
-                          ],
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                "https://api.unrealperson.com/image?name=image.3033.2505690.jpg&type=tpdne",
-                              ))),
-                    ),
-                    Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                            ),
-                            color: Colors.blueAccent,
+      body: Visibility (
+        visible: isLoading,
+        child: Center(child: CircularProgressIndicator(),),
+        replacement: RefreshIndicator(
+          onRefresh: fetchTodo,
+          child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                final item = items[index] as Map;
+                final id = item['_id'] as String;
+                return ListTile(
+                  leading: CircleAvatar(child: Text('${index + 1}')),
+                  title: Text(item['title']),
+                  subtitle: Text(item['description']),
+                  trailing: PopupMenuButton(
+                      onSelected: (value) {
+                        if (value == 'edit'){
+                          navigateToEditPerfil(item);
+                        }else if (value == 'delete'){
+                          deleteById(id);
+                        }
+                      },
+                      itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                            child: Text('Verificar'),
+                            value: 'edit',
                           ),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              buildTextField("Nome", "Adryen Simões", false, false),
-              buildTextField("Data de Nascimento", "13/08/1996", false, false),
-              buildTextField("Gênero", "Masculino", false, false),
-              buildTextField("Email", "adryen06@gaad.com", false, true),
-              buildTextField("Endereço", "Rua Osvaldo Cruz", false, true),
-              buildTextField("Número", "24", false, true),
-              buildTextField("Bairro", "Bairro das Flores", false, true),
-              buildTextField("Telefone", "11970707070", false, true),
-              buildTextField("Tipo Sanguíneo", "A+", false, true),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      splashColor:
-                      Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      highlightColor:
-                      Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      onTap: () => Navigator.pop(context, false),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 57.0),
-                        child: Text(
-                          'Voltar',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(35, 100, 128, 1),
-                              fontWeight: FontWeight.bold),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.transparent,
-                            border: Border.all(
-                                color: Color.fromRGBO(35, 100, 128, 1),
-                                width: 2)),
-                      ),
-                    ),
+                        ];
+                      }
                   ),
-                  /*Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      splashColor:
-                      Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      highlightColor:
-                      Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      onTap: () => showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text("Redirecionado com Sucesso."),
-                          content: Text(
-                              "Redirecionando para contatos de confiança do paciente."),
-                          actions: [
-                            TextButton(
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        CategoryListPage(),
-                                  ),
-                                ),
-                                child: Text("Ok"))
-                          ],
-                        ),
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 57.0),
-                        child: Text(
-                          'Contatos',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(35, 100, 128, 1),
-                              fontWeight: FontWeight.bold),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.transparent,
-                            border: Border.all(
-                                color: Color.fromRGBO(35, 100, 128, 1),
-                                width: 2)),
-                      ),
-                    ),
-                  ),*/
-                ],
-              ),
-              SizedBox(height: 30)
-            ],
+                );
+              }
           ),
         ),
       ),
     );
   }
-
-  Widget buildTextField(String labelText, String placeholder,
-      bool isPasswordTextField, bool isEnabled) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
-        obscureText: isPasswordTextField ? showPassword : false,
-        decoration: InputDecoration(
-            suffixIcon: isPasswordTextField
-                ? IconButton(
-              onPressed: () {
-                setState(() {
-                  showPassword = !showPassword;
-                });
-              },
-              icon: Icon(
-                Icons.remove_red_eye,
-                color: Colors.grey,
-              ),
-            )
-                : null,
-            contentPadding: EdgeInsets.only(bottom: 3),
-            labelText: labelText,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: placeholder,
-            enabled: isEnabled,
-            hintStyle: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            )),
-      ),
-    );
-  }
-
-  // API TESTE
-  void _getData() async {
-    _userPersonalDataModel = (await ApiService().getPersonalData())!;
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-  }
 }
-
-

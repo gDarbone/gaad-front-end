@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gaad_mobile/pages/CadastroPageOne.dart';
-import 'package:gaad_mobile/pages/CadastroPageThree.dart';
-import 'package:gaad_mobile/pages/CadastroPageTwo.dart';
+import 'package:gaad_mobile/pages/CadastroPage.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/ConfiguracaoPage.dart';
 import 'package:gaad_mobile/pages/ContatosPage.dart';
@@ -28,10 +26,9 @@ void main() {
             '/': (context) => SplashPage(duration: 3, goToPage: WelcomePage()),
             '/welcomepage': (context) => WelcomePage(),
             '/loginpage': (context) => loginpage(),
-            '/CadastroPageOne': (context) => CadastroPageOne(),
-            '/CadastroPageTwo': (context) => CadastroPageTwo(),
-            '/CadastroPageThree': (context) => CadastroPageThree(),
+            '/CadastroPage': (context) => CadastroPage(),
             '/CategoryListPage': (context) => CategoryListPage(),
+            '/PerfilPage': (context) => PerfilPage(),
             '/EditProfilePage': (context) => EditProfilePage(),
             '/RelatorioPage': (context) => RelatorioPage(),
             '/ContatosPage': (context) => ContatosPage(),

@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gaad_mobile/pages/ContatosPage.dart';
+import 'package:gaad_mobile/pages/PerfilPage.dart';
+import 'package:gaad_mobile/pages/VeiculosPage.dart';
 import 'package:gaad_mobile/widgets/AddContact.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioBar.dart';
@@ -44,6 +47,35 @@ class _ResultadoIdentificaPaciente extends State<ResultadoIdentificaPaciente> {
     );
     Navigator.pushReplacement(context, route);
   }
+
+  void navigateToRelatoriosPaciente(){
+    final route = MaterialPageRoute(
+      builder: (context) => RelatorioViewComplicacoes(),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+  void navigateToVeiculosPaciente(){
+    final route = MaterialPageRoute(
+      builder: (context) => VeiculosPage(),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+  void navigateToContatosPaciente(){
+    final route = MaterialPageRoute(
+      builder: (context) => ContatosPage(),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+  void navigateToPerfilPaciente(){
+    final route = MaterialPageRoute(
+      builder: (context) => PerfilPage(),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
 
 
 
@@ -90,13 +122,13 @@ class _ResultadoIdentificaPaciente extends State<ResultadoIdentificaPaciente> {
                   trailing: PopupMenuButton(
                       onSelected: (value) {
                         if (value == 'relatorios'){
-
+                          navigateToRelatoriosPaciente();
                         }else if (value == 'veiculos'){
-
+                          navigateToVeiculosPaciente();
                         }else if (value == 'contatos'){
-
+                          navigateToContatosPaciente();
                         }else if (value == 'perfil'){
-
+                          navigateToPerfilPaciente();
                         }
                       },
                       itemBuilder: (context) {

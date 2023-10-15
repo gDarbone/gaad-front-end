@@ -9,7 +9,7 @@ import 'package:gaad_mobile/widgets/VacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
 import '../widgets/sidemenubar.dart';
-import 'CadastroPageOne.dart';
+import 'CadastroPage.dart';
 
 
 class RelatorioAddRemedios extends StatefulWidget {

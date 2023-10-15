@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import '../widgets/RelatorioViewBar.dart';
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
+import 'EditContatos.dart';
 import 'RelatorioPage.dart';
 import 'RelatorioViewComplicacoes.dart';
 import 'RelatorioViewRemedios.dart';
@@ -40,6 +41,13 @@ class _ContatosPage extends State<ContatosPage> {
   void navigateToAdicionarContato(){
     final route = MaterialPageRoute(
       builder: (context) => AddContact(),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+  void navigateToEditContatos(Map item){
+    final route = MaterialPageRoute(
+      builder: (context) => EditContatos(todo: item),
     );
     Navigator.pushReplacement(context, route);
   }
@@ -100,7 +108,7 @@ class _ContatosPage extends State<ContatosPage> {
                   trailing: PopupMenuButton(
                       onSelected: (value) {
                         if (value == 'edit'){
-
+                          navigateToEditContatos(item);
                         }else if (value == 'delete'){
                           deleteById(id);
                         }

@@ -14,7 +14,7 @@ class MainAppBarState extends State<MainAppBar> {
     return AppBar(
       title: GestureDetector(
         child: Text(
-          "Olá Fulano, Bem-Vindo",
+          "Olá, Bem-Vindo",
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white),
         ),

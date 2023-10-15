@@ -1,110 +1,305 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
-import 'package:gaad_mobile/pages/welcomepage.dart';
-
-import '../widgets/mainappbar.dart';
+import 'package:gaad_mobile/pages/RelatorioPage.dart';
+import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
+import 'package:gaad_mobile/widgets/RelatorioBar.dart';
+import 'package:gaad_mobile/widgets/VacinasCard.dart';
+import 'package:gaad_mobile/widgets/mainappbar.dart';
+import 'package:http/http.dart' as http;
 import '../widgets/sidemenubar.dart';
-import 'CadastroPageOne.dart';
+import 'CadastroPage.dart';
 
-class SettingsUI extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Setting UI",
-      home: EditProfilePage(),
-    );
-  }
-}
 
 class EditProfilePage extends StatefulWidget {
+  final Map? todo;
+  const EditProfilePage({
+    super.key,
+    this.todo,
+  });
+
   @override
-  _EditProfilePageState createState() => _EditProfilePageState();
+  State<EditProfilePage> createState() => _EditProfilePage();
 }
 
-class _EditProfilePageState extends State<EditProfilePage> {
-  bool showPassword = false;
+class _EditProfilePage extends State<EditProfilePage> {
+
+
+  bool isEdit = true;
+
+  TextEditingController nomeController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController dataNascController = TextEditingController();
+  TextEditingController senhaController = TextEditingController();
+  TextEditingController cpfController = TextEditingController();
+  TextEditingController rgController = TextEditingController();
+  TextEditingController crmController = TextEditingController();
+  TextEditingController sexoController = TextEditingController();
+  TextEditingController nacionalidadeController = TextEditingController();
+  TextEditingController enderecoController = TextEditingController();
+  TextEditingController numeroController = TextEditingController();
+  TextEditingController contatoController = TextEditingController();
+  TextEditingController ufController = TextEditingController();
+  TextEditingController cidadeController = TextEditingController();
+
+  // TESTE API, REMOVER
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
+  void initState(){
+    super.initState();
+    final todo = widget.todo;
+    if(todo != null) {
+      isEdit = true;
+      final title = todo['title'];
+      final description = todo['description'];
+      titleController.text = title;
+      descriptionController.text = description;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    void showSuccessMessage(String message){
+      final snackBar = SnackBar(
+        content: Text(
+          message,
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.teal,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
+    void showErrorMessage(String message){
+      final snackBar = SnackBar(
+        content: Text(
+          message,
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.redAccent,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
+    Future<void> submitData() async{
+      // Get the data from form
+
+      //final nome = nomeController.text;
+      //final ultima = ultimaController.text;
+      //final observacoes = observacoesController.text;
+
+      // TESTE API, AJUSTAR
+      final title = titleController.text;
+      final description = descriptionController.text;
+
+      // TESTE API, AJUSTAR
+      final body = {
+        "title": title,
+        "description" : description,
+        "is_completed": false,
+      };
+
+
+      // Submit data to the server
+      final url = 'http://api.nstack.in/v1/todos';
+      final uri = Uri.parse(url);
+      http.post(uri);
+      final response = await http.post(
+          uri,
+          body: jsonEncode(body),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+      );
+
+
+      // show success or fail message based on status
+      if (response.statusCode == 201 || response.statusCode == 200){
+        titleController.clear();
+        descriptionController.clear();
+        showSuccessMessage(isEdit? 'Perfil Editado com Sucesso' : 'Perfil Adicionado com Sucesso');
+
+        print('Sucess: ');
+        print(response.statusCode);
+        print(response.body);
+      } else {
+
+        showErrorMessage('Campos Inválidos ou API indisponível');
+
+        print('Error: ');
+        print(response.statusCode);
+        print(response.body);
+      }
+
+    }
+
+    Future<void> updateData() async {
+      // Get the data from form
+      final todo = widget.todo;
+      if (todo == null){
+        print('chamada de update incorreta');
+        return;
+      }
+
+      final id = todo['_id'];
+      //final isCompleted = todo['is_completed'];
+      //final nome = nomeController.text;
+      //final ultima = ultimaController.text;
+      //final observacoes = observacoesController.text;
+
+      // TESTE API, AJUSTAR
+      final title = titleController.text;
+      final description = descriptionController.text;
+
+      // TESTE API, AJUSTAR
+      final body = {
+        "title": title,
+        "description" : description,
+        "is_completed": false,
+      };
+
+      final url = 'http://api.nstack.in/v1/todos/$id';
+      final uri = Uri.parse(url);
+      http.post(uri);
+      final response = await http.put(
+          uri,
+          body: jsonEncode(body),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+      );
+
+      if (response.statusCode == 201 || response.statusCode == 200){
+        showSuccessMessage(isEdit? 'Perfil Editado com Sucesso' : 'Perfil Adicionado com Sucesso');
+        print('Sucess updated ');
+      }
+    }
+
     return Scaffold(
         appBar: AppBar(
-        title: Text('Meu Perfil'),
-        backgroundColor: Color.fromRGBO(35, 100, 128, 1),
+          title: Text(
+              isEdit? 'Editar Perfil' : 'Adicionar Perfil'),
+          backgroundColor: Color.fromRGBO(35, 100, 128, 1),
         ),
         body: ListView(
           padding: EdgeInsets.all(20),
           children: [
             TextField(
+              controller: nomeController,
               decoration: InputDecoration(
-                hintText: 'Digite seu Nome',
-                labelText: 'Nome: ',
+                hintText: 'Digite o Nome Completo',
+                labelText: 'Nome Completo: ',
               ),
 
             ),
             TextField(
+              controller: emailController,
               decoration: InputDecoration(
-                  hintText: 'Digite sua Data de Nascimento',
-                  labelText: 'Data de Nascimento:',
-              ),
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  hintText: 'Seu Gênero',
-                  labelText: 'Gênero:',
-              ),
-            ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Tipo Sanguíneo: ',
-                labelText: 'Tipo Sanguíneo:',
-              ),
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  hintText: 'Digite seu E-mail',
+                hintText: 'Digite o E-mail',
                 labelText: 'E-mail:',
               ),
             ),
             TextField(
+              controller: dataNascController,
               decoration: InputDecoration(
-                  hintText: 'Digite sua Senha',
+                hintText: 'Digite a Data de Nascimento',
+                labelText: 'Data de Nascimento:',
+              ),
+            ),
+            TextField(
+              controller: senhaController,
+              decoration: InputDecoration(
+                hintText: 'Digite a Senha',
                 labelText: 'Senha:',
               ),
             ),
             TextField(
+              controller: cpfController,
               decoration: InputDecoration(
-                  hintText: 'Digite seu Endereço',
+                hintText: 'Digite o CPF',
+                labelText: 'CPF:',
+              ),
+            ),
+            TextField(
+              controller: rgController,
+              decoration: InputDecoration(
+                hintText: 'Digite o RG',
+                labelText: 'RG:',
+              ),
+            ),
+            TextField(
+              controller: crmController,
+              decoration: InputDecoration(
+                hintText: 'Digite o CRM (Caso Seja Profissional de Saúde)',
+                labelText: 'CRM:',
+              ),
+            ),
+            TextField(
+              controller: sexoController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Sexo',
+                labelText: 'Sexo:',
+              ),
+            ),
+            TextField(
+              controller: nacionalidadeController,
+              decoration: InputDecoration(
+                hintText: 'Digite a Nacionalidade',
+                labelText: 'Nacionalidade:',
+              ),
+            ),
+            TextField(
+              controller: enderecoController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Endereço',
                 labelText: 'Endereço:',
               ),
             ),
             TextField(
+              controller: numeroController,
               decoration: InputDecoration(
-                hintText: 'Digite seu Número de Residência',
+                hintText: 'Digite o Número do Endereço',
                 labelText: 'Número:',
               ),
             ),
             TextField(
+              controller: contatoController,
               decoration: InputDecoration(
-                hintText: 'Digite seu Bairro: ',
-                labelText: 'Bairro:',
+                hintText: 'Digite o Telefone de Contato',
+                labelText: 'Contato:',
               ),
             ),
             TextField(
+              controller: ufController,
               decoration: InputDecoration(
-                hintText: 'Digite seu Telefone: ',
-                labelText: 'Telefone:',
+                hintText: 'Digite o UF',
+                labelText: 'UF:',
               ),
             ),
+            TextField(
+              controller: cidadeController,
+              decoration: InputDecoration(
+                hintText: 'Digite a Cidade',
+                labelText: 'Cidade:',
+              ),
+            ),
+            SizedBox(height: 20),
+
+
 
             // TESTE API, REMOVER
             TextField(
+              controller: titleController,
               decoration: InputDecoration(
                 hintText: 'Digite seu Titulo: ',
                 labelText: 'Title:',
               ),
             ),
             TextField(
+              controller: descriptionController,
               decoration: InputDecoration(
                 hintText: 'Digite sua Descrição: ',
                 labelText: 'Description:',
@@ -113,13 +308,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
               maxLines: 8,
               keyboardType: TextInputType.multiline,
             ),
+            SizedBox(height: 20),
+
+
+            ElevatedButton(
+              onPressed: isEdit? updateData : submitData,
+
+              style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(35, 100, 128, 1)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Color.fromRGBO(35, 100, 128, 1))
+                      )
+                  )
+              ),
+              child: Text(isEdit? 'Editar' : "Adicionar"),),
 
             ElevatedButton(
               onPressed: (){
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CadastroPageOne(),
+                    builder: (context) => CategoryListPage(),
                   ),
                 );
               },
@@ -134,256 +346,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       )
                   )
               ),
-              child: Text("Salvar"),),
-
-            ElevatedButton(
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CadastroPageOne(),
-                  ),
-                );
-              },
-
-              style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(35, 100, 128, 1)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Color.fromRGBO(35, 100, 128, 1))
-                      )
-                  )
-              ),
-              child: Text("Voltar"),),
-
+              child: Text("Cancelar"),),
+            SizedBox(width: 10),
 
           ],
         )
     );
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*return Scaffold(
-      appBar: AppBar(
-        title: Text('Meu Perfil'),
-        backgroundColor: Color.fromRGBO(35, 100, 128, 1),
-      ),
-      body: Container(
-        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: ListView(
-            children: [
-              Text(
-                "Editar Perfil",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor),
-                          boxShadow: [
-                            BoxShadow(
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                color: Colors.black.withOpacity(0.1),
-                                offset: Offset(0, 10))
-                          ],
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                              ))),
-                    ),
-                    Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                            ),
-                            color: Colors.blueAccent,
-                          ),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              buildTextField("Nome", "Gabriel Darbone", false, false),
-              buildTextField("Data de Nascimento", "13/08/1996", false, false),
-              buildTextField("Gênero", "Masculino", false, false),
-              buildTextField("Email", "teste@teste.com", false, true),
-              buildTextField("Senha", "*********", true, true),
-              buildTextField("Endereço", "Rua xxxxxxxxxx", false, true),
-              buildTextField("Número", "1234", false, true),
-              buildTextField("Bairro", "Bairro x", false, true),
-              buildTextField("Telefone", "1199999999", false, true),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      splashColor:
-                          Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      highlightColor:
-                          Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      onTap: () => Navigator.pop(context, false),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 57.0),
-                        child: Text(
-                          'Voltar',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(35, 100, 128, 1),
-                              fontWeight: FontWeight.bold),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.transparent,
-                            border: Border.all(
-                                color: Color.fromRGBO(35, 100, 128, 1),
-                                width: 2)),
-                      ),
-                    ),
-                  ),
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      splashColor:
-                          Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      highlightColor:
-                          Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                      onTap: () => showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text("Salvo com Sucesso."),
-                          content: Text(
-                              "Suas alterações foram salvas com sucesso, você será redirecionado para a tela principal."),
-                          actions: [
-                            TextButton(
-                                onPressed: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            CategoryListPage(),
-                                      ),
-                                    ),
-                                child: Text("Ok"))
-                          ],
-                        ),
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 57.0),
-                        child: Text(
-                          'Salvar',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(35, 100, 128, 1),
-                              fontWeight: FontWeight.bold),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.transparent,
-                            border: Border.all(
-                                color: Color.fromRGBO(35, 100, 128, 1),
-                                width: 2)),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30)
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildTextField(String labelText, String placeholder,
-      bool isPasswordTextField, bool isEnabled) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
-        obscureText: isPasswordTextField ? showPassword : false,
-        decoration: InputDecoration(
-            suffixIcon: isPasswordTextField
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        showPassword = !showPassword;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.remove_red_eye,
-                      color: Colors.grey,
-                    ),
-                  )
-                : null,
-            contentPadding: EdgeInsets.only(bottom: 3),
-            labelText: labelText,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: placeholder,
-            enabled: isEnabled,
-            hintStyle: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            )),
-      ),
-    );
-  }*/
 }

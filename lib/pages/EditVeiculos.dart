@@ -12,27 +12,28 @@ import '../widgets/sidemenubar.dart';
 import 'CadastroPage.dart';
 
 
-class RelatorioAddComplicacoes extends StatefulWidget {
+class EditVeiculos extends StatefulWidget {
   final Map? todo;
-  const RelatorioAddComplicacoes({
+  const EditVeiculos({
     super.key,
     this.todo,
   });
 
   @override
-  State<RelatorioAddComplicacoes> createState() => _RelatorioAddComplicacoes();
-  }
+  State<EditVeiculos> createState() => _EditVeiculos();
+}
 
-  class _RelatorioAddComplicacoes extends State<RelatorioAddComplicacoes> {
+class _EditVeiculos extends State<EditVeiculos> {
 
 
-  Widget typeCard = ComplicacoesCard();
-  bool isEdit = false;
+  bool isEdit = true;
 
-  TextEditingController nomeController = TextEditingController();
-  TextEditingController quantidadeController = TextEditingController();
-  TextEditingController ultimaController = TextEditingController();
-  TextEditingController observacoesController = TextEditingController();
+  TextEditingController veiculoController = TextEditingController();
+  TextEditingController fabricanteController = TextEditingController();
+  TextEditingController modeloController = TextEditingController();
+  TextEditingController anoController = TextEditingController();
+  TextEditingController corController = TextEditingController();
+  TextEditingController placaController = TextEditingController();
 
   // TESTE API, REMOVER
   TextEditingController titleController = TextEditingController();
@@ -111,7 +112,7 @@ class RelatorioAddComplicacoes extends StatefulWidget {
       if (response.statusCode == 201 || response.statusCode == 200){
         titleController.clear();
         descriptionController.clear();
-        showSuccessMessage(isEdit? 'Complicação Editada com Sucesso' : 'Complicação Adicionada com Sucesso');
+        showSuccessMessage(isEdit? 'Perfil Editado com Sucesso' : 'Perfil Adicionado com Sucesso');
 
         print('Sucess: ');
         print(response.statusCode);
@@ -164,44 +165,62 @@ class RelatorioAddComplicacoes extends StatefulWidget {
       );
 
       if (response.statusCode == 201 || response.statusCode == 200){
-        showSuccessMessage(isEdit? 'Complicação Editada com Sucesso' : 'Complicação Adicionada com Sucesso');
+        showSuccessMessage(isEdit? 'Perfil Editado com Sucesso' : 'Perfil Adicionado com Sucesso');
         print('Sucess updated ');
       }
     }
 
-      return Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text(
-              isEdit? 'Editar Complicação' : 'Adicionar Complicações'),
+              isEdit? 'Editar Perfil' : 'Adicionar Perfil'),
           backgroundColor: Color.fromRGBO(35, 100, 128, 1),
         ),
         body: ListView(
           padding: EdgeInsets.all(20),
           children: [
             TextField(
-              controller: nomeController,
+              controller: veiculoController,
               decoration: InputDecoration(
-                hintText: 'Digite o Nome da Complicação',
-                labelText: 'Nome da Complicação: ',
+                hintText: 'Digite o Nome do Veiculo',
+                labelText: 'Nome do Veiculo: ',
               ),
 
             ),
             TextField(
-              controller: quantidadeController,
+              controller: fabricanteController,
               decoration: InputDecoration(
-                hintText: 'Digite a Categoria',
-                labelText: 'Categoria:',
+                hintText: 'Digite o Fabricante',
+                labelText: 'Nome do Fabricante:',
               ),
             ),
             TextField(
-              controller: observacoesController,
+              controller: modeloController,
               decoration: InputDecoration(
-                hintText: 'Deseja incluir alguma Observaçaõ?',
-                labelText: 'Observações:',
+                hintText: 'Digite o Modelo',
+                labelText: 'Nome do Modelo:',
               ),
-              minLines: 5,
-              maxLines: 8,
-              keyboardType: TextInputType.multiline,
+            ),
+            TextField(
+              controller: anoController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Ano de Fabricação',
+                labelText: 'Ano:',
+              ),
+            ),
+            TextField(
+              controller: corController,
+              decoration: InputDecoration(
+                hintText: 'Digite a Cor',
+                labelText: 'Cor:',
+              ),
+            ),
+            TextField(
+              controller: placaController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Número da Placa',
+                labelText: 'Número da Placa:',
+              ),
             ),
             SizedBox(height: 20),
 
@@ -265,10 +284,6 @@ class RelatorioAddComplicacoes extends StatefulWidget {
               ),
               child: Text("Cancelar"),),
             SizedBox(width: 10),
-            Container(
-                height: 80,
-                child: RelatorioBar()
-            ),
 
           ],
         )

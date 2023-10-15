@@ -12,27 +12,26 @@ import '../widgets/sidemenubar.dart';
 import 'CadastroPage.dart';
 
 
-class RelatorioAddComplicacoes extends StatefulWidget {
+class EditContatos extends StatefulWidget {
   final Map? todo;
-  const RelatorioAddComplicacoes({
+  const EditContatos({
     super.key,
     this.todo,
   });
 
   @override
-  State<RelatorioAddComplicacoes> createState() => _RelatorioAddComplicacoes();
-  }
+  State<EditContatos> createState() => _EditContatos();
+}
 
-  class _RelatorioAddComplicacoes extends State<RelatorioAddComplicacoes> {
+class _EditContatos extends State<EditContatos> {
 
 
-  Widget typeCard = ComplicacoesCard();
-  bool isEdit = false;
+  bool isEdit = true;
 
   TextEditingController nomeController = TextEditingController();
-  TextEditingController quantidadeController = TextEditingController();
-  TextEditingController ultimaController = TextEditingController();
-  TextEditingController observacoesController = TextEditingController();
+  TextEditingController parentescoController = TextEditingController();
+  TextEditingController telefoneController = TextEditingController();
+
 
   // TESTE API, REMOVER
   TextEditingController titleController = TextEditingController();
@@ -111,7 +110,7 @@ class RelatorioAddComplicacoes extends StatefulWidget {
       if (response.statusCode == 201 || response.statusCode == 200){
         titleController.clear();
         descriptionController.clear();
-        showSuccessMessage(isEdit? 'Complicação Editada com Sucesso' : 'Complicação Adicionada com Sucesso');
+        showSuccessMessage(isEdit? 'Contato Editado com Sucesso' : 'Contato Adicionado com Sucesso');
 
         print('Sucess: ');
         print(response.statusCode);
@@ -164,15 +163,15 @@ class RelatorioAddComplicacoes extends StatefulWidget {
       );
 
       if (response.statusCode == 201 || response.statusCode == 200){
-        showSuccessMessage(isEdit? 'Complicação Editada com Sucesso' : 'Complicação Adicionada com Sucesso');
+        showSuccessMessage(isEdit? 'Contato Editado com Sucesso' : 'Contato Adicionado com Sucesso');
         print('Sucess updated ');
       }
     }
 
-      return Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text(
-              isEdit? 'Editar Complicação' : 'Adicionar Complicações'),
+              isEdit? 'Editar Perfil' : 'Adicionar Perfil'),
           backgroundColor: Color.fromRGBO(35, 100, 128, 1),
         ),
         body: ListView(
@@ -181,27 +180,24 @@ class RelatorioAddComplicacoes extends StatefulWidget {
             TextField(
               controller: nomeController,
               decoration: InputDecoration(
-                hintText: 'Digite o Nome da Complicação',
-                labelText: 'Nome da Complicação: ',
+                hintText: 'Digite o Nome do Contato',
+                labelText: 'Nome do Contato: ',
               ),
 
             ),
             TextField(
-              controller: quantidadeController,
+              controller: parentescoController,
               decoration: InputDecoration(
-                hintText: 'Digite a Categoria',
-                labelText: 'Categoria:',
+                hintText: 'Digite a Parentesco com Este Contato',
+                labelText: 'Parentesco:',
               ),
             ),
             TextField(
-              controller: observacoesController,
+              controller: telefoneController,
               decoration: InputDecoration(
-                hintText: 'Deseja incluir alguma Observaçaõ?',
-                labelText: 'Observações:',
+                hintText: 'Digite o Número de Telefone',
+                labelText: 'Telefone:',
               ),
-              minLines: 5,
-              maxLines: 8,
-              keyboardType: TextInputType.multiline,
             ),
             SizedBox(height: 20),
 
@@ -265,10 +261,6 @@ class RelatorioAddComplicacoes extends StatefulWidget {
               ),
               child: Text("Cancelar"),),
             SizedBox(width: 10),
-            Container(
-                height: 80,
-                child: RelatorioBar()
-            ),
 
           ],
         )

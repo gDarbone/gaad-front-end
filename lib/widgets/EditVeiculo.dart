@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/helpers/utils.dart';
-import 'package:gaad_mobile/pages/CadastroPageTwo.dart';
 import 'package:gaad_mobile/pages/VeiculosPage.dart';
 import 'package:gaad_mobile/pages/loginpage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';

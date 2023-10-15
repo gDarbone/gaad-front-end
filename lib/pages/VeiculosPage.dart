@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/widgets/AddContact.dart';
 import 'package:gaad_mobile/widgets/AddVeiculo.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
+import 'package:gaad_mobile/widgets/EditVeiculo.dart';
 import 'package:gaad_mobile/widgets/RelatorioBar.dart';
 import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioRemediosCard.dart';
@@ -13,6 +14,7 @@ import 'package:http/http.dart' as http;
 import '../widgets/RelatorioViewBar.dart';
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
+import 'EditVeiculos.dart';
 import 'RelatorioPage.dart';
 import 'RelatorioViewComplicacoes.dart';
 import 'RelatorioViewRemedios.dart';
@@ -38,9 +40,16 @@ class _VeiculosPage extends State<VeiculosPage> {
     super.initState();
   }
 
-  void navigateToRelatorioComplicacoes(){
+  void navigateToAddVeiculo(){
     final route = MaterialPageRoute(
       builder: (context) => AddVeiculo(),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+  void navigateToEditVeiculos(Map item){
+    final route = MaterialPageRoute(
+      builder: (context) => EditVeiculos(todo: item),
     );
     Navigator.pushReplacement(context, route);
   }
@@ -101,7 +110,7 @@ class _VeiculosPage extends State<VeiculosPage> {
                   trailing: PopupMenuButton(
                       onSelected: (value) {
                         if (value == 'edit'){
-
+                          navigateToEditVeiculos(item);
                         }else if (value == 'delete'){
                           deleteById(id);
                         }
@@ -125,7 +134,7 @@ class _VeiculosPage extends State<VeiculosPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: navigateToRelatorioComplicacoes,
+        onPressed: navigateToAddVeiculo,
         label: Text('Adicionar'),
       ),
     );

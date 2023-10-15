@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:gaad_mobile/pages/CadastroPageOne.dart';
+import 'package:gaad_mobile/pages/CadastroPage.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -139,7 +139,7 @@ class loginpage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CadastroPageOne(),
+                      builder: (context) => CadastroPage(),
                     ),
                   );
                 },
@@ -155,27 +155,6 @@ class loginpage extends StatelessWidget {
                     )
                 ),
                 child: Text("Cadastre-se"),),
-              Container(
-                height: 40,
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  child: Text(
-                    "Esqueci minha senha",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      color: Color.fromRGBO(35, 100, 128, 1),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RecoveryPassword(),
-                      ),
-                    );
-                  },
-                ),
-              ),
             ],
           ) ,
         ),

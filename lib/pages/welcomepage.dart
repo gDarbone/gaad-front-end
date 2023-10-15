@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/loginpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'CadastroPageOne.dart';
+import 'CadastroPage.dart';
 import 'CategoryListPageMedico.dart';
 
 class WelcomePage extends StatefulWidget {

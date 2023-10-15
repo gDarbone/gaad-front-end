@@ -110,7 +110,7 @@ class _AddContact extends State<AddContact> {
       if (response.statusCode == 201 || response.statusCode == 200){
         titleController.clear();
         descriptionController.clear();
-        showSuccessMessage(isEdit? 'Vacina Editada com Sucesso' :'Vacina Adicionada com Sucesso');
+        showSuccessMessage(isEdit? 'Contato Editado com Sucesso' :'Contato Adicionado com Sucesso');
 
         print('Sucess: ');
         print(response.statusCode);

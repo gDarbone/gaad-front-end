@@ -76,43 +76,6 @@ class ConfiguracaoPage extends StatelessWidget {
                           style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 20))
                     ],
                   )),
-
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RecoveryPassword(),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      Icon(Icons.password, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
-                      SizedBox(width: 10),
-                      Text("Alterar Minha Senha",
-                          style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 20))
-                    ],
-                  )),
-
-
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DeleteAccount(),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      Icon(Icons.delete_forever, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
-                      SizedBox(width: 10),
-                      Text("Excluir Minha Conta",
-                          style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 20))
-                    ],
-                  ))
             ],
 
           ),

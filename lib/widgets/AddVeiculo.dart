@@ -165,7 +165,7 @@ class _AddVeiculo extends State<AddVeiculo> {
       );
 
       if (response.statusCode == 201 || response.statusCode == 200){
-        showSuccessMessage(isEdit? 'Vacina Editada com Sucesso' : 'Vacina Adicionada com Sucesso');
+        showSuccessMessage(isEdit? 'Veiculo Editado com Sucesso' : 'Veiculo Adicionado com Sucesso');
         print('Sucess updated ');
       }
     }
