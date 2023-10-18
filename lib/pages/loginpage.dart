@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class loginpage extends StatelessWidget {
   final _formkey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
+  Map<String, dynamic> responseUsuarioLogado = {};
 
   @override
   Widget build(BuildContext context) {
@@ -96,19 +97,30 @@ class loginpage extends StatelessWidget {
                       currentFocus.unfocus();
                     }
                     if(autorizado){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CategoryListPageMedico(),
-                        ),
-                      );
+                      print(responseUsuarioLogado["crm"].toString());
+                      if (responseUsuarioLogado["crm"].toString() == "" || responseUsuarioLogado["crm"].toString() == null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CategoryListPage(),
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CategoryListPageMedico(),
+                          ),
+                        );
+                      }
+
                     }else {
                       _passwordController.clear();
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   }
                   // REMOVER APÓS VALIDACAO DO BACKEND
-                  else {
+                  /*else {
                     FocusScopeNode currentFocus = FocusScope.of(context);
                     if (!currentFocus.hasPrimaryFocus){
                       currentFocus.unfocus();
@@ -119,7 +131,7 @@ class loginpage extends StatelessWidget {
                         builder: (context) => CategoryListPageMedico(),
                       ),
                     );
-                  }
+                  }*/
                 },
                 style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -163,164 +175,6 @@ class loginpage extends StatelessWidget {
       )
     );
   }
-    /*return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top:  40, left: 50, right: 50),
-        color: Colors.white,
-        child: ListView(
-          children: <Widget>[
-            SizedBox(
-              width: 200,
-              height: 200,
-              child: Image.asset("assets/logo gaad.png"),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-
-            TextFormField(
-              //autofocus: true,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                labelText: "E-mail ou CRM",
-                labelStyle: TextStyle(
-                  color: Color.fromRGBO(35, 100, 128, 1),
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                ),
-              ),
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              // autofocus: true,
-              keyboardType: TextInputType.text,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: "Senha",
-                labelStyle: TextStyle(
-                  color: Color.fromRGBO(35, 100, 128, 1),
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                ),
-              ),
-              style: TextStyle(fontSize: 20),
-            ),
-            Container(
-              height: 40,
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                child: Text(
-                  "Recuperar Senha",
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    color: Color.fromRGBO(35, 100, 128, 1),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RecoveryPassword(),
-                    ),
-                  );
-                },
-              ),
-            ),
-            Container(
-              height: 40,
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                child: Text(
-                  "Cadastre-se",
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    color: Color.fromRGBO(35, 100, 128, 1),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CadastroPageOne(),
-                    ),
-                  );
-                },
-              ),
-            ),
-            SizedBox(height: 20,),
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                splashColor:
-                Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                highlightColor:
-                Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CategoryListPage(),
-                    ),
-                  );
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 50.0),
-                  child: Text(
-                    'Entrar',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, color: Color.fromRGBO(35, 100, 128, 1), fontWeight: FontWeight.bold),
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.transparent,
-                      border: Border.all(color: Color.fromRGBO(35, 100, 128, 1), width: 2)),
-                ),
-
-
-              ),
-            ),
-            SizedBox(height: 20,),
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                splashColor:
-                Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                highlightColor:
-                Color.fromRGBO(35, 100, 128, 1).withOpacity(0.2),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CategoryListPageMedico(),
-                    ),
-                  );
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 50.0),
-                  child: Text(
-                    'Entrar CRM',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, color: Color.fromRGBO(35, 100, 128, 1), fontWeight: FontWeight.bold),
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.transparent,
-                      border: Border.all(color: Color.fromRGBO(35, 100, 128, 1), width: 2)),
-                ),
-
-
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }*/
 
   final snackBar = SnackBar(
     content: Text(
@@ -331,21 +185,41 @@ class loginpage extends StatelessWidget {
   );
 
   Future<bool> login() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse('https://backend.com.br/login');
-    var resposta = await http.post(url,
-    body: {
-        'username' : _emailController.text,
-        'password' : _passwordController.text,
-        }
+    //SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String username = _emailController.text;
+    String password = _passwordController.text;
+    final String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+
+    var url = 'http://10.0.2.2:8080/gaad/userPersonalData/get';
+    var resposta = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization': basicAuth,
+      },
     );
-    if (resposta.statusCode == 200 ) {
+    /*if (resposta.statusCode == 200 ) {
       await sharedPreferences.setString('token', "Token ${jsonDecode(resposta.body)['token']}");
-      print('Token ' + jsonDecode(resposta.body)['token']);
+      print('Token ' + jsonDecode(resposta.body));
+      //print('Response status: ${response.statusCode}');
+      //print('Response body: ${response.body}');
       return true;
     } else {
       print('Resposta do Servidor: ' +jsonDecode(resposta.body));
       return false;
+    }*/
+
+    if (resposta.statusCode == 200) {
+      // A resposta da API foi bem-sucedida.
+      print('Resposta da API: ${resposta.body}');
+      responseUsuarioLogado = json.decode(resposta.body);
+      print(responseUsuarioLogado);
+      return true;
+    } else {
+      // Lidar com erros, por exemplo:
+      print('Erro na chamada da API: ${resposta.statusCode}');
+      return false;
     }
+
   }
 }

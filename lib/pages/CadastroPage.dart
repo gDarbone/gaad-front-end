@@ -30,6 +30,7 @@ class _CadastroPage extends State<CadastroPage> {
 
   bool isEdit = false;
 
+  TextEditingController usernameController = TextEditingController();
   TextEditingController nomeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController dataNascController = TextEditingController();
@@ -39,11 +40,15 @@ class _CadastroPage extends State<CadastroPage> {
   TextEditingController crmController = TextEditingController();
   TextEditingController sexoController = TextEditingController();
   TextEditingController nacionalidadeController = TextEditingController();
-  TextEditingController enderecoController = TextEditingController();
-  TextEditingController numeroController = TextEditingController();
-  TextEditingController contatoController = TextEditingController();
+  TextEditingController tiposanguineoController = TextEditingController();
+
+  TextEditingController streetController = TextEditingController();
+  TextEditingController cepController = TextEditingController();
+  TextEditingController houseNumberController = TextEditingController();
+  TextEditingController cellNumberController = TextEditingController();
+  TextEditingController alternativeCellNumberController = TextEditingController();
+  TextEditingController fullNameAlternativeContactController = TextEditingController();
   TextEditingController ufController = TextEditingController();
-  TextEditingController cidadeController = TextEditingController();
 
   // TESTE API, REMOVER
   TextEditingController titleController = TextEditingController();
@@ -104,22 +109,58 @@ class _CadastroPage extends State<CadastroPage> {
         "is_completed": false,
       };*/
 
+      final username = usernameController.text;
+      final cpf = cpfController.text;
+      final rg = rgController.text;
+      final crn = crmController.text;
+      final birthdate = dataNascController.text;
+      final sex = sexoController.text;
+      final nationality = nacionalidadeController.text;
+      final bloodtype = tiposanguineoController.text;
+
       final nome = nomeController.text;
       final email = emailController.text;
       final senha = senhaController.text;
       final confirmasenha = senhaController.text;
 
-      final body = {
-        "username": nome,
-        "email" : email,
-        "password" : senha,
-        "confirmPassword" : confirmasenha,
+      final street = streetController.text;
+      final cep = cepController.text;
+      final houseNumber = houseNumberController.text;
+      final cellNumber = cellNumberController.text;
+      final alternativeCellNumber = alternativeCellNumberController.text;
+      final fullNameAlternativeContact = fullNameAlternativeContactController.text;
+      final uf = ufController.text;
+
+      final Map<String, dynamic> body = {
+      "username": username,
+      "email": email,
+      "password": senha,
+      "confirmPassword": confirmasenha,
+      "userPersonalDataRequest": {
+      "fullName": nome,
+      "cpf": cpf,
+      "rg": rg,
+      "crm": crn,
+      "birthdate": birthdate,
+      "sex": sex,
+      "nationality": nationality,
+      "bloodType": bloodtype
+      },
+        "userContactRequest":{
+          "street":street,
+          "cep":cep,
+          "houseNumber": houseNumber,
+          "cellNumber": cellNumber,
+          "alternativeCellNumber":alternativeCellNumber,
+          "fullNameAlternativeContact":fullNameAlternativeContact,
+          "uf":uf
+        }
       };
 
 
       // Submit data to the server
       //final url = 'http://api.nstack.in/v1/todos';
-      final url = 'http://localhost:8080/gaad/register';
+      final url = 'http://10.0.2.2:8080/gaad/register';
 
       final uri = Uri.parse(url);
       http.post(uri);
@@ -204,6 +245,14 @@ class _CadastroPage extends State<CadastroPage> {
           padding: EdgeInsets.all(20),
           children: [
             TextField(
+              controller: usernameController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Nome de Usuário',
+                labelText: 'Nome de Usuário: ',
+              ),
+
+            ),
+            TextField(
               controller: nomeController,
               decoration: InputDecoration(
                 hintText: 'Digite o Nome Completo',
@@ -268,24 +317,52 @@ class _CadastroPage extends State<CadastroPage> {
               ),
             ),
             TextField(
-              controller: enderecoController,
+              controller: tiposanguineoController,
               decoration: InputDecoration(
-                hintText: 'Digite o Endereço',
+                hintText: 'Digite o Tipo Sanguineo',
+                labelText: 'Tipo Sanguineo:',
+              ),
+            ),
+            TextField(
+              controller: streetController,
+              decoration: InputDecoration(
+                hintText: 'Digite o seu Endereço',
                 labelText: 'Endereço:',
               ),
             ),
             TextField(
-              controller: numeroController,
+              controller: cepController,
               decoration: InputDecoration(
-                hintText: 'Digite o Número do Endereço',
-                labelText: 'Número:',
+                hintText: 'Digite o seu CEP',
+                labelText: 'CEP:',
               ),
             ),
             TextField(
-              controller: contatoController,
+              controller: houseNumberController,
               decoration: InputDecoration(
-                hintText: 'Digite o Telefone de Contato',
-                labelText: 'Contato:',
+                hintText: 'Digite o Número da Residência',
+                labelText: 'Numero da Residência:',
+              ),
+            ),
+            TextField(
+              controller: cellNumberController,
+              decoration: InputDecoration(
+                hintText: 'Digite o seu Telefone',
+                labelText: 'Telefone:',
+              ),
+            ),
+            TextField(
+              controller: alternativeCellNumberController,
+              decoration: InputDecoration(
+                hintText: 'Digite um Número de Contato Alternativo',
+                labelText: 'Número do Contato Alternativo:',
+              ),
+            ),
+            TextField(
+              controller: fullNameAlternativeContactController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Nome do Contato Alternativo',
+                labelText: 'Nome do Contato Alternativo:',
               ),
             ),
             TextField(
@@ -295,19 +372,12 @@ class _CadastroPage extends State<CadastroPage> {
                 labelText: 'UF:',
               ),
             ),
-            TextField(
-              controller: cidadeController,
-              decoration: InputDecoration(
-                hintText: 'Digite a Cidade',
-                labelText: 'Cidade:',
-              ),
-            ),
             SizedBox(height: 20),
 
 
 
             // TESTE API, REMOVER
-            TextField(
+            /*TextField(
               controller: titleController,
               decoration: InputDecoration(
                 hintText: 'Digite seu Titulo: ',
@@ -324,7 +394,7 @@ class _CadastroPage extends State<CadastroPage> {
               maxLines: 8,
               keyboardType: TextInputType.multiline,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 20),*/
 
 
             ElevatedButton(
