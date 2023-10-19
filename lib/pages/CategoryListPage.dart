@@ -14,10 +14,11 @@ class CategoryListPage extends StatelessWidget {
 
   List<Category> categories = Utils.getMockedCategories();
   Utils util = new Utils();
+  Map<String, dynamic> responseUsuarioLogado = {};
+  CategoryListPage(this.responseUsuarioLogado);
 
   @override
   Widget build(BuildContext context){
-
     CategorySelectionService catSelection = Provider.of<CategorySelectionService>(context, listen: false);
 
     return Scaffold(
@@ -55,8 +56,7 @@ class CategoryListPage extends StatelessWidget {
                         var subCat = this.categories[index];
                         catSelection.selectedCategory = this.categories[index];
                         var RotaTela = util.ControleTela(subCat.name);
-
-                        Navigator.of(context).pushNamed(RotaTela);
+                        Navigator.of(context).pushNamed(RotaTela, arguments: responseUsuarioLogado);
                       },
                     );
                   }),

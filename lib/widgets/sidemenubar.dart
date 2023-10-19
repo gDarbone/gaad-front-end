@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../pages/loginpage.dart';
 
 class SideMenuBar extends StatelessWidget {
-
+  Map<String, dynamic> responseUsuarioLogado = {};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class SideMenuBar extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CategoryListPage(),
+                      builder: (context) => CategoryListPage(responseUsuarioLogado),
                     ),
                   );
                 },
@@ -43,7 +43,7 @@ class SideMenuBar extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CategoryListPageMedico(),
+                      builder: (context) => CategoryListPageMedico(responseUsuarioLogado),
                     ),
                   );
                 },

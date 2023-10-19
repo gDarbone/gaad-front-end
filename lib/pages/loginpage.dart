@@ -20,6 +20,7 @@ class loginpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Form(
         key: _formkey,
@@ -81,8 +82,8 @@ class loginpage extends StatelessWidget {
                 validator: (senha){
                   if (senha == null || senha.isEmpty) {
                     return 'Por favor, digite sua Senha';
-                  } else if (senha.length <6) {
-                      return 'Por favor, digite uma senha com mais de 6 caracteres';
+                  } else if (senha.length <8) {
+                      return 'Por favor, digite uma senha com mais de 7 caracteres';
                   }
                   return null;
     }
@@ -102,14 +103,14 @@ class loginpage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CategoryListPage(),
+                            builder: (context) => CategoryListPage(responseUsuarioLogado),
                           ),
                         );
                       } else {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CategoryListPageMedico(),
+                            builder: (context) => CategoryListPageMedico(responseUsuarioLogado),
                           ),
                         );
                       }

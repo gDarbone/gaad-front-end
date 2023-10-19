@@ -78,10 +78,10 @@ class Utils {
     var RotaTela = '/welcomepage';
     switch (SubCategoriaSelecionada) {
       case "Perfil":
-        RotaTela = '/PerfilPage';
+        RotaTela = '/EditProfilePage';
         break;
       case "Perfil Médico":
-        RotaTela = '/PerfilPage';
+        RotaTela = '/EditProfilePage';
         break;
       case "Identificar Paciente":
         RotaTela = '/IdentificarPacientePage';

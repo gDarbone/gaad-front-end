@@ -23,6 +23,7 @@ class AddContact extends StatefulWidget {
 }
 
 class _AddContact extends State<AddContact> {
+  Map<String, dynamic> responseUsuarioLogado = {};
   Widget typeCard = ComplicacoesCard();
   bool isEdit = false;
 
@@ -243,7 +244,7 @@ class _AddContact extends State<AddContact> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryListPage(),
+                    builder: (context) => CategoryListPage(responseUsuarioLogado),
                   ),
                 );
               },

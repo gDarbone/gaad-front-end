@@ -15,6 +15,7 @@ import 'package:gaad_mobile/services/categoryselectionservice.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  Map<String, dynamic> responseUsuarioLogado = {};
   runApp(MultiProvider(
       providers: [
         Provider(create: (_) => CategorySelectionService())
@@ -27,7 +28,7 @@ void main() {
             '/welcomepage': (context) => WelcomePage(),
             '/loginpage': (context) => loginpage(),
             '/CadastroPage': (context) => CadastroPage(),
-            '/CategoryListPage': (context) => CategoryListPage(),
+            '/CategoryListPage': (context) => CategoryListPage(responseUsuarioLogado),
             '/PerfilPage': (context) => PerfilPage(),
             '/EditProfilePage': (context) => EditProfilePage(),
             '/RelatorioPage': (context) => RelatorioPage(),

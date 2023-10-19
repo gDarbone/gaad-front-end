@@ -16,7 +16,8 @@ import 'RelatorioViewComplicacoes.dart';
 class CategoryListPageMedico extends StatelessWidget {
   List<Category> categories = Utils.getMedicalMockedCategories();
   Utils util = new Utils();
-
+  Map<String, dynamic> responseUsuarioLogado = {};
+  CategoryListPageMedico(this.responseUsuarioLogado);
 
 
   @override
@@ -56,7 +57,7 @@ class CategoryListPageMedico extends StatelessWidget {
                             catSelection.selectedCategory = this.categories[index];
                             var RotaTela = util.ControleTela(subCat.name);
 
-                            Navigator.of(context).pushNamed(RotaTela);
+                            Navigator.of(context).pushNamed(RotaTela, arguments: responseUsuarioLogado);
                           },
                         );
                       }),

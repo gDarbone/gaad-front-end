@@ -16,6 +16,7 @@ import 'RelatorioPage.dart';
 class RelatorioEditRemedios extends StatelessWidget {
 
   Widget typeCard = ComplicacoesCard();
+  Map<String, dynamic> responseUsuarioLogado = {};
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +118,7 @@ class RelatorioEditRemedios extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        CategoryListPage(),
+                                        CategoryListPage(responseUsuarioLogado),
                                   ),
                                 ),
                                 child: Text("Ok"))

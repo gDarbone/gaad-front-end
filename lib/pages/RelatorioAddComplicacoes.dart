@@ -25,7 +25,7 @@ class RelatorioAddComplicacoes extends StatefulWidget {
 
   class _RelatorioAddComplicacoes extends State<RelatorioAddComplicacoes> {
 
-
+  Map<String, dynamic> responseUsuarioLogado = {};
   Widget typeCard = ComplicacoesCard();
   bool isEdit = false;
 
@@ -248,7 +248,7 @@ class RelatorioAddComplicacoes extends StatefulWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryListPage(),
+                    builder: (context) => CategoryListPage(responseUsuarioLogado),
                   ),
                 );
               },

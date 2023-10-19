@@ -24,10 +24,11 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePage extends State<EditProfilePage> {
-
+  Map<String, dynamic> responseUsuarioLogado = {};
 
   bool isEdit = true;
 
+  TextEditingController usernameController = TextEditingController();
   TextEditingController nomeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController dataNascController = TextEditingController();
@@ -37,11 +38,15 @@ class _EditProfilePage extends State<EditProfilePage> {
   TextEditingController crmController = TextEditingController();
   TextEditingController sexoController = TextEditingController();
   TextEditingController nacionalidadeController = TextEditingController();
-  TextEditingController enderecoController = TextEditingController();
-  TextEditingController numeroController = TextEditingController();
-  TextEditingController contatoController = TextEditingController();
+  TextEditingController tiposanguineoController = TextEditingController();
+
+  TextEditingController streetController = TextEditingController();
+  TextEditingController cepController = TextEditingController();
+  TextEditingController houseNumberController = TextEditingController();
+  TextEditingController cellNumberController = TextEditingController();
+  TextEditingController alternativeCellNumberController = TextEditingController();
+  TextEditingController fullNameAlternativeContactController = TextEditingController();
   TextEditingController ufController = TextEditingController();
-  TextEditingController cidadeController = TextEditingController();
 
   // TESTE API, REMOVER
   TextEditingController titleController = TextEditingController();
@@ -61,7 +66,8 @@ class _EditProfilePage extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-
+    final args = ModalRoute.of(context)?.settings.arguments;
+    //responseUsuarioLogado = Map.from(args?.value as Map);
     void showSuccessMessage(String message){
       final snackBar = SnackBar(
         content: Text(
@@ -145,6 +151,29 @@ class _EditProfilePage extends State<EditProfilePage> {
       }
 
       final id = todo['_id'];
+
+      final username = usernameController.text;
+      final cpf = cpfController.text;
+      final rg = rgController.text;
+      final crn = crmController.text;
+      final birthdate = dataNascController.text;
+      final sex = sexoController.text;
+      final nationality = nacionalidadeController.text;
+      final bloodtype = tiposanguineoController.text;
+
+      final nome = nomeController.text;
+      final email = emailController.text;
+      final senha = senhaController.text;
+      final confirmasenha = senhaController.text;
+
+      final street = streetController.text;
+      final cep = cepController.text;
+      final houseNumber = houseNumberController.text;
+      final cellNumber = cellNumberController.text;
+      final alternativeCellNumber = alternativeCellNumberController.text;
+      final fullNameAlternativeContact = fullNameAlternativeContactController.text;
+      final uf = ufController.text;
+
       //final isCompleted = todo['is_completed'];
       //final nome = nomeController.text;
       //final ultima = ultimaController.text;
@@ -185,8 +214,17 @@ class _EditProfilePage extends State<EditProfilePage> {
           backgroundColor: Color.fromRGBO(35, 100, 128, 1),
         ),
         body: ListView(
+
           padding: EdgeInsets.all(20),
           children: [
+            TextField(
+              controller: usernameController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Nome de Usuário',
+                labelText: 'Nome de Usuário: ',
+              ),
+
+            ),
             TextField(
               controller: nomeController,
               decoration: InputDecoration(
@@ -252,24 +290,52 @@ class _EditProfilePage extends State<EditProfilePage> {
               ),
             ),
             TextField(
-              controller: enderecoController,
+              controller: tiposanguineoController,
               decoration: InputDecoration(
-                hintText: 'Digite o Endereço',
+                hintText: 'Digite o Tipo Sanguineo',
+                labelText: 'Tipo Sanguineo:',
+              ),
+            ),
+            TextField(
+              controller: streetController,
+              decoration: InputDecoration(
+                hintText: 'Digite o seu Endereço',
                 labelText: 'Endereço:',
               ),
             ),
             TextField(
-              controller: numeroController,
+              controller: cepController,
               decoration: InputDecoration(
-                hintText: 'Digite o Número do Endereço',
-                labelText: 'Número:',
+                hintText: 'Digite o seu CEP',
+                labelText: 'CEP:',
               ),
             ),
             TextField(
-              controller: contatoController,
+              controller: houseNumberController,
               decoration: InputDecoration(
-                hintText: 'Digite o Telefone de Contato',
-                labelText: 'Contato:',
+                hintText: 'Digite o Número da Residência',
+                labelText: 'Numero da Residência:',
+              ),
+            ),
+            TextField(
+              controller: cellNumberController,
+              decoration: InputDecoration(
+                hintText: 'Digite o seu Telefone',
+                labelText: 'Telefone:',
+              ),
+            ),
+            TextField(
+              controller: alternativeCellNumberController,
+              decoration: InputDecoration(
+                hintText: 'Digite um Número de Contato Alternativo',
+                labelText: 'Número do Contato Alternativo:',
+              ),
+            ),
+            TextField(
+              controller: fullNameAlternativeContactController,
+              decoration: InputDecoration(
+                hintText: 'Digite o Nome do Contato Alternativo',
+                labelText: 'Nome do Contato Alternativo:',
               ),
             ),
             TextField(
@@ -277,13 +343,6 @@ class _EditProfilePage extends State<EditProfilePage> {
               decoration: InputDecoration(
                 hintText: 'Digite o UF',
                 labelText: 'UF:',
-              ),
-            ),
-            TextField(
-              controller: cidadeController,
-              decoration: InputDecoration(
-                hintText: 'Digite a Cidade',
-                labelText: 'Cidade:',
               ),
             ),
             SizedBox(height: 20),
@@ -328,10 +387,12 @@ class _EditProfilePage extends State<EditProfilePage> {
 
             ElevatedButton(
               onPressed: (){
+                print("Chegou no Menu");
+                print(args);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryListPage(),
+                    builder: (context) => CategoryListPage(responseUsuarioLogado),
                   ),
                 );
               },

@@ -185,7 +185,7 @@ class _CadastroPage extends State<CadastroPage> {
       } else {
 
         showErrorMessage('Campos Inválidos ou API indisponível');
-
+        showErrorMessage(response.body);
         print('Error: ');
         print(response.statusCode);
         print(response.body);

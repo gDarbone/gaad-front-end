@@ -24,6 +24,7 @@ class RelatorioAddVacinas extends StatefulWidget {
   }
 
   class _RelatorioAddVacinas extends State<RelatorioAddVacinas> {
+  Map<String, dynamic> responseUsuarioLogado = {};
   Widget typeCard = ComplicacoesCard();
   bool isEdit = false;
 
@@ -254,7 +255,7 @@ class RelatorioAddVacinas extends StatefulWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryListPage(),
+                    builder: (context) => CategoryListPage(responseUsuarioLogado),
                   ),
                 );
               },
