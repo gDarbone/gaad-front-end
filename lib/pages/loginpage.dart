@@ -103,14 +103,14 @@ class loginpage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CategoryListPage(responseUsuarioLogado),
+                            builder: (context) => CategoryListPage(responseUsuarioLogado, _emailController.text, _passwordController.text),
                           ),
                         );
                       } else {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CategoryListPageMedico(responseUsuarioLogado),
+                            builder: (context) => CategoryListPageMedico(responseUsuarioLogado, _emailController.text, _passwordController.text),
                           ),
                         );
                       }

@@ -26,6 +26,8 @@ class EditVeiculos extends StatefulWidget {
 class _EditVeiculos extends State<EditVeiculos> {
 
   Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
   bool isEdit = true;
 
   TextEditingController veiculoController = TextEditingController();
@@ -267,7 +269,7 @@ class _EditVeiculos extends State<EditVeiculos> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryListPage(responseUsuarioLogado),
+                    builder: (context) => CategoryListPage(responseUsuarioLogado, username, password),
                   ),
                 );
               },

@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/models/category.dart';
 
@@ -6,11 +9,12 @@ import '../pages/CategoryListPage.dart';
 import 'categoryicon.dart';
 
 class TokenCpfCard extends StatelessWidget {
-  Category? category;
 
+  String responseTokenUsuarioLogado = '';
+  Category? category;
   Function? onCardClick;
 
-  TokenCpfCard({this.category, this.onCardClick});
+  TokenCpfCard({this.category, this.onCardClick, required this.responseTokenUsuarioLogado});
   Utils util = new Utils();
 
   @override
@@ -46,9 +50,10 @@ class TokenCpfCard extends StatelessWidget {
                 SizedBox(width: 20),
               ],
             ),
-            util.buildTextField("Meu Token", "#23@OARTR",false),
+
+            util.buildTextField("Meu Token", responseTokenUsuarioLogado,false),
             new Padding(padding: EdgeInsets.only(top: 30.0)),
-            Row(
+            /*Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -62,7 +67,7 @@ class TokenCpfCard extends StatelessWidget {
             new Padding(padding: EdgeInsets.only(top: 10.0)),
             SizedBox(
               height: 20,
-            ),
+            ),*/
             SizedBox(
               height: 10,
             ),

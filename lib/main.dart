@@ -16,6 +16,9 @@ import 'package:provider/provider.dart';
 
 void main() {
   Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
+
   runApp(MultiProvider(
       providers: [
         Provider(create: (_) => CategorySelectionService())
@@ -28,7 +31,7 @@ void main() {
             '/welcomepage': (context) => WelcomePage(),
             '/loginpage': (context) => loginpage(),
             '/CadastroPage': (context) => CadastroPage(),
-            '/CategoryListPage': (context) => CategoryListPage(responseUsuarioLogado),
+            '/CategoryListPage': (context) => CategoryListPage(responseUsuarioLogado, username, password),
             '/PerfilPage': (context) => PerfilPage(),
             '/EditProfilePage': (context) => EditProfilePage(),
             '/RelatorioPage': (context) => RelatorioPage(),

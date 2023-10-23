@@ -1,9 +1,12 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/IdentificacaoPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioBar.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
-
+import 'package:http/http.dart' as http;
 import '../widgets/TokenCpfCard.dart';
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
@@ -11,13 +14,20 @@ import 'RelatorioPage.dart';
 
 class TokenCpfPage extends StatelessWidget {
 
-  Widget typeCard = TokenCpfCard();
+  String responseTokenUsuarioLogado = '';
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
+  TokenCpfPage(this.responseTokenUsuarioLogado, this.responseUsuarioLogado, this.username, this.password);
+  Widget typeCard = TokenCpfCard(responseTokenUsuarioLogado: '');
+
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Token e CPF'),
+        appBar: AppBar(
+        title: Text('Token'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
       resizeToAvoidBottomInset: false,
@@ -45,7 +55,8 @@ class TokenCpfPage extends StatelessWidget {
                           EdgeInsets.only(top: 50, left: 5, right: 5),
 
                           child: TokenCpfCard(
-                            onCardClick: () {},
+
+                            onCardClick: () {}, responseTokenUsuarioLogado: responseTokenUsuarioLogado,
                           ),
 
                         ),

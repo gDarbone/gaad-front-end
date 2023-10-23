@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
+import 'package:gaad_mobile/pages/CategoryListPageMedico.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioBar.dart';
@@ -10,7 +11,7 @@ import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
 import '../widgets/sidemenubar.dart';
 import 'CadastroPage.dart';
-
+import 'package:date_format/date_format.dart';
 
 class EditProfilePage extends StatefulWidget {
   final Map? todo;
@@ -25,7 +26,8 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePage extends State<EditProfilePage> {
   Map<String, dynamic> responseUsuarioLogado = {};
-
+  String username = '';
+  String password = '';
   bool isEdit = true;
 
   TextEditingController usernameController = TextEditingController();
@@ -48,26 +50,48 @@ class _EditProfilePage extends State<EditProfilePage> {
   TextEditingController fullNameAlternativeContactController = TextEditingController();
   TextEditingController ufController = TextEditingController();
 
-  // TESTE API, REMOVER
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+
 
   void initState(){
     super.initState();
     final todo = widget.todo;
     if(todo != null) {
-      isEdit = true;
+      isEdit = false;
       final title = todo['title'];
       final description = todo['description'];
-      titleController.text = title;
-      descriptionController.text = description;
     }
+
   }
 
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments;
-    //responseUsuarioLogado = Map.from(args?.value as Map);
+    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    username = arguments['username'];
+    password = arguments['password'];
+
+    responseUsuarioLogado = Map<String, dynamic>.from(arguments['responseUsuarioLogado'] as Map);
+
+    //print(usernameReceived);
+    //print(passwordReceived);
+    //print(responseUsuarioLogado);
+
+    usernameController.text = responseUsuarioLogado["id"].toString();
+    nomeController.text = responseUsuarioLogado["fullName"].toString();
+
+
+    // CONVERTENDO DATA DE NASC
+    var localDate = DateTime.parse(responseUsuarioLogado["birthdate"].toString()).toLocal();
+    var localDateFormatted = formatDate(localDate, [dd, '/', mm, '/', yyyy]);
+    dataNascController.text = localDateFormatted;
+
+    cpfController.text = responseUsuarioLogado["cpf"].toString();
+    rgController.text = responseUsuarioLogado["rg"].toString();
+    crmController.text = responseUsuarioLogado["crm"].toString();
+    sexoController.text = responseUsuarioLogado["sex"].toString();
+    nacionalidadeController.text = responseUsuarioLogado["nationality"].toString();
+    tiposanguineoController.text = responseUsuarioLogado["bloodType"].toString();
+
     void showSuccessMessage(String message){
       final snackBar = SnackBar(
         content: Text(
@@ -97,20 +121,17 @@ class _EditProfilePage extends State<EditProfilePage> {
       //final ultima = ultimaController.text;
       //final observacoes = observacoesController.text;
 
-      // TESTE API, AJUSTAR
-      final title = titleController.text;
-      final description = descriptionController.text;
 
       // TESTE API, AJUSTAR
-      final body = {
+      /*final body = {
         "title": title,
         "description" : description,
         "is_completed": false,
-      };
+      };*/
 
 
       // Submit data to the server
-      final url = 'http://api.nstack.in/v1/todos';
+      /*final url = 'http://api.nstack.in/v1/todos';
       final uri = Uri.parse(url);
       http.post(uri);
       final response = await http.post(
@@ -124,8 +145,6 @@ class _EditProfilePage extends State<EditProfilePage> {
 
       // show success or fail message based on status
       if (response.statusCode == 201 || response.statusCode == 200){
-        titleController.clear();
-        descriptionController.clear();
         showSuccessMessage(isEdit? 'Perfil Editado com Sucesso' : 'Perfil Adicionado com Sucesso');
 
         print('Sucess: ');
@@ -138,13 +157,13 @@ class _EditProfilePage extends State<EditProfilePage> {
         print('Error: ');
         print(response.statusCode);
         print(response.body);
-      }
+      }*/
 
     }
 
     Future<void> updateData() async {
       // Get the data from form
-      final todo = widget.todo;
+      /*final todo = widget.todo;
       if (todo == null){
         print('chamada de update incorreta');
         return;
@@ -179,16 +198,13 @@ class _EditProfilePage extends State<EditProfilePage> {
       //final ultima = ultimaController.text;
       //final observacoes = observacoesController.text;
 
-      // TESTE API, AJUSTAR
-      final title = titleController.text;
-      final description = descriptionController.text;
 
       // TESTE API, AJUSTAR
-      final body = {
+      /*final body = {
         "title": title,
         "description" : description,
         "is_completed": false,
-      };
+      };*/
 
       final url = 'http://api.nstack.in/v1/todos/$id';
       final uri = Uri.parse(url);
@@ -204,13 +220,14 @@ class _EditProfilePage extends State<EditProfilePage> {
       if (response.statusCode == 201 || response.statusCode == 200){
         showSuccessMessage(isEdit? 'Perfil Editado com Sucesso' : 'Perfil Adicionado com Sucesso');
         print('Sucess updated ');
-      }
+      }*/
     }
 
     return Scaffold(
+
         appBar: AppBar(
           title: Text(
-              isEdit? 'Editar Perfil' : 'Adicionar Perfil'),
+              isEdit? 'Visualizar Perfil' : 'Visualizar Perfil'),
           backgroundColor: Color.fromRGBO(35, 100, 128, 1),
         ),
         body: ListView(
@@ -219,43 +236,33 @@ class _EditProfilePage extends State<EditProfilePage> {
           children: [
             TextField(
               controller: usernameController,
+              enabled: false,
               decoration: InputDecoration(
-                hintText: 'Digite o Nome de Usuário',
-                labelText: 'Nome de Usuário: ',
+                labelText: 'ID de Usuário: ',
               ),
-
             ),
             TextField(
               controller: nomeController,
+              enabled: false,
               decoration: InputDecoration(
-                hintText: 'Digite o Nome Completo',
                 labelText: 'Nome Completo: ',
               ),
 
             ),
             TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                hintText: 'Digite o E-mail',
-                labelText: 'E-mail:',
-              ),
-            ),
-            TextField(
               controller: dataNascController,
+              enabled: false,
               decoration: InputDecoration(
                 hintText: 'Digite a Data de Nascimento',
                 labelText: 'Data de Nascimento:',
               ),
-            ),
-            TextField(
-              controller: senhaController,
-              decoration: InputDecoration(
-                hintText: 'Digite a Senha',
-                labelText: 'Senha:',
-              ),
+              //minLines: 5,
+              //maxLines: 8,
+              //keyboardType: TextInputType.multiline,
             ),
             TextField(
               controller: cpfController,
+              enabled: false,
               decoration: InputDecoration(
                 hintText: 'Digite o CPF',
                 labelText: 'CPF:',
@@ -263,6 +270,7 @@ class _EditProfilePage extends State<EditProfilePage> {
             ),
             TextField(
               controller: rgController,
+              enabled: false,
               decoration: InputDecoration(
                 hintText: 'Digite o RG',
                 labelText: 'RG:',
@@ -270,6 +278,7 @@ class _EditProfilePage extends State<EditProfilePage> {
             ),
             TextField(
               controller: crmController,
+              enabled: false,
               decoration: InputDecoration(
                 hintText: 'Digite o CRM (Caso Seja Profissional de Saúde)',
                 labelText: 'CRM:',
@@ -277,6 +286,7 @@ class _EditProfilePage extends State<EditProfilePage> {
             ),
             TextField(
               controller: sexoController,
+              enabled: false,
               decoration: InputDecoration(
                 hintText: 'Digite o Sexo',
                 labelText: 'Sexo:',
@@ -284,6 +294,7 @@ class _EditProfilePage extends State<EditProfilePage> {
             ),
             TextField(
               controller: nacionalidadeController,
+              enabled: false,
               decoration: InputDecoration(
                 hintText: 'Digite a Nacionalidade',
                 labelText: 'Nacionalidade:',
@@ -291,86 +302,18 @@ class _EditProfilePage extends State<EditProfilePage> {
             ),
             TextField(
               controller: tiposanguineoController,
+              enabled: false,
               decoration: InputDecoration(
                 hintText: 'Digite o Tipo Sanguineo',
                 labelText: 'Tipo Sanguineo:',
               ),
             ),
-            TextField(
-              controller: streetController,
-              decoration: InputDecoration(
-                hintText: 'Digite o seu Endereço',
-                labelText: 'Endereço:',
-              ),
-            ),
-            TextField(
-              controller: cepController,
-              decoration: InputDecoration(
-                hintText: 'Digite o seu CEP',
-                labelText: 'CEP:',
-              ),
-            ),
-            TextField(
-              controller: houseNumberController,
-              decoration: InputDecoration(
-                hintText: 'Digite o Número da Residência',
-                labelText: 'Numero da Residência:',
-              ),
-            ),
-            TextField(
-              controller: cellNumberController,
-              decoration: InputDecoration(
-                hintText: 'Digite o seu Telefone',
-                labelText: 'Telefone:',
-              ),
-            ),
-            TextField(
-              controller: alternativeCellNumberController,
-              decoration: InputDecoration(
-                hintText: 'Digite um Número de Contato Alternativo',
-                labelText: 'Número do Contato Alternativo:',
-              ),
-            ),
-            TextField(
-              controller: fullNameAlternativeContactController,
-              decoration: InputDecoration(
-                hintText: 'Digite o Nome do Contato Alternativo',
-                labelText: 'Nome do Contato Alternativo:',
-              ),
-            ),
-            TextField(
-              controller: ufController,
-              decoration: InputDecoration(
-                hintText: 'Digite o UF',
-                labelText: 'UF:',
-              ),
-            ),
+
             SizedBox(height: 20),
 
 
 
-            // TESTE API, REMOVER
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(
-                hintText: 'Digite seu Titulo: ',
-                labelText: 'Title:',
-              ),
-            ),
-            TextField(
-              controller: descriptionController,
-              decoration: InputDecoration(
-                hintText: 'Digite sua Descrição: ',
-                labelText: 'Description:',
-              ),
-              minLines: 5,
-              maxLines: 8,
-              keyboardType: TextInputType.multiline,
-            ),
-            SizedBox(height: 20),
-
-
-            ElevatedButton(
+            /*ElevatedButton(
               onPressed: isEdit? updateData : submitData,
 
               style: ButtonStyle(
@@ -383,18 +326,27 @@ class _EditProfilePage extends State<EditProfilePage> {
                       )
                   )
               ),
-              child: Text(isEdit? 'Editar' : "Adicionar"),),
+              child: Text(isEdit? 'Editar' : "Adicionar"),),*/
 
             ElevatedButton(
               onPressed: (){
-                print("Chegou no Menu");
-                print(args);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CategoryListPage(responseUsuarioLogado),
-                  ),
-                );
+                //print("Chegou no Menu");
+                //print(args);
+                if (crmController.text == ""){
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CategoryListPage(responseUsuarioLogado, username, password),
+                    ),
+                  );
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CategoryListPageMedico(responseUsuarioLogado, username, password),
+                    ),
+                  );
+                }
               },
 
               style: ButtonStyle(
@@ -407,7 +359,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                       )
                   )
               ),
-              child: Text("Cancelar"),),
+              child: Text("Ok"),),
             SizedBox(width: 10),
 
           ],

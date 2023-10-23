@@ -19,7 +19,7 @@ class SideMenuBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TextButton(
+            /*TextButton(
                 onPressed: () {
                   Navigator.pop(context, false);
                   Navigator.push(
@@ -36,8 +36,8 @@ class SideMenuBar extends StatelessWidget {
                     Text("Menu Paciente",
                         style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 20))
                   ],
-                )),
-            TextButton(
+                )),*/
+            /*TextButton(
                 onPressed: () {
                   Navigator.pop(context, false);
                   Navigator.push(
@@ -54,7 +54,7 @@ class SideMenuBar extends StatelessWidget {
                     Text("Menu Médico",
                         style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 20))
                   ],
-                )),
+                )),*/
             TextButton(
                 onPressed: () async {
                   bool deslogado = await sair();

@@ -13,6 +13,8 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePage extends State<WelcomePage> {
   Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
   @override
   void initState() {
     super.initState();
@@ -21,7 +23,7 @@ class _WelcomePage extends State<WelcomePage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => CategoryListPageMedico(responseUsuarioLogado),
+              builder: (context) => CategoryListPageMedico(responseUsuarioLogado, username, password),
             ),
           );
       } else {

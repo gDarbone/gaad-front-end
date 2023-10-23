@@ -45,7 +45,6 @@ class AboutPage extends StatelessWidget {
                       Text(
                         "Este aplicativo foi desenvolvido pelos alunos da Fatec Zona Leste:\n"
                             "\nAdryen Simões"
-                            "\nGabriel Darbone"
                             "\nGabriel da Silva",
                         style: TextStyle(
                           fontSize: 16,

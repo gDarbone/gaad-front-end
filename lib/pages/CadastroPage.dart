@@ -248,7 +248,7 @@ class _CadastroPage extends State<CadastroPage> {
               controller: usernameController,
               decoration: InputDecoration(
                 hintText: 'Digite o Nome de Usuário',
-                labelText: 'Nome de Usuário: ',
+                labelText: '* Nome de Usuário: ',
               ),
 
             ),
@@ -256,7 +256,7 @@ class _CadastroPage extends State<CadastroPage> {
               controller: nomeController,
               decoration: InputDecoration(
                 hintText: 'Digite o Nome Completo',
-                labelText: 'Nome Completo: ',
+                labelText: '* Nome Completo: ',
               ),
 
             ),
@@ -264,112 +264,112 @@ class _CadastroPage extends State<CadastroPage> {
               controller: emailController,
               decoration: InputDecoration(
                 hintText: 'Digite o E-mail',
-                labelText: 'E-mail:',
+                labelText: '* E-mail:',
               ),
             ),
             TextField(
               controller: dataNascController,
               decoration: InputDecoration(
                 hintText: 'Digite a Data de Nascimento',
-                labelText: 'Data de Nascimento:',
+                labelText: '* Data de Nascimento:',
               ),
             ),
             TextField(
               controller: senhaController,
               decoration: InputDecoration(
                 hintText: 'Digite a Senha',
-                labelText: 'Senha:',
+                labelText: '* Senha:',
               ),
             ),
             TextField(
               controller: cpfController,
               decoration: InputDecoration(
                 hintText: 'Digite o CPF',
-                labelText: 'CPF:',
+                labelText: '* CPF:',
               ),
             ),
             TextField(
               controller: rgController,
               decoration: InputDecoration(
                 hintText: 'Digite o RG',
-                labelText: 'RG:',
+                labelText: '* RG:',
               ),
             ),
             TextField(
               controller: crmController,
               decoration: InputDecoration(
                 hintText: 'Digite o CRM (Caso Seja Profissional de Saúde)',
-                labelText: 'CRM:',
+                labelText: 'CRM (Opcional - Caso Seja Profissional de Sáude):',
               ),
             ),
             TextField(
               controller: sexoController,
               decoration: InputDecoration(
                 hintText: 'Digite o Sexo',
-                labelText: 'Sexo:',
+                labelText: '* Sexo:',
               ),
             ),
             TextField(
               controller: nacionalidadeController,
               decoration: InputDecoration(
                 hintText: 'Digite a Nacionalidade',
-                labelText: 'Nacionalidade:',
+                labelText: '* Nacionalidade:',
               ),
             ),
             TextField(
               controller: tiposanguineoController,
               decoration: InputDecoration(
                 hintText: 'Digite o Tipo Sanguineo',
-                labelText: 'Tipo Sanguineo:',
+                labelText: '* Tipo Sanguineo:',
               ),
             ),
             TextField(
               controller: streetController,
               decoration: InputDecoration(
                 hintText: 'Digite o seu Endereço',
-                labelText: 'Endereço:',
+                labelText: '* Endereço:',
               ),
             ),
             TextField(
               controller: cepController,
               decoration: InputDecoration(
                 hintText: 'Digite o seu CEP',
-                labelText: 'CEP:',
+                labelText: '* CEP:',
               ),
             ),
             TextField(
               controller: houseNumberController,
               decoration: InputDecoration(
                 hintText: 'Digite o Número da Residência',
-                labelText: 'Numero da Residência:',
+                labelText: '* Numero da Residência:',
               ),
             ),
             TextField(
               controller: cellNumberController,
               decoration: InputDecoration(
                 hintText: 'Digite o seu Telefone',
-                labelText: 'Telefone:',
+                labelText: '* Telefone:',
               ),
             ),
             TextField(
               controller: alternativeCellNumberController,
               decoration: InputDecoration(
                 hintText: 'Digite um Número de Contato Alternativo',
-                labelText: 'Número do Contato Alternativo:',
+                labelText: '* Número do Contato Alternativo:',
               ),
             ),
             TextField(
               controller: fullNameAlternativeContactController,
               decoration: InputDecoration(
                 hintText: 'Digite o Nome do Contato Alternativo',
-                labelText: 'Nome do Contato Alternativo:',
+                labelText: '* Nome do Contato Alternativo:',
               ),
             ),
             TextField(
               controller: ufController,
               decoration: InputDecoration(
                 hintText: 'Digite o UF',
-                labelText: 'UF:',
+                labelText: '* UF:',
               ),
             ),
             SizedBox(height: 20),

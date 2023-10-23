@@ -17,7 +17,9 @@ class CategoryListPageMedico extends StatelessWidget {
   List<Category> categories = Utils.getMedicalMockedCategories();
   Utils util = new Utils();
   Map<String, dynamic> responseUsuarioLogado = {};
-  CategoryListPageMedico(this.responseUsuarioLogado);
+  String username = '';
+  String password = '';
+  CategoryListPageMedico(this.responseUsuarioLogado, this.username, this.password);
 
 
   @override
@@ -57,7 +59,12 @@ class CategoryListPageMedico extends StatelessWidget {
                             catSelection.selectedCategory = this.categories[index];
                             var RotaTela = util.ControleTela(subCat.name);
 
-                            Navigator.of(context).pushNamed(RotaTela, arguments: responseUsuarioLogado);
+                            Navigator.of(context).pushNamed(RotaTela, arguments:
+                            {
+                              'responseUsuarioLogado': responseUsuarioLogado,
+                              'username': username,
+                              'password': password,
+                            });
                           },
                         );
                       }),

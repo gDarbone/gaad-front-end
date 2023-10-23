@@ -25,6 +25,8 @@ class RelatorioAddRemedios extends StatefulWidget {
 
   class _RelatorioAddRemedios extends State<RelatorioAddRemedios> {
   Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
   Widget typeCard = ComplicacoesCard();
   bool isEdit = false;
 
@@ -255,7 +257,7 @@ class RelatorioAddRemedios extends StatefulWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryListPage(responseUsuarioLogado),
+                    builder: (context) => CategoryListPage(responseUsuarioLogado, username, password),
                   ),
                 );
               },

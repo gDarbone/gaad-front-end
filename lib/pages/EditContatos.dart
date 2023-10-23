@@ -26,6 +26,8 @@ class EditContatos extends StatefulWidget {
 class _EditContatos extends State<EditContatos> {
 
   Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
   bool isEdit = true;
 
   TextEditingController nomeController = TextEditingController();
@@ -244,7 +246,7 @@ class _EditContatos extends State<EditContatos> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryListPage(responseUsuarioLogado),
+                    builder: (context) => CategoryListPage(responseUsuarioLogado, username, password),
                   ),
                 );
               },

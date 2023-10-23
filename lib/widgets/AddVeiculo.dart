@@ -24,6 +24,8 @@ class AddVeiculo extends StatefulWidget {
 
 class _AddVeiculo extends State<AddVeiculo> {
   Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
   Widget typeCard = ComplicacoesCard();
   bool isEdit = false;
 
@@ -267,7 +269,7 @@ class _AddVeiculo extends State<AddVeiculo> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryListPage(responseUsuarioLogado),
+                    builder: (context) => CategoryListPage(responseUsuarioLogado, username, password),
                   ),
                 );
               },

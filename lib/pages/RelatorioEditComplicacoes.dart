@@ -17,6 +17,8 @@ class RelatorioEditComplicacoes extends StatelessWidget {
 
   Widget typeCard = ComplicacoesCard();
   Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,7 +119,7 @@ class RelatorioEditComplicacoes extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        CategoryListPage(responseUsuarioLogado),
+                                        CategoryListPage(responseUsuarioLogado, username, password),
                                   ),
                                 ),
                                 child: Text("Ok"))
