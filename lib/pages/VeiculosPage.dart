@@ -20,39 +20,17 @@ import 'RelatorioViewComplicacoes.dart';
 import 'RelatorioViewRemedios.dart';
 import 'RelatorioViewVacinas.dart';
 
-class VeiculosPage extends StatefulWidget {
+class VeiculosPage extends StatelessWidget {
 
-  const VeiculosPage({super.key});
-
-  @override
-  State<VeiculosPage> createState() => _VeiculosPage();
-}
-
-
-class _VeiculosPage extends State<VeiculosPage> {
   bool isLoading = true;
   Widget typeCard = ComplicacoesCard();
   List items = [];
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
+  VeiculosPage(this.responseUsuarioLogado, this.username, this.password);
 
 
-  void initState(){
-    fetchTodo();
-    super.initState();
-  }
-
-  void navigateToAddVeiculo(){
-    final route = MaterialPageRoute(
-      builder: (context) => AddVeiculo(),
-    );
-    Navigator.pushReplacement(context, route);
-  }
-
-  void navigateToEditVeiculos(Map item){
-    final route = MaterialPageRoute(
-      builder: (context) => EditVeiculos(todo: item),
-    );
-    Navigator.pushReplacement(context, route);
-  }
 
   Future<void> deleteById(String id) async{
     final url = 'http://api.nstack.in/v1/todos/$id';
@@ -60,13 +38,11 @@ class _VeiculosPage extends State<VeiculosPage> {
     final response = await http.delete(uri);
     if (response.statusCode == 200){
       final filtered = items.where((element) => element['_id'] != id).toList();
-      setState(() {
-        items = filtered;
-      });
     }
   }
 
-  Future<void> fetchTodo() async {
+
+  /*Future<void> fetchTodo() async {
     setState(() {
       isLoading = true;
     });
@@ -83,8 +59,31 @@ class _VeiculosPage extends State<VeiculosPage> {
     setState(() {
       isLoading = false;
     });
-  }
+  }*/
 
+  Future<void> fetchTodo() async {
+    String usernameReceived = username;
+    String passwordReceived = password;
+
+    print(username);
+    print(password);
+    final String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$usernameReceived:$passwordReceived'));
+
+    var url = 'http://10.0.2.2:8080/gaad/userPersonalData/getSelfToken';
+    var resposta = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Authorization': basicAuth,
+      },
+    );
+    if (resposta.statusCode == 200){
+      final json = jsonDecode(resposta.body) as Map;
+      final result = json['items'] as List;
+
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +109,7 @@ class _VeiculosPage extends State<VeiculosPage> {
                   trailing: PopupMenuButton(
                       onSelected: (value) {
                         if (value == 'edit'){
-                          navigateToEditVeiculos(item);
+                          //navigateToEditVeiculos(item);
                         }else if (value == 'delete'){
                           deleteById(id);
                         }
@@ -134,7 +133,13 @@ class _VeiculosPage extends State<VeiculosPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: navigateToAddVeiculo,
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddVeiculo(),
+              ));
+        },
         label: Text('Adicionar'),
       ),
     );

@@ -9,6 +9,7 @@ import 'package:gaad_mobile/pages/IdentificarPacientePage.dart';
 import 'package:gaad_mobile/pages/PerfilPage.dart';
 import 'package:gaad_mobile/pages/IdentificacaoPage.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
+import 'package:gaad_mobile/pages/VeiculosPage.dart';
 import 'package:gaad_mobile/pages/loginpage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 import 'package:gaad_mobile/services/categoryselectionservice.dart';
@@ -35,7 +36,7 @@ void main() {
             '/PerfilPage': (context) => PerfilPage(),
             '/EditProfilePage': (context) => EditProfilePage(),
             '/RelatorioPage': (context) => RelatorioPage(),
-            '/ContatosPage': (context) => ContatosPage(),
+            '/ContatosPage': (context) => ContatosPage(responseUsuarioLogado, username, password),
             '/IdentificacaoPage': (context) => IdentificacaoPage(),
             '/ConfiguracaoPage': (context) => ConfiguracaoPage(),
             '/IdentificarPacientePage': (context) => IdentificarPacientePage(),

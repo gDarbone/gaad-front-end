@@ -16,7 +16,6 @@ import 'VeiculosPage.dart';
 import 'RelatorioViewComplicacoes.dart';
 
 class IdentificacaoPage extends StatelessWidget {
-
   String responseTokenUsuarioLogado = '';
   List<Category> categories = Utils.getMockedCategories();
   Map<String, dynamic> responseUsuarioLogado = {};
@@ -116,8 +115,9 @@ class IdentificacaoPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => VeiculosPage(),
+                                    builder: (context) => VeiculosPage(responseUsuarioLogado, username, password),
                                   ));
+
                             },
                             child: Row(
                               children: [

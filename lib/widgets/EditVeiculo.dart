@@ -8,6 +8,9 @@ import '../pages/ContatosPage.dart';
 
 class EditVeiculo extends StatelessWidget {
   bool showPassword = false;
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
 
   Utils util = new Utils();
   @override
@@ -104,7 +107,7 @@ class EditVeiculo extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        VeiculosPage(),
+                                        VeiculosPage(responseUsuarioLogado, username, password),
                                   ),
                                 ),
                                 child: Text("Ok"))

@@ -34,6 +34,9 @@ class _ResultadoIdentificaPaciente extends State<ResultadoIdentificaPaciente> {
   bool isLoading = true;
   Widget typeCard = ComplicacoesCard();
   List items = [];
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
 
 
   void initState(){
@@ -57,14 +60,14 @@ class _ResultadoIdentificaPaciente extends State<ResultadoIdentificaPaciente> {
 
   void navigateToVeiculosPaciente(){
     final route = MaterialPageRoute(
-      builder: (context) => VeiculosPage(),
+      builder: (context) => VeiculosPage(responseUsuarioLogado, username, password),
     );
     Navigator.pushReplacement(context, route);
   }
 
   void navigateToContatosPaciente(){
     final route = MaterialPageRoute(
-      builder: (context) => ContatosPage(),
+      builder: (context) => ContatosPage(responseUsuarioLogado, username, password),
     );
     Navigator.pushReplacement(context, route);
   }

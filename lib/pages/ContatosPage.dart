@@ -18,39 +18,16 @@ import 'RelatorioViewComplicacoes.dart';
 import 'RelatorioViewRemedios.dart';
 import 'RelatorioViewVacinas.dart';
 
-class ContatosPage extends StatefulWidget {
-
-  const ContatosPage({super.key});
-
-  @override
-  State<ContatosPage> createState() => _ContatosPage();
-}
-
-
-class _ContatosPage extends State<ContatosPage> {
+class ContatosPage extends StatelessWidget {
   bool isLoading = true;
   Widget typeCard = ComplicacoesCard();
   List items = [];
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
+  ContatosPage(this.responseUsuarioLogado, this.username, this.password);
 
 
-  void initState(){
-    fetchTodo();
-    super.initState();
-  }
-
-  void navigateToAdicionarContato(){
-    final route = MaterialPageRoute(
-      builder: (context) => AddContact(),
-    );
-    Navigator.pushReplacement(context, route);
-  }
-
-  void navigateToEditContatos(Map item){
-    final route = MaterialPageRoute(
-      builder: (context) => EditContatos(todo: item),
-    );
-    Navigator.pushReplacement(context, route);
-  }
 
   Future<void> deleteById(String id) async{
     final url = 'http://api.nstack.in/v1/todos/$id';
@@ -58,29 +35,21 @@ class _ContatosPage extends State<ContatosPage> {
     final response = await http.delete(uri);
     if (response.statusCode == 200){
       final filtered = items.where((element) => element['_id'] != id).toList();
-      setState(() {
-        items = filtered;
-      });
+
     }
   }
 
   Future<void> fetchTodo() async {
-    setState(() {
-      isLoading = true;
-    });
+
     final url =  'http://api.nstack.in/v1/todos?page=1&limit=10';
     final uri = Uri.parse(url);
     final response = await http.get(uri);
     if (response.statusCode == 200){
       final json = jsonDecode(response.body) as Map;
       final result = json['items'] as List;
-      setState(() {
-        items = result;
-      });
+
     }
-    setState(() {
-      isLoading = false;
-    });
+
   }
 
 
@@ -108,7 +77,7 @@ class _ContatosPage extends State<ContatosPage> {
                   trailing: PopupMenuButton(
                       onSelected: (value) {
                         if (value == 'edit'){
-                          navigateToEditContatos(item);
+                          //navigateToEditContatos(item);
                         }else if (value == 'delete'){
                           deleteById(id);
                         }
@@ -132,7 +101,13 @@ class _ContatosPage extends State<ContatosPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: navigateToAdicionarContato,
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddContact(),
+              ));
+        },
         label: Text('Adicionar'),
       ),
     );

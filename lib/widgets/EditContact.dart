@@ -7,7 +7,9 @@ import '../pages/ContatosPage.dart';
 
 class EditContact extends StatelessWidget {
   bool showPassword = false;
-
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
   Utils util = new Utils();
   @override
   Widget build(BuildContext context) {
@@ -101,7 +103,7 @@ class EditContact extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        ContatosPage(),
+                                        ContatosPage(responseUsuarioLogado, username, password),
                                   ),
                                 ),
                                 child: Text("Ok"))
