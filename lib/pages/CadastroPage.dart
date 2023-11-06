@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gaad_mobile/pages/loginpage.dart';
 import 'package:gaad_mobile/pages/welcomepage.dart';
 import 'dart:convert';
@@ -12,7 +13,7 @@ import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
 import '../widgets/sidemenubar.dart';
 import 'CadastroPage.dart';
-
+import 'package:date_format/date_format.dart';
 
 class CadastroPage extends StatefulWidget {
   final Map? todo;
@@ -113,7 +114,21 @@ class _CadastroPage extends State<CadastroPage> {
       final cpf = cpfController.text;
       final rg = rgController.text;
       final crn = crmController.text;
-      final birthdate = dataNascController.text;
+
+
+      var dia = dataNascController.text.substring(0,2);
+      var mes = dataNascController.text.substring(2,4);
+      var ano = dataNascController.text.substring(4,8);
+
+      var data = ano + mes + dia;
+      var localDate = DateTime.parse(data.toString()).toLocal();
+      var localDateFormatted = formatDate(localDate, [yyyy, '-', mm, '-', dd]);
+      print(localDateFormatted);
+      final birthdate = localDateFormatted;
+
+
+
+
       final sex = sexoController.text;
       final nationality = nacionalidadeController.text;
       final bloodtype = tiposanguineoController.text;
@@ -246,6 +261,7 @@ class _CadastroPage extends State<CadastroPage> {
           children: [
             TextField(
               controller: usernameController,
+
               decoration: InputDecoration(
                 hintText: 'Digite o Nome de Usuário',
                 labelText: '* Nome de Usuário: ',
@@ -262,6 +278,10 @@ class _CadastroPage extends State<CadastroPage> {
             ),
             TextField(
               controller: emailController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.singleLineFormatter,
+              ],
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 hintText: 'Digite o E-mail',
                 labelText: '* E-mail:',
@@ -269,6 +289,11 @@ class _CadastroPage extends State<CadastroPage> {
             ),
             TextField(
               controller: dataNascController,
+              maxLength: 8,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              keyboardType: TextInputType.datetime,
               decoration: InputDecoration(
                 hintText: 'Digite a Data de Nascimento',
                 labelText: '* Data de Nascimento:',
@@ -283,6 +308,11 @@ class _CadastroPage extends State<CadastroPage> {
             ),
             TextField(
               controller: cpfController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              maxLength: 11,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: 'Digite o CPF',
                 labelText: '* CPF:',
@@ -290,6 +320,11 @@ class _CadastroPage extends State<CadastroPage> {
             ),
             TextField(
               controller: rgController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              maxLength: 9,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: 'Digite o RG',
                 labelText: '* RG:',
@@ -297,6 +332,10 @@ class _CadastroPage extends State<CadastroPage> {
             ),
             TextField(
               controller: crmController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: 'Digite o CRM (Caso Seja Profissional de Saúde)',
                 labelText: 'CRM (Opcional - Caso Seja Profissional de Sáude):',
@@ -304,6 +343,11 @@ class _CadastroPage extends State<CadastroPage> {
             ),
             TextField(
               controller: sexoController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.singleLineFormatter,
+              ],
+              maxLength: 1,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 hintText: 'Digite o Sexo',
                 labelText: '* Sexo:',
@@ -332,6 +376,11 @@ class _CadastroPage extends State<CadastroPage> {
             ),
             TextField(
               controller: cepController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              maxLength: 8,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: 'Digite o seu CEP',
                 labelText: '* CEP:',
@@ -339,6 +388,7 @@ class _CadastroPage extends State<CadastroPage> {
             ),
             TextField(
               controller: houseNumberController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: 'Digite o Número da Residência',
                 labelText: '* Numero da Residência:',
@@ -346,6 +396,11 @@ class _CadastroPage extends State<CadastroPage> {
             ),
             TextField(
               controller: cellNumberController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              maxLength: 11,
+              keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 hintText: 'Digite o seu Telefone',
                 labelText: '* Telefone:',
@@ -353,6 +408,11 @@ class _CadastroPage extends State<CadastroPage> {
             ),
             TextField(
               controller: alternativeCellNumberController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              maxLength: 11,
+              keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 hintText: 'Digite um Número de Contato Alternativo',
                 labelText: '* Número do Contato Alternativo:',
@@ -367,6 +427,11 @@ class _CadastroPage extends State<CadastroPage> {
             ),
             TextField(
               controller: ufController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.singleLineFormatter,
+              ],
+              maxLength: 2,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 hintText: 'Digite o UF',
                 labelText: '* UF:',
