@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/IdentificacaoPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
-import 'package:gaad_mobile/widgets/RelatorioBar.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 
 import '../widgets/AddVeiculo.dart';

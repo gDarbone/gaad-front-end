@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
-import 'package:gaad_mobile/widgets/RelatorioBar.dart';
+
 import 'package:gaad_mobile/widgets/VacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
@@ -14,31 +14,35 @@ import 'CadastroPage.dart';
 
 class RelatorioAddComplicacoes extends StatefulWidget {
   final Map? todo;
-  const RelatorioAddComplicacoes({
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
+   RelatorioAddComplicacoes(this.responseUsuarioLogado, this.username, this.password, {
     super.key,
     this.todo,
   });
+
+
+
 
   @override
   State<RelatorioAddComplicacoes> createState() => _RelatorioAddComplicacoes();
   }
 
   class _RelatorioAddComplicacoes extends State<RelatorioAddComplicacoes> {
-
-  Map<String, dynamic> responseUsuarioLogado = {};
-  String username = '';
-  String password = '';
   Widget typeCard = ComplicacoesCard();
   bool isEdit = false;
 
   TextEditingController nomeController = TextEditingController();
-  TextEditingController quantidadeController = TextEditingController();
+  TextEditingController categoriaController = TextEditingController();
   TextEditingController ultimaController = TextEditingController();
   TextEditingController observacoesController = TextEditingController();
 
   // TESTE API, REMOVER
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+
+
 
   void initState(){
     super.initState();
@@ -54,7 +58,6 @@ class RelatorioAddComplicacoes extends StatefulWidget {
 
   @override
   Widget build(BuildContext context) {
-
     void showSuccessMessage(String message){
       final snackBar = SnackBar(
         content: Text(
@@ -82,28 +85,43 @@ class RelatorioAddComplicacoes extends StatefulWidget {
 
       //final nome = nomeController.text;
       //final ultima = ultimaController.text;
+      //final quantidade = quantidadeController.text;
       //final observacoes = observacoesController.text;
 
       // TESTE API, AJUSTAR
       final title = titleController.text;
       final description = descriptionController.text;
 
-      // TESTE API, AJUSTAR
-      final body = {
-        "title": title,
-        "description" : description,
-        "is_completed": false,
+
+      final name = nomeController.text;
+      final obs = observacoesController.text;
+      final type = categoriaController.text;
+
+
+      final Map<String, dynamic> body = {
+        "id": 0,
+        "name": name,
+        "obs": obs,
+        "type": type
       };
 
+      final String usuario = widget.username;
+      final String senha = widget.password;
+
+      final String basicAuth =
+          'Basic ' + base64Encode(utf8.encode('$usuario:$senha'));
 
       // Submit data to the server
-      final url = 'http://api.nstack.in/v1/todos';
+      //final url = 'http://api.nstack.in/v1/todos';
+      final url = 'http://10.0.2.2:8080/gaad/sick/post';
+
       final uri = Uri.parse(url);
       http.post(uri);
       final response = await http.post(
           uri,
           body: jsonEncode(body),
           headers: {
+            'Authorization': basicAuth,
             'Content-Type': 'application/json'
           }
       );
@@ -111,17 +129,18 @@ class RelatorioAddComplicacoes extends StatefulWidget {
 
       // show success or fail message based on status
       if (response.statusCode == 201 || response.statusCode == 200){
-        titleController.clear();
-        descriptionController.clear();
-        showSuccessMessage(isEdit? 'Complicação Editada com Sucesso' : 'Complicação Adicionada com Sucesso');
+        nomeController.clear();
+        categoriaController.clear();
+        observacoesController.clear();
+        showSuccessMessage(isEdit? 'Cadastro Editado com Sucesso' : 'Cadastro Realizado com Sucesso');
 
         print('Sucess: ');
         print(response.statusCode);
         print(response.body);
+
       } else {
-
         showErrorMessage('Campos Inválidos ou API indisponível');
-
+        showErrorMessage(response.body);
         print('Error: ');
         print(response.statusCode);
         print(response.body);
@@ -183,13 +202,13 @@ class RelatorioAddComplicacoes extends StatefulWidget {
             TextField(
               controller: nomeController,
               decoration: InputDecoration(
-                hintText: 'Digite o Nome da Complicação',
-                labelText: 'Nome da Complicação: ',
+                hintText: 'Digite o Nome da Complicação, Remédio ou Vacina',
+                labelText: 'Nome da Complicação, Remédio ou Vacina: ',
               ),
 
             ),
             TextField(
-              controller: quantidadeController,
+              controller: categoriaController,
               decoration: InputDecoration(
                 hintText: 'Digite a Categoria',
                 labelText: 'Categoria:',
@@ -198,7 +217,7 @@ class RelatorioAddComplicacoes extends StatefulWidget {
             TextField(
               controller: observacoesController,
               decoration: InputDecoration(
-                hintText: 'Deseja incluir alguma Observaçaõ?',
+                hintText: 'Deseja incluir alguma Observação?',
                 labelText: 'Observações:',
               ),
               minLines: 5,
@@ -208,25 +227,6 @@ class RelatorioAddComplicacoes extends StatefulWidget {
             SizedBox(height: 20),
 
 
-
-            // TESTE API, REMOVER
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(
-                hintText: 'Digite seu Titulo: ',
-                labelText: 'Title:',
-              ),
-            ),
-            TextField(
-              controller: descriptionController,
-              decoration: InputDecoration(
-                hintText: 'Digite sua Descrição: ',
-                labelText: 'Description:',
-              ),
-              minLines: 5,
-              maxLines: 8,
-              keyboardType: TextInputType.multiline,
-            ),
             SizedBox(height: 20),
 
 
@@ -250,7 +250,7 @@ class RelatorioAddComplicacoes extends StatefulWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryListPage(responseUsuarioLogado, username, password),
+                    builder: (context) => CategoryListPage(widget.responseUsuarioLogado, widget.username, widget.password),
                   ),
                 );
               },
@@ -267,10 +267,6 @@ class RelatorioAddComplicacoes extends StatefulWidget {
               ),
               child: Text("Cancelar"),),
             SizedBox(width: 10),
-            Container(
-                height: 80,
-                child: RelatorioBar()
-            ),
 
           ],
         )

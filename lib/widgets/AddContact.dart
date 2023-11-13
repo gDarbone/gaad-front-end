@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
-import 'package:gaad_mobile/widgets/RelatorioBar.dart';
 import 'package:gaad_mobile/widgets/VacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +12,10 @@ import '../widgets/sidemenubar.dart';
 
 class AddContact extends StatefulWidget {
   final Map? todo;
-  const AddContact({
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
+  AddContact(this.responseUsuarioLogado, this.username, this.password, {
     super.key,
     this.todo,
   });
@@ -88,22 +90,34 @@ class _AddContact extends State<AddContact> {
       final title = titleController.text;
       final description = descriptionController.text;
 
-      // TESTE API, AJUSTAR
-      final body = {
-        "title": title,
-        "description" : description,
-        "is_completed": false,
+
+      final name = nomeController.text;
+      final telefone = telefoneController.text;
+
+
+      final Map<String, dynamic> body = {
+        "userContactRequest":{
+          "alternativeCellNumber":telefone,
+          "fullNameAlternativeContact":name
+        }
       };
 
+      final String usuario = widget.username;
+      final String senha = widget.password;
+      final String basicAuth =
+          'Basic ' + base64Encode(utf8.encode('$usuario:$senha'));
 
       // Submit data to the server
-      final url = 'http://api.nstack.in/v1/todos';
+      //final url = 'http://api.nstack.in/v1/todos';
+      final url = 'http://10.0.2.2:8080/gaad/emergencyContact/post';
+
       final uri = Uri.parse(url);
       http.post(uri);
       final response = await http.post(
           uri,
           body: jsonEncode(body),
           headers: {
+            'Authorization': basicAuth,
             'Content-Type': 'application/json'
           }
       );
@@ -111,17 +125,17 @@ class _AddContact extends State<AddContact> {
 
       // show success or fail message based on status
       if (response.statusCode == 201 || response.statusCode == 200){
-        titleController.clear();
-        descriptionController.clear();
-        showSuccessMessage(isEdit? 'Contato Editado com Sucesso' :'Contato Adicionado com Sucesso');
+        nomeController.clear();
+        telefoneController.clear();
+        showSuccessMessage(isEdit? 'Cadastro Editado com Sucesso' : 'Cadastro Realizado com Sucesso');
 
         print('Sucess: ');
         print(response.statusCode);
         print(response.body);
+
       } else {
-
         showErrorMessage('Campos Inválidos ou API indisponível');
-
+        showErrorMessage(response.body);
         print('Error: ');
         print(response.statusCode);
         print(response.body);
@@ -206,23 +220,6 @@ class _AddContact extends State<AddContact> {
 
 
             // TESTE API, REMOVER
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(
-                hintText: 'Digite seu Titulo: ',
-                labelText: 'Title:',
-              ),
-            ),
-            TextField(
-              controller: descriptionController,
-              decoration: InputDecoration(
-                hintText: 'Digite sua Descrição: ',
-                labelText: 'Description:',
-              ),
-              minLines: 5,
-              maxLines: 8,
-              keyboardType: TextInputType.multiline,
-            ),
             SizedBox(height: 20),
 
 

@@ -103,7 +103,7 @@ class EditContact extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        ContatosPage(responseUsuarioLogado, username, password),
+                                        ContatosPage(),
                                   ),
                                 ),
                                 child: Text("Ok"))

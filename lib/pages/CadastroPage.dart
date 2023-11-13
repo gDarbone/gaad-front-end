@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
-import 'package:gaad_mobile/widgets/RelatorioBar.dart';
 import 'package:gaad_mobile/widgets/VacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
@@ -45,6 +44,7 @@ class _CadastroPage extends State<CadastroPage> {
 
   TextEditingController streetController = TextEditingController();
   TextEditingController cepController = TextEditingController();
+  TextEditingController districtController = TextEditingController();
   TextEditingController houseNumberController = TextEditingController();
   TextEditingController cellNumberController = TextEditingController();
   TextEditingController alternativeCellNumberController = TextEditingController();
@@ -140,6 +140,7 @@ class _CadastroPage extends State<CadastroPage> {
 
       final street = streetController.text;
       final cep = cepController.text;
+      final district = districtController.text;
       final houseNumber = houseNumberController.text;
       final cellNumber = cellNumberController.text;
       final alternativeCellNumber = alternativeCellNumberController.text;
@@ -163,6 +164,7 @@ class _CadastroPage extends State<CadastroPage> {
       },
         "userContactRequest":{
           "street":street,
+          "district":district,
           "cep":cep,
           "houseNumber": houseNumber,
           "cellNumber": cellNumber,
@@ -197,6 +199,26 @@ class _CadastroPage extends State<CadastroPage> {
         print('Sucess: ');
         print(response.statusCode);
         print(response.body);
+
+        usernameController.clear();
+         nomeController.clear();
+         emailController.clear();
+         dataNascController.clear();
+         senhaController.clear();
+         cpfController.clear();
+         rgController.clear();
+         crmController.clear();
+         sexoController.clear();
+         nacionalidadeController.clear();
+         tiposanguineoController.clear();
+         streetController.clear();
+         cepController.clear();
+         districtController.clear();
+         houseNumberController.clear();
+         cellNumberController.clear();
+         alternativeCellNumberController.clear();
+         fullNameAlternativeContactController.clear();
+         ufController.clear();
       } else {
 
         showErrorMessage('Campos Inválidos ou API indisponível');
@@ -372,6 +394,13 @@ class _CadastroPage extends State<CadastroPage> {
               decoration: InputDecoration(
                 hintText: 'Digite o seu Endereço',
                 labelText: '* Endereço:',
+              ),
+            ),
+            TextField(
+              controller: districtController,
+              decoration: InputDecoration(
+                hintText: 'Digite o seu Bairro',
+                labelText: '* Bairro:',
               ),
             ),
             TextField(

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:gaad_mobile/widgets/AddContact.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioRemediosCard.dart';
@@ -10,33 +9,44 @@ import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
-import 'EditContatos.dart';
+import 'IdentificarPacientePage.dart';
+import 'RelatorioAddComplicacoes.dart';
 import 'RelatorioPage.dart';
 import 'RelatorioViewComplicacoes.dart';
 
-
-class ContatosPage extends StatefulWidget {
-  const ContatosPage({
+class ResultadoIdentificaPacientePlaca extends StatefulWidget {
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
+  String placa = '';
+  ResultadoIdentificaPacientePlaca(this.responseUsuarioLogado, this.username, this.password, this.placa,{
     super.key,
   });
 
   @override
-  State<ContatosPage> createState() => _ContatosPage();
+  State<ResultadoIdentificaPacientePlaca> createState() => _ResultadoIdentificaPacientePlaca();
 }
 
 
-class _ContatosPage extends State<ContatosPage> {
-  Map<String, dynamic> responseUsuarioLogado = {};
-  String username = '';
-  String password = '';
+class _ResultadoIdentificaPacientePlaca extends State<ResultadoIdentificaPacientePlaca> {
   bool isLoading = true;
   Widget typeCard = ComplicacoesCard();
   List items = [];
+
 
   void initState(){
     fetchTodo();
     super.initState();
   }
+
+  void navigateToResultadoIdentificaPaciente(){
+    final route = MaterialPageRoute(
+      builder: (context) => IdentificarPacientePage(),
+    );
+    Navigator.pushReplacement(context, route);
+  }
+
+
 
 
   Future<void> deleteById(String id) async{
@@ -46,12 +56,13 @@ class _ContatosPage extends State<ContatosPage> {
     setState(() {
       isLoading = true;
     });
-    final String usuario = username;
-    final String senha = password;
+    final String usuario = widget.username;
+    final String senha = widget.password;
+    final String placaRecebido = widget.placa;
     final String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$usuario:$senha'));
 
-    final url = 'http://10.0.2.2:8080/gaad/userPersonalData/get';
+    final url = 'http://10.0.2.2:8080/gaad/userPersonalData/getByVehiclePlate/$placaRecebido';
     var response = await http.get(
       Uri.parse(url),
       headers: {
@@ -62,7 +73,7 @@ class _ContatosPage extends State<ContatosPage> {
 
       final Map<String, dynamic> convertido = json.decode(response.body);
       print(convertido);
-      final result = convertido['sicks'] as List;
+      final result = convertido["sicks"] as List;
       //print(widget.responseUsuarioLogado["sicks"]);
       //final List result = widget.responseUsuarioLogado["sicks"];
 
@@ -80,15 +91,10 @@ class _ContatosPage extends State<ContatosPage> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments;
-    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    username = arguments['username'];
-    password = arguments['password'];
 
-    responseUsuarioLogado = Map<String, dynamic>.from(arguments['responseUsuarioLogado'] as Map);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contatos de Emergência'),
+        title: Text('Visualizar Dados do Paciente'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
       body: Visibility (
@@ -111,40 +117,10 @@ class _ContatosPage extends State<ContatosPage> {
                       Text("Observação: " + item['obs']),
                     ],
                   ),
-                  trailing: PopupMenuButton(
-                      onSelected: (value) {
-                        if (value == 'edit'){
-                        }else if (value == 'delete'){
-                          deleteById(id.toString());
-                        }
-                      },
-                      itemBuilder: (context) {
-                        return [
-                          PopupMenuItem(
-                            child: Text('Editar'),
-                            value: 'edit',
-                          ),
-                          PopupMenuItem(
-                            child: Text('Deletar'),
-                            value: 'delete',
-                          ),
-                        ];
-                      }
-                  ),
                 );
               }
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AddContact(responseUsuarioLogado, username, password),
-              ));
-        },
-        label: Text('Adicionar'),
       ),
     );
   }

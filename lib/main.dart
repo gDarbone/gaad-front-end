@@ -36,7 +36,7 @@ void main() {
             '/PerfilPage': (context) => PerfilPage(),
             '/EditProfilePage': (context) => EditProfilePage(),
             '/RelatorioPage': (context) => RelatorioPage(),
-            '/ContatosPage': (context) => ContatosPage(responseUsuarioLogado, username, password),
+            '/ContatosPage': (context) => ContatosPage(),
             '/IdentificacaoPage': (context) => IdentificacaoPage(),
             '/ConfiguracaoPage': (context) => ConfiguracaoPage(),
             '/IdentificarPacientePage': (context) => IdentificarPacientePage(),

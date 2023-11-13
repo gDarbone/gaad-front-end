@@ -1,44 +1,47 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/widgets/AddContact.dart';
 import 'package:gaad_mobile/widgets/AddVeiculo.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/EditVeiculo.dart';
-import 'package:gaad_mobile/widgets/RelatorioBar.dart';
 import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioRemediosCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioVacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
-import '../widgets/RelatorioViewBar.dart';
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
 import 'EditVeiculos.dart';
 import 'RelatorioPage.dart';
 import 'RelatorioViewComplicacoes.dart';
-import 'RelatorioViewRemedios.dart';
-import 'RelatorioViewVacinas.dart';
 
-class VeiculosPage extends StatelessWidget {
+class VeiculosPage extends StatefulWidget {
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
+  VeiculosPage(this.responseUsuarioLogado, this.username, this.password, {
+    super.key,
+  });
+
+  @override
+  State<VeiculosPage> createState() => _VeiculosPage();
+}
+
+
+class _VeiculosPage extends State<VeiculosPage> {
 
   bool isLoading = true;
   Widget typeCard = ComplicacoesCard();
   List items = [];
-  Map<String, dynamic> responseUsuarioLogado = {};
-  String username = '';
-  String password = '';
-  VeiculosPage(this.responseUsuarioLogado, this.username, this.password);
 
-
+  void initState(){
+    fetchTodo();
+    super.initState();
+  }
 
   Future<void> deleteById(String id) async{
-    final url = 'http://api.nstack.in/v1/todos/$id';
-    final uri = Uri.parse(url);
-    final response = await http.delete(uri);
-    if (response.statusCode == 200){
-      final filtered = items.where((element) => element['_id'] != id).toList();
-    }
   }
 
 
@@ -62,27 +65,40 @@ class VeiculosPage extends StatelessWidget {
   }*/
 
   Future<void> fetchTodo() async {
-    String usernameReceived = username;
-    String passwordReceived = password;
-
-    print(username);
-    print(password);
+    setState(() {
+      isLoading = true;
+    });
+    final String usuario = widget.username;
+    final String senha = widget.password;
+    print(usuario);
+    print(senha);
     final String basicAuth =
-        'Basic ' + base64Encode(utf8.encode('$usernameReceived:$passwordReceived'));
+        'Basic ' + base64Encode(utf8.encode('$usuario:$senha'));
 
-    var url = 'http://10.0.2.2:8080/gaad/userPersonalData/getSelfToken';
-    var resposta = await http.get(
+    final url = 'http://10.0.2.2:8080/gaad/userPersonalData/get';
+    var response = await http.get(
       Uri.parse(url),
       headers: {
         'Authorization': basicAuth,
       },
     );
-    if (resposta.statusCode == 200){
-      final json = jsonDecode(resposta.body) as Map;
-      final result = json['items'] as List;
+    if (response.statusCode != 401){
 
+      final Map<String, dynamic> convertido = json.decode(response.body);
+      print(convertido);
+      final result = convertido['vehicles'] as List;
+      //print(widget.responseUsuarioLogado["sicks"]);
+      //final List result = widget.responseUsuarioLogado["sicks"];
+
+      setState(() {
+        items = result;
+      });
+    } else {
+      print(response.body);
     }
-
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -101,17 +117,25 @@ class VeiculosPage extends StatelessWidget {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 final item = items[index] as Map;
-                final id = item['_id'] as String;
+                //final id = item['id'] as int;
+                final id = 0;
                 return ListTile(
                   leading: CircleAvatar(child: Text('${index + 1}')),
-                  title: Text(item['title']),
-                  subtitle: Text(item['description']),
-                  trailing: PopupMenuButton(
+                  title: Text(item['name']),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Modelo: " + item['model']),
+                      Text("Placa: " + item['plate']),
+                      Text("Ano: " + item['year'].toString()),
+                    ],
+                  ),
+                    trailing: PopupMenuButton(
                       onSelected: (value) {
                         if (value == 'edit'){
-                          //navigateToEditVeiculos(item);
+
                         }else if (value == 'delete'){
-                          deleteById(id);
+                          deleteById(id as String);
                         }
                       },
                       itemBuilder: (context) {
@@ -137,7 +161,7 @@ class VeiculosPage extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddVeiculo(),
+                builder: (context) => AddVeiculo(widget.responseUsuarioLogado, widget.username, widget.password),
               ));
         },
         label: Text('Adicionar'),

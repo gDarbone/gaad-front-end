@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/IdentificacaoPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
-import 'package:gaad_mobile/widgets/RelatorioBar.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
 import '../widgets/TokenCpfCard.dart';

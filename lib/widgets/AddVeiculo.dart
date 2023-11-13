@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
-import 'package:gaad_mobile/widgets/RelatorioBar.dart';
 import 'package:gaad_mobile/widgets/VacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +12,10 @@ import '../widgets/sidemenubar.dart';
 
 class AddVeiculo extends StatefulWidget {
   final Map? todo;
-  const AddVeiculo({
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
+  AddVeiculo(this.responseUsuarioLogado, this.username, this.password, {
     super.key,
     this.todo,
   });
@@ -90,22 +92,39 @@ class _AddVeiculo extends State<AddVeiculo> {
       final title = titleController.text;
       final description = descriptionController.text;
 
-      // TESTE API, AJUSTAR
-      final body = {
-        "title": title,
-        "description" : description,
-        "is_completed": false,
+
+      final name = veiculoController.text;
+      final model = modeloController.text;
+      final plate = placaController.text;
+      final year = anoController.text;
+
+
+      final Map<String, dynamic> body = {
+        "id": 0,
+        "model": model,
+        "name": name,
+        "plate": plate,
+        "year": year
       };
 
+      final String usuario = widget.username;
+      final String senha = widget.password;
+      print(usuario);
+      print(senha);
+      final String basicAuth =
+          'Basic ' + base64Encode(utf8.encode('$usuario:$senha'));
 
       // Submit data to the server
-      final url = 'http://api.nstack.in/v1/todos';
+      //final url = 'http://api.nstack.in/v1/todos';
+      final url = 'http://10.0.2.2:8080/gaad/userPersonalData/addVehicle';
+
       final uri = Uri.parse(url);
       http.post(uri);
       final response = await http.post(
           uri,
           body: jsonEncode(body),
           headers: {
+            'Authorization': basicAuth,
             'Content-Type': 'application/json'
           }
       );
@@ -113,17 +132,19 @@ class _AddVeiculo extends State<AddVeiculo> {
 
       // show success or fail message based on status
       if (response.statusCode == 201 || response.statusCode == 200){
-        titleController.clear();
-        descriptionController.clear();
-        showSuccessMessage(isEdit? 'Veiculo Editado com Sucesso' :'Veiculo Adicionado com Sucesso');
+        veiculoController.clear();
+        placaController.clear();
+        anoController.clear();
+        modeloController.clear();
+        showSuccessMessage(isEdit? 'Cadastro Editado com Sucesso' : 'Cadastro Realizado com Sucesso');
 
         print('Sucess: ');
         print(response.statusCode);
         print(response.body);
+
       } else {
-
         showErrorMessage('Campos Inválidos ou API indisponível');
-
+        showErrorMessage(response.body);
         print('Error: ');
         print(response.statusCode);
         print(response.body);
@@ -190,13 +211,6 @@ class _AddVeiculo extends State<AddVeiculo> {
 
             ),
             TextField(
-              controller: fabricanteController,
-              decoration: InputDecoration(
-                hintText: 'Digite o Fabricante',
-                labelText: 'Nome do Fabricante:',
-              ),
-            ),
-            TextField(
               controller: modeloController,
               decoration: InputDecoration(
                 hintText: 'Digite o Modelo',
@@ -211,13 +225,6 @@ class _AddVeiculo extends State<AddVeiculo> {
               ),
             ),
             TextField(
-              controller: corController,
-              decoration: InputDecoration(
-                hintText: 'Digite a Cor',
-                labelText: 'Cor:',
-              ),
-            ),
-            TextField(
               controller: placaController,
               decoration: InputDecoration(
                 hintText: 'Digite o Número da Placa',
@@ -229,23 +236,6 @@ class _AddVeiculo extends State<AddVeiculo> {
 
 
             // TESTE API, REMOVER
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(
-                hintText: 'Digite seu Titulo: ',
-                labelText: 'Title:',
-              ),
-            ),
-            TextField(
-              controller: descriptionController,
-              decoration: InputDecoration(
-                hintText: 'Digite sua Descrição: ',
-                labelText: 'Description:',
-              ),
-              minLines: 5,
-              maxLines: 8,
-              keyboardType: TextInputType.multiline,
-            ),
             SizedBox(height: 20),
 
 

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
-import 'package:gaad_mobile/widgets/RelatorioBar.dart';
 import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioRemediosCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioVacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 
 import '../widgets/EditComplicacoesCard.dart';
-import '../widgets/RelatorioEditBar.dart';
-import '../widgets/RelatorioViewBar.dart';
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
 import 'RelatorioPage.dart';
@@ -150,11 +147,6 @@ class RelatorioEditComplicacoes extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-              height: 80,
-              child: RelatorioEditBar()
-          ),
-
         ],
       ),
     );

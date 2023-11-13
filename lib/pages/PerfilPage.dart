@@ -3,20 +3,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gaad_mobile/pages/EditProfilePage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
-import 'package:gaad_mobile/widgets/RelatorioBar.dart';
+
 import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioRemediosCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioVacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
-import '../widgets/RelatorioViewBar.dart';
 import '../widgets/sidemenubar.dart';
 import 'CategoryListPage.dart';
 import 'RelatorioAddComplicacoes.dart';
 import 'RelatorioPage.dart';
 import 'RelatorioViewComplicacoes.dart';
-import 'RelatorioViewRemedios.dart';
-import 'RelatorioViewVacinas.dart';
+
 
 class PerfilPage extends StatefulWidget {
 

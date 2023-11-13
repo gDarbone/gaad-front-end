@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gaad_mobile/models/category.dart';
 import 'package:gaad_mobile/pages/CategoryListPageMedico.dart';
 import 'package:gaad_mobile/pages/RelatorioAddComplicacoes.dart';
+import 'package:gaad_mobile/pages/ResultadoIdentificaPacienteToken.dart';
 import 'package:gaad_mobile/pages/loginpage.dart';
 
 import '../helpers/utils.dart';
@@ -13,20 +14,34 @@ import '../widgets/mainappbar.dart';
 import '../widgets/sidemenubar.dart';
 import 'RelatorioEditComplicacoes.dart';
 import 'RelatorioViewComplicacoes.dart';
-import 'ResultadosIdentificaPaciente.dart';
+import 'ResultadosIdentificaPacienteCPF.dart';
+import 'ResultadosIdentificaPacientePlaca.dart';
 
 class IdentificarPacientePage extends StatefulWidget {
   State createState() => new _IdentificarPacientePage();
 }
 
 class _IdentificarPacientePage extends State<IdentificarPacientePage> {
+  TextEditingController tokenController = TextEditingController();
+  TextEditingController cpfController = TextEditingController();
+  TextEditingController placaController = TextEditingController();
+
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
   List<Category> categories = Utils.getMockedCategories();
   var _value = "Token";
-  final items = ['Nome Completo', 'Token', 'CPF', 'Placa do Veiculo'];
+  final items = ['Token', 'CPF', 'Placa do Veiculo'];
   Utils util = new Utils();
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)?.settings.arguments;
+    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    username = arguments['username'];
+    password = arguments['password'];
+
+    responseUsuarioLogado = Map<String, dynamic>.from(arguments['responseUsuarioLogado'] as Map);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -100,20 +115,6 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
               ),
             ),
             Visibility(
-                visible: util.isNameSelected(_value),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        color: Colors.white,
-                      ),
-                      padding: EdgeInsets.only(top: 10, left: 20, right: 20),
-                      width: 350,
-                      child: util.buildTextField(
-                          "Digite o Nome Completo:", "", true)),
-                )),
-            Visibility(
                 visible: util.isTknSelected(_value),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -124,8 +125,13 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                       ),
                       padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                       width: 250,
-                      child: util.buildTextField(
-                          "Digite o Token:", "", true)),
+                      child:             TextField(
+                        controller: tokenController,
+                        enabled: true,
+                        decoration: InputDecoration(
+                          labelText: 'Digite o Token: ',
+                        ),
+                      ),),
                 )),
             Visibility(
                 visible: util.isCPFSelected(_value),
@@ -138,8 +144,13 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                       ),
                       padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                       width: 250,
-                      child: util.buildTextField(
-                          "Digite o CPF:", "", true)),
+                    child:             TextField(
+                      controller: cpfController,
+                      enabled: true,
+                      decoration: InputDecoration(
+                        labelText: 'Digite o CPF: ',
+                      ),
+                    ),),
                 )),
             Visibility(
                 visible: util.isPlacaSelected(_value),
@@ -152,10 +163,16 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                       ),
                       padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                       width: 250,
-                      child: util.buildTextField(
-                          "Digite a Placa do Veiculo:", "", true)),
+                    child:             TextField(
+                      controller: placaController,
+                      enabled: true,
+                      decoration: InputDecoration(
+                        labelText: 'Digite a Placa do Veiculo: ',
+                      ),
+                    ),),
                 )),
             Visibility(
+                visible: util.isTknSelected(_value),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
@@ -168,7 +185,65 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                           onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ResultadoIdentificaPaciente(),
+                              builder: (context) => ResultadoIdentificaPacienteToken(responseUsuarioLogado, username, password, tokenController.text),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.search, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
+                                SizedBox(width: 10),
+                                Text("Buscar Paciente",
+                                    style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 15))
+                              ],
+                            ),
+                          ))),
+                )),
+            Visibility(
+                visible: util.isCPFSelected(_value),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                      ),
+                      width: 250,
+                      child: TextButton(
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResultadoIdentificaPacienteCPF(responseUsuarioLogado, username, password, cpfController.text),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.search, color: Color.fromRGBO(35, 100, 128, 1), size: 20),
+                                SizedBox(width: 10),
+                                Text("Buscar Paciente",
+                                    style: TextStyle(color: Color.fromRGBO(35, 100, 128, 1), fontSize: 15))
+                              ],
+                            ),
+                          ))),
+                )),
+            Visibility(
+                visible: util.isPlacaSelected(_value),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                      ),
+                      width: 250,
+                      child: TextButton(
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResultadoIdentificaPacientePlaca(responseUsuarioLogado, username, password, placaController.text),
                             ),
                           ),
                           child: Padding(

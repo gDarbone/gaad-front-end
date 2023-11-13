@@ -5,7 +5,6 @@ import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/CategoryListPageMedico.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
-import 'package:gaad_mobile/widgets/RelatorioBar.dart';
 import 'package:gaad_mobile/widgets/VacinasCard.dart';
 import 'package:gaad_mobile/widgets/mainappbar.dart';
 import 'package:http/http.dart' as http;
@@ -41,7 +40,6 @@ class _EditProfilePage extends State<EditProfilePage> {
   TextEditingController sexoController = TextEditingController();
   TextEditingController nacionalidadeController = TextEditingController();
   TextEditingController tiposanguineoController = TextEditingController();
-
   TextEditingController streetController = TextEditingController();
   TextEditingController cepController = TextEditingController();
   TextEditingController houseNumberController = TextEditingController();
@@ -76,7 +74,7 @@ class _EditProfilePage extends State<EditProfilePage> {
     //print(passwordReceived);
     //print(responseUsuarioLogado);
 
-    usernameController.text = responseUsuarioLogado["id"].toString();
+    usernameController.text = username;
     nomeController.text = responseUsuarioLogado["fullName"].toString();
 
 
@@ -238,7 +236,7 @@ class _EditProfilePage extends State<EditProfilePage> {
               controller: usernameController,
               enabled: false,
               decoration: InputDecoration(
-                labelText: 'ID de Usuário: ',
+                labelText: 'E-mail do Usuário: ',
               ),
             ),
             TextField(

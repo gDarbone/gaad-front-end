@@ -13,10 +13,19 @@ import 'RelatorioEditComplicacoes.dart';
 import 'RelatorioViewComplicacoes.dart';
 
 class RelatorioPage extends StatelessWidget {
+  Map<String, dynamic> responseUsuarioLogado = {};
+  String username = '';
+  String password = '';
   List<Category> categories = Utils.getMockedCategories();
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)?.settings.arguments;
+    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    username = arguments['username'];
+    password = arguments['password'];
+
+    responseUsuarioLogado = Map<String, dynamic>.from(arguments['responseUsuarioLogado'] as Map);
     return Scaffold(
         appBar: AppBar(
           title: Text('Relatórios'),
@@ -82,7 +91,7 @@ class RelatorioPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                  builder: (context) => RelatorioViewComplicacoes(),
+                                  builder: (context) => RelatorioViewComplicacoes(responseUsuarioLogado, username, password),
                               ));
                             },
                             child: Row(
@@ -102,7 +111,7 @@ class RelatorioPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => RelatorioAddComplicacoes(),
+                                    builder: (context) => RelatorioAddComplicacoes(responseUsuarioLogado, username, password),
                                   ));
                             },
                             child: Row(
