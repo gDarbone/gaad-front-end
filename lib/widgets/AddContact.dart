@@ -93,13 +93,13 @@ class _AddContact extends State<AddContact> {
 
       final name = nomeController.text;
       final telefone = telefoneController.text;
+      final parentesco = parentescoController.text;
 
 
       final Map<String, dynamic> body = {
-        "userContactRequest":{
-          "alternativeCellNumber":telefone,
-          "fullNameAlternativeContact":name
-        }
+          "name":name,
+          "obs":parentesco,
+          "cellNumber":telefone
       };
 
       final String usuario = widget.username;

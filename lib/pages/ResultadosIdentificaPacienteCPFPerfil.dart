@@ -73,7 +73,20 @@ class _ResultadoIdentificaPacienteCPFPerfil extends State<ResultadoIdentificaPac
 
       final Map<String, dynamic> convertido = json.decode(response.body);
       print(convertido);
-      final result = convertido["vehicles"] as List;
+      final resultObj = [] as List;
+      final jsonObj = <String, dynamic>{
+    "data" : [{
+        'id': convertido["id"],
+        'fullName': convertido["fullName"],
+        'cpf': convertido["cpf"],
+        'rg': convertido["rg"],
+        'sex': convertido["sex"],
+        'nationality': convertido["nationality"],
+        'bloodType': convertido["bloodType"]
+    }]
+      };
+      print(jsonObj);
+      final result  = jsonObj["data"] as List;
       //print(widget.responseUsuarioLogado["sicks"]);
       //final List result = widget.responseUsuarioLogado["sicks"];
 
@@ -110,23 +123,21 @@ class _ResultadoIdentificaPacienteCPFPerfil extends State<ResultadoIdentificaPac
                 final id = 0;
                 return ListTile(
                   leading: CircleAvatar(child: Text('${index + 1}')),
-                  title: Text(item['name']),
+                  title: Text(item['fullName']),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Modelo: " + item['model']),
-                      Text("Ano: " + item['year'].toString()),
-                      Text("Placa: " + item['plate']),
+                      Text("CPF: " + item['cpf']),
+                      Text("RG: " + item['rg'].toString()),
+                      Text("Sexo: " + item['sex']),
+                      Text("Nacionalidade: " + item['nationality']),
+                      Text("Tipo Sanguineo: " + item['bloodType']),
                     ],
                   ),
                 );
               }
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: navigateToResultadoIdentificaPaciente,
-        label: Text('Perfil do Paciente'),
       ),
     );
   }

@@ -355,9 +355,10 @@ class _CadastroPage extends State<CadastroPage> {
             TextField(
               controller: crmController,
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly,
+                FilteringTextInputFormatter.singleLineFormatter,
               ],
-              keyboardType: TextInputType.number,
+              maxLength: 12,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 hintText: 'Digite o CRM (Caso Seja Profissional de Saúde)',
                 labelText: 'CRM (Opcional - Caso Seja Profissional de Sáude):',

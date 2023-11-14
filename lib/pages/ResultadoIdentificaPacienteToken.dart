@@ -94,7 +94,7 @@ class _ResultadoIdentificaPacienteToken extends State<ResultadoIdentificaPacient
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Visualizar Dados do Paciente'),
+        title: Text('Visualizar Complicações do Paciente'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
       body: Visibility (
@@ -121,6 +121,10 @@ class _ResultadoIdentificaPacienteToken extends State<ResultadoIdentificaPacient
               }
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: navigateToResultadoIdentificaPaciente,
+        label: Text('Perfil do Paciente'),
       ),
     );
   }

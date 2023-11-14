@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gaad_mobile/pages/ResultadosIdentificaPacienteCPFContatos.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioComplicacoesCard.dart';
 import 'package:gaad_mobile/widgets/RelatorioRemediosCard.dart';
@@ -42,7 +43,7 @@ class _ResultadoIdentificaPacienteCPF extends State<ResultadoIdentificaPacienteC
 
   void navigateToResultadoIdentificaPaciente(){
     final route = MaterialPageRoute(
-      builder: (context) => ResultadoIdentificaPacienteCPFPerfil(widget.responseUsuarioLogado, widget.username, widget.password, widget.cpf),
+      builder: (context) => ResultadoIdentificaPacienteCPFContatos(widget.responseUsuarioLogado, widget.username, widget.password, widget.cpf),
     );
     Navigator.pushReplacement(context, route);
   }
@@ -95,7 +96,7 @@ class _ResultadoIdentificaPacienteCPF extends State<ResultadoIdentificaPacienteC
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Visualizar Dados do Paciente'),
+        title: Text('Visualizar Complicações do Paciente'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
       body: Visibility (
@@ -125,7 +126,7 @@ class _ResultadoIdentificaPacienteCPF extends State<ResultadoIdentificaPacienteC
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: navigateToResultadoIdentificaPaciente,
-        label: Text('Veiculos do Paciente'),
+        label: Text('Contatos de Emergência do Paciente'),
       ),
     );
   }

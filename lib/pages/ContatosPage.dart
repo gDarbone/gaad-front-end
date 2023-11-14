@@ -58,11 +58,12 @@ class _ContatosPage extends State<ContatosPage> {
         'Authorization': basicAuth,
       },
     );
-    if (response.statusCode != 401){
-
+    print(response.body);
+    if (response.statusCode != 401) {
       final Map<String, dynamic> convertido = json.decode(response.body);
+      //final Map<String, dynamic> convertido = json.decode('{"id":1,"fullName":"Adryen Simoes","cpf":"86136231077","rg":"376538934","crm":"","birthdate":"2000-09-19T00:00:00.000+00:00","sex":"M","nationality":"Brasileiro","bloodType":"O - ","sicks":[{"id":6,"name":"Contato X","type":"Parentesco W","obs":"11923902290"},{"id":7,"name":"Contato GA","type":"Parentesco AB","obs":"11923902290"},{"id":8,"name":"Contato 12","type":"Parentesco FG","obs":"11923902290"}],"vehicles":[{"id":null,"name":"Madza RX","model":"V2","year":2010,"plate":"ABCD123","userPersonalDataRequest":null}]}');
       print(convertido);
-      final result = convertido['sicks'] as List;
+      final result = convertido['emergencyContactRequests'] as List;
       //print(widget.responseUsuarioLogado["sicks"]);
       //final List result = widget.responseUsuarioLogado["sicks"];
 
@@ -100,15 +101,16 @@ class _ContatosPage extends State<ContatosPage> {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 final item = items[index] as Map;
-                final id = item['id'] as int;
+                //final id = item['id'] as int;
+                final id = 0;
                 return ListTile(
                   leading: CircleAvatar(child: Text('${index + 1}')),
                   title: Text(item['name']),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Categoria: " + item['type']),
-                      Text("Observação: " + item['obs']),
+                      Text("Parentesco: " + item['obs']),
+                      Text("Telefone: " + item['cellNumber']),
                     ],
                   ),
                   trailing: PopupMenuButton(
