@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gaad_mobile/models/category.dart';
 import 'package:gaad_mobile/pages/CategoryListPageMedico.dart';
 import 'package:gaad_mobile/pages/RelatorioAddComplicacoes.dart';
@@ -126,6 +127,11 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                       padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                       width: 250,
                       child:             TextField(
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        maxLength: 17,
+                        keyboardType: TextInputType.number,
                         controller: tokenController,
                         enabled: true,
                         decoration: InputDecoration(
@@ -146,6 +152,11 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                       width: 250,
                     child:             TextField(
                       controller: cpfController,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                      maxLength: 11,
+                      keyboardType: TextInputType.number,
                       enabled: true,
                       decoration: InputDecoration(
                         labelText: 'Digite o CPF: ',
@@ -166,6 +177,11 @@ class _IdentificarPacientePage extends State<IdentificarPacientePage> {
                     child:             TextField(
                       controller: placaController,
                       enabled: true,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.singleLineFormatter,
+                      ],
+                      maxLength: 7,
+                      keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText: 'Digite a Placa do Veiculo: ',
                       ),

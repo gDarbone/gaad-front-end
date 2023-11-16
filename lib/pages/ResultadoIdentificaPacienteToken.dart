@@ -70,8 +70,7 @@ class _ResultadoIdentificaPacienteToken extends State<ResultadoIdentificaPacient
         'Authorization': basicAuth,
       },
     );
-    if (response.statusCode != 401 && response.statusCode != 404){
-
+    if (response.statusCode != 401 && response.statusCode != 404 &&  response.body != ""){
       final Map<String, dynamic> convertido = json.decode(response.body);
       print(convertido);
       final result = convertido["sicks"] as List;

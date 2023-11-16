@@ -66,7 +66,7 @@ class _RelatorioViewComplicacoes extends State<RelatorioViewComplicacoes> {
         'Authorization': basicAuth,
       },
     );
-    if (response.statusCode != 401){
+    if (response.statusCode != 401 && response.statusCode !=404 && response.body != ""){
 
       final Map<String, dynamic> convertido = json.decode(response.body);
       print(convertido);
@@ -77,7 +77,32 @@ class _RelatorioViewComplicacoes extends State<RelatorioViewComplicacoes> {
       setState(() {
         items = result;
       });
-    } else {
+    } else{
+      // set up the button
+      Widget okButton = TextButton(
+        child: Text("OK"),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      );
+
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text("Não Encontrado"),
+        content: Text("Não foram encontrados dados."),
+        actions: [
+          okButton,
+        ],
+      );
+
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+
       print(response.body);
     }
     setState(() {

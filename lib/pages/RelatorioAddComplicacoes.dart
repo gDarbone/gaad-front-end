@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
@@ -224,6 +225,10 @@ class RelatorioAddComplicacoes extends StatefulWidget {
             ),
             TextField(
               controller: observacoesController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.singleLineFormatter,
+              ],
+              maxLength: 255,
               decoration: InputDecoration(
                 hintText: 'Deseja incluir alguma Observação?',
                 labelText: 'Observações:',

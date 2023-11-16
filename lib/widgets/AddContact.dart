@@ -129,6 +129,7 @@ class _AddContact extends State<AddContact> {
         // show success or fail message based on status
         if (response.statusCode == 201 || response.statusCode == 200) {
           nomeController.clear();
+          parentescoController.clear();
           telefoneController.clear();
           showSuccessMessage(isEdit
               ? 'Cadastro Editado com Sucesso'
