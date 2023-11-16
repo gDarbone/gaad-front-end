@@ -21,8 +21,11 @@ class loginpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      body: Form(
+    return  WillPopScope(
+        onWillPop: () async{
+          return false;
+        },
+        child:Scaffold(body: Form(
         key: _formkey,
         child: Center (
         child: SingleChildScrollView(
@@ -99,7 +102,7 @@ class loginpage extends StatelessWidget {
                     }
                     if(autorizado){
                       print(responseUsuarioLogado["crm"].toString());
-                      if (responseUsuarioLogado["crm"].toString() == "" || responseUsuarioLogado["crm"].toString() == null) {
+                      if (responseUsuarioLogado["crm"] == null || responseUsuarioLogado["crm"].toString() == "" || responseUsuarioLogado["crm"].toString() == null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -173,7 +176,8 @@ class loginpage extends StatelessWidget {
         ),
 
       ),
-      )
+      ),
+        )
     );
   }
 

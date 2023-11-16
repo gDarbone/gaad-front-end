@@ -124,14 +124,14 @@ class _RelatorioViewComplicacoes extends State<RelatorioViewComplicacoes> {
                     },
                     itemBuilder: (context) {
                       return [
-                        PopupMenuItem(
-                          child: Text('Editar'),
-                          value: 'edit',
-                        ),
-                        PopupMenuItem(
-                          child: Text('Deletar'),
-                          value: 'delete',
-                        ),
+                        /*PopupMenuItem(
+                            child: Text('Editar'),
+                            value: 'edit',
+                          ),
+                          PopupMenuItem(
+                            child: Text('Deletar'),
+                            value: 'delete',
+                          ),*/
                       ];
                     }
                 ),

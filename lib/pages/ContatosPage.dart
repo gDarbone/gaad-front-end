@@ -122,14 +122,14 @@ class _ContatosPage extends State<ContatosPage> {
                       },
                       itemBuilder: (context) {
                         return [
-                          PopupMenuItem(
+                          /*PopupMenuItem(
                             child: Text('Editar'),
                             value: 'edit',
                           ),
                           PopupMenuItem(
                             child: Text('Deletar'),
                             value: 'delete',
-                          ),
+                          ),*/
                         ];
                       }
                   ),

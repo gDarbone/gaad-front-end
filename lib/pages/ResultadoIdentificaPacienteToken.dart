@@ -13,6 +13,7 @@ import 'IdentificarPacientePage.dart';
 import 'RelatorioAddComplicacoes.dart';
 import 'RelatorioPage.dart';
 import 'RelatorioViewComplicacoes.dart';
+import 'ResultadosIdentificaPacienteTokenContatos.dart';
 
 class ResultadoIdentificaPacienteToken extends StatefulWidget {
   Map<String, dynamic> responseUsuarioLogado = {};
@@ -41,7 +42,7 @@ class _ResultadoIdentificaPacienteToken extends State<ResultadoIdentificaPacient
 
   void navigateToResultadoIdentificaPaciente(){
     final route = MaterialPageRoute(
-      builder: (context) => IdentificarPacientePage(),
+      builder: (context) => ResultadoIdentificaPacienteTokenContatos(widget.responseUsuarioLogado, widget.username, widget.password, widget.token),
     );
     Navigator.pushReplacement(context, route);
   }
@@ -69,7 +70,7 @@ class _ResultadoIdentificaPacienteToken extends State<ResultadoIdentificaPacient
         'Authorization': basicAuth,
       },
     );
-    if (response.statusCode != 401){
+    if (response.statusCode != 401 && response.statusCode != 404){
 
       final Map<String, dynamic> convertido = json.decode(response.body);
       print(convertido);
@@ -80,7 +81,32 @@ class _ResultadoIdentificaPacienteToken extends State<ResultadoIdentificaPacient
       setState(() {
         items = result;
       });
-    } else {
+    } else{
+      // set up the button
+      Widget okButton = TextButton(
+        child: Text("OK"),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      );
+
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text("Não Encontrado"),
+        content: Text("Não foram encontrados dados."),
+        actions: [
+          okButton,
+        ],
+      );
+
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+
       print(response.body);
     }
     setState(() {
@@ -94,7 +120,7 @@ class _ResultadoIdentificaPacienteToken extends State<ResultadoIdentificaPacient
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Visualizar Complicações do Paciente'),
+        title: Text('Complicações do Paciente'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
       body: Visibility (
@@ -124,7 +150,7 @@ class _ResultadoIdentificaPacienteToken extends State<ResultadoIdentificaPacient
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: navigateToResultadoIdentificaPaciente,
-        label: Text('Perfil do Paciente'),
+        label: Text('Contatos de Emergência do Paciente'),
       ),
     );
   }

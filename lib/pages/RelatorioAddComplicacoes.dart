@@ -81,6 +81,7 @@ class RelatorioAddComplicacoes extends StatefulWidget {
     }
 
     Future<void> submitData() async{
+
       // Get the data from form
 
       //final nome = nomeController.text;
@@ -96,6 +97,11 @@ class RelatorioAddComplicacoes extends StatefulWidget {
       final name = nomeController.text;
       final obs = observacoesController.text;
       final type = categoriaController.text;
+
+      if (name == null || name.isEmpty || obs == null || obs.isEmpty || type == null || type.isEmpty){
+        showErrorMessage('Existem Campos em Branco, Favor Verificar.');
+      } else{
+
 
 
       final Map<String, dynamic> body = {
@@ -146,6 +152,8 @@ class RelatorioAddComplicacoes extends StatefulWidget {
         print(response.body);
       }
 
+
+      }
     }
 
     Future<void> updateData() async {

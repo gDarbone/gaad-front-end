@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
@@ -95,52 +96,55 @@ class _AddContact extends State<AddContact> {
       final telefone = telefoneController.text;
       final parentesco = parentescoController.text;
 
-
-      final Map<String, dynamic> body = {
-          "name":name,
-          "obs":parentesco,
-          "cellNumber":telefone
-      };
-
-      final String usuario = widget.username;
-      final String senha = widget.password;
-      final String basicAuth =
-          'Basic ' + base64Encode(utf8.encode('$usuario:$senha'));
-
-      // Submit data to the server
-      //final url = 'http://api.nstack.in/v1/todos';
-      final url = 'http://10.0.2.2:8080/gaad/emergencyContact/post';
-
-      final uri = Uri.parse(url);
-      http.post(uri);
-      final response = await http.post(
-          uri,
-          body: jsonEncode(body),
-          headers: {
-            'Authorization': basicAuth,
-            'Content-Type': 'application/json'
-          }
-      );
-
-
-      // show success or fail message based on status
-      if (response.statusCode == 201 || response.statusCode == 200){
-        nomeController.clear();
-        telefoneController.clear();
-        showSuccessMessage(isEdit? 'Cadastro Editado com Sucesso' : 'Cadastro Realizado com Sucesso');
-
-        print('Sucess: ');
-        print(response.statusCode);
-        print(response.body);
-
+      if (name == null || name.isEmpty || telefone == null || telefone.isEmpty || parentesco == null || parentesco.isEmpty ){
+        showErrorMessage('Existem Campos em Branco, Favor Verificar.');
       } else {
-        showErrorMessage('Campos Inválidos ou API indisponível');
-        showErrorMessage(response.body);
-        print('Error: ');
-        print(response.statusCode);
-        print(response.body);
-      }
+        final Map<String, dynamic> body = {
+          "name": name,
+          "obs": parentesco,
+          "cellNumber": telefone
+        };
 
+        final String usuario = widget.username;
+        final String senha = widget.password;
+        final String basicAuth =
+            'Basic ' + base64Encode(utf8.encode('$usuario:$senha'));
+
+        // Submit data to the server
+        //final url = 'http://api.nstack.in/v1/todos';
+        final url = 'http://10.0.2.2:8080/gaad/emergencyContact/post';
+
+        final uri = Uri.parse(url);
+        http.post(uri);
+        final response = await http.post(
+            uri,
+            body: jsonEncode(body),
+            headers: {
+              'Authorization': basicAuth,
+              'Content-Type': 'application/json'
+            }
+        );
+
+
+        // show success or fail message based on status
+        if (response.statusCode == 201 || response.statusCode == 200) {
+          nomeController.clear();
+          telefoneController.clear();
+          showSuccessMessage(isEdit
+              ? 'Cadastro Editado com Sucesso'
+              : 'Cadastro Realizado com Sucesso');
+
+          print('Sucess: ');
+          print(response.statusCode);
+          print(response.body);
+        } else {
+          showErrorMessage('Campos Inválidos ou API indisponível');
+          showErrorMessage(response.body);
+          print('Error: ');
+          print(response.statusCode);
+          print(response.body);
+        }
+      }
     }
 
     Future<void> updateData() async {
@@ -182,6 +186,8 @@ class _AddContact extends State<AddContact> {
       if (response.statusCode == 201 || response.statusCode == 200){
         showSuccessMessage(isEdit? 'Contato Editado com Sucesso' : 'Contato Adicionado com Sucesso');
         print('Sucess updated ');
+      } else {
+        showErrorMessage('Campos Inválidos ou API indisponível');
       }
     }
 
@@ -210,6 +216,11 @@ class _AddContact extends State<AddContact> {
             ),
             TextField(
               controller: telefoneController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              maxLength: 11,
+              keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 hintText: 'Digite o Número de Telefone',
                 labelText: 'Telefone:',

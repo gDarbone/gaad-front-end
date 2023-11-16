@@ -13,23 +13,22 @@ import 'IdentificarPacientePage.dart';
 import 'RelatorioAddComplicacoes.dart';
 import 'RelatorioPage.dart';
 import 'RelatorioViewComplicacoes.dart';
-import 'ResultadosIdentificaPacientePlacaContatos.dart';
 
-class ResultadoIdentificaPacientePlaca extends StatefulWidget {
+class ResultadoIdentificaPacienteTokenPerfil extends StatefulWidget {
   Map<String, dynamic> responseUsuarioLogado = {};
   String username = '';
   String password = '';
-  String placa = '';
-  ResultadoIdentificaPacientePlaca(this.responseUsuarioLogado, this.username, this.password, this.placa,{
+  String token = '';
+  ResultadoIdentificaPacienteTokenPerfil(this.responseUsuarioLogado, this.username, this.password, this.token,{
     super.key,
   });
 
   @override
-  State<ResultadoIdentificaPacientePlaca> createState() => _ResultadoIdentificaPacientePlaca();
+  State<ResultadoIdentificaPacienteTokenPerfil> createState() => _ResultadoIdentificaPacienteTokenPerfil();
 }
 
 
-class _ResultadoIdentificaPacientePlaca extends State<ResultadoIdentificaPacientePlaca> {
+class _ResultadoIdentificaPacienteTokenPerfil extends State<ResultadoIdentificaPacienteTokenPerfil> {
   bool isLoading = true;
   Widget typeCard = ComplicacoesCard();
   List items = [];
@@ -42,7 +41,7 @@ class _ResultadoIdentificaPacientePlaca extends State<ResultadoIdentificaPacient
 
   void navigateToResultadoIdentificaPaciente(){
     final route = MaterialPageRoute(
-      builder: (context) => ResultadoIdentificaPacientePlacaContatos(widget.responseUsuarioLogado, widget.username, widget.password, widget.placa),
+      builder: (context) => IdentificarPacientePage(),
     );
     Navigator.pushReplacement(context, route);
   }
@@ -59,11 +58,11 @@ class _ResultadoIdentificaPacientePlaca extends State<ResultadoIdentificaPacient
     });
     final String usuario = widget.username;
     final String senha = widget.password;
-    final String placaRecebido = widget.placa;
+    final String tokenRecebido = widget.token;
     final String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$usuario:$senha'));
 
-    final url = 'http://10.0.2.2:8080/gaad/userPersonalData/getByVehiclePlate/$placaRecebido';
+    final url = 'http://10.0.2.2:8080/gaad/userPersonalData/getByToken/$tokenRecebido';
     var response = await http.get(
       Uri.parse(url),
       headers: {
@@ -74,7 +73,20 @@ class _ResultadoIdentificaPacientePlaca extends State<ResultadoIdentificaPacient
 
       final Map<String, dynamic> convertido = json.decode(response.body);
       print(convertido);
-      final result = convertido["sicks"] as List;
+      final resultObj = [] as List;
+      final jsonObj = <String, dynamic>{
+    "data" : [{
+        'id': convertido["id"],
+        'fullName': convertido["fullName"],
+        'cpf': convertido["cpf"],
+        'rg': convertido["rg"],
+        'sex': convertido["sex"],
+        'nationality': convertido["nationality"],
+        'bloodType': convertido["bloodType"]
+    }]
+      };
+      print(jsonObj);
+      final result  = jsonObj["data"] as List;
       //print(widget.responseUsuarioLogado["sicks"]);
       //final List result = widget.responseUsuarioLogado["sicks"];
 
@@ -120,7 +132,7 @@ class _ResultadoIdentificaPacientePlaca extends State<ResultadoIdentificaPacient
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Complicações do Paciente'),
+        title: Text('Dados de Perfil do Paciente'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
       body: Visibility (
@@ -132,25 +144,25 @@ class _ResultadoIdentificaPacientePlaca extends State<ResultadoIdentificaPacient
               itemCount: items.length,
               itemBuilder: (context, index) {
                 final item = items[index] as Map;
-                final id = item['id'] as int;
+                //final id = item['id'] as int;
+                final id = 0;
                 return ListTile(
                   leading: CircleAvatar(child: Text('${index + 1}')),
-                  title: Text(item['name']),
+                  title: Text(item['fullName']),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Categoria: " + item['type']),
-                      Text("Observação: " + item['obs']),
+                      Text("CPF: " + item['cpf']),
+                      Text("RG: " + item['rg'].toString()),
+                      Text("Sexo: " + item['sex']),
+                      Text("Nacionalidade: " + item['nationality']),
+                      Text("Tipo Sanguineo: " + item['bloodType']),
                     ],
                   ),
                 );
               }
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: navigateToResultadoIdentificaPaciente,
-        label: Text('Contatos de Emergência do Paciente'),
       ),
     );
   }

@@ -69,7 +69,7 @@ class _ResultadoIdentificaPacienteCPFPerfil extends State<ResultadoIdentificaPac
         'Authorization': basicAuth,
       },
     );
-    if (response.statusCode != 401){
+    if (response.statusCode != 401 && response.statusCode != 404){
 
       final Map<String, dynamic> convertido = json.decode(response.body);
       print(convertido);
@@ -93,7 +93,32 @@ class _ResultadoIdentificaPacienteCPFPerfil extends State<ResultadoIdentificaPac
       setState(() {
         items = result;
       });
-    } else {
+    } else{
+      // set up the button
+      Widget okButton = TextButton(
+        child: Text("OK"),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      );
+
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text("Não Encontrado"),
+        content: Text("Não foram encontrados dados."),
+        actions: [
+          okButton,
+        ],
+      );
+
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+
       print(response.body);
     }
     setState(() {
@@ -107,7 +132,7 @@ class _ResultadoIdentificaPacienteCPFPerfil extends State<ResultadoIdentificaPac
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Visualizar Dados do Paciente'),
+        title: Text('Dados de Perfil do Paciente'),
         backgroundColor: Color.fromRGBO(35, 100, 128, 1),
       ),
       body: Visibility (

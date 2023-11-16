@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gaad_mobile/pages/CategoryListPage.dart';
 import 'package:gaad_mobile/pages/RelatorioPage.dart';
 import 'package:gaad_mobile/widgets/ComplicacoesCard.dart';
@@ -98,6 +99,9 @@ class _AddVeiculo extends State<AddVeiculo> {
       final plate = placaController.text;
       final year = anoController.text;
 
+      if (name == null || name.isEmpty || model == null || model.isEmpty || plate == null || plate.isEmpty || year == null || year.isEmpty){
+        showErrorMessage('Existem Campos em Branco, Favor Verificar.');
+      } else{
 
       final Map<String, dynamic> body = {
         "id": 0,
@@ -149,7 +153,7 @@ class _AddVeiculo extends State<AddVeiculo> {
         print(response.statusCode);
         print(response.body);
       }
-
+      }
     }
 
     Future<void> updateData() async {
@@ -191,6 +195,8 @@ class _AddVeiculo extends State<AddVeiculo> {
       if (response.statusCode == 201 || response.statusCode == 200){
         showSuccessMessage(isEdit? 'Veiculo Editado com Sucesso' : 'Veiculo Adicionado com Sucesso');
         print('Sucess updated ');
+      } else {
+        showErrorMessage('Campos Inválidos ou API indisponível');
       }
     }
 
@@ -219,6 +225,11 @@ class _AddVeiculo extends State<AddVeiculo> {
             ),
             TextField(
               controller: anoController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              maxLength: 4,
+              keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 hintText: 'Digite o Ano de Fabricação',
                 labelText: 'Ano:',
@@ -226,6 +237,11 @@ class _AddVeiculo extends State<AddVeiculo> {
             ),
             TextField(
               controller: placaController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              maxLength: 7,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 hintText: 'Digite o Número da Placa',
                 labelText: 'Número da Placa:',
