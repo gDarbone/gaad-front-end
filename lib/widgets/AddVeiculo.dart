@@ -229,7 +229,7 @@ class _AddVeiculo extends State<AddVeiculo> {
                 FilteringTextInputFormatter.digitsOnly,
               ],
               maxLength: 4,
-              keyboardType: TextInputType.phone,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: 'Digite o Ano de Fabricação',
                 labelText: 'Ano:',
@@ -238,7 +238,7 @@ class _AddVeiculo extends State<AddVeiculo> {
             TextField(
               controller: placaController,
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly,
+                FilteringTextInputFormatter.singleLineFormatter,
               ],
               maxLength: 7,
               keyboardType: TextInputType.text,
